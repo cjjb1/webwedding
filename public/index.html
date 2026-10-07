@@ -3,209 +3,578 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestra Boda 💍 | Confirmación y Galería</title>
+  <title>Nuestra Boda 💍 | Zibá Jose María Eventos</title>
+  
+  <!-- Tipografías de lujo estilo Zibá Eventos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --primary: #9d8161;
-      --primary-light: #f5f0ea;
-      --primary-dark: #6e583e;
-      --text: #2d3748;
-      --text-muted: #718096;
-      --bg: #faf8f5;
+      --gold: #9d8151;
+      --gold-light: #c8b28a;
+      --gold-dark: #6e5831;
+      --gold-soft: #fcf9f5;
+      --dark: #1f2421;
+      --dark-card: #252b27;
+      --text: #333d37;
+      --text-muted: #6b7770;
+      --bg: #faf7f2;
       --white: #ffffff;
-      --shadow: 0 10px 30px rgba(0,0,0,0.06);
-      --radius: 16px;
+      --border-gold: rgba(157, 129, 81, 0.25);
+      --shadow-sm: 0 4px 15px rgba(0,0,0,0.04);
+      --shadow-md: 0 12px 35px rgba(31, 36, 33, 0.08);
+      --shadow-lg: 0 20px 50px rgba(31, 36, 33, 0.12);
+      --radius: 18px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
 
-    h1, h2, h3, .serif {
+    h1, h2, h3, h4, .serif {
       font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
-    .container {
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 0 20px;
+    /* Barra de Navegación Glassmorphism */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(250, 247, 242, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      transition: all 0.3s ease;
     }
 
-    /* Hero */
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      text-decoration: none;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-btn {
+      padding: 8px 22px;
+      border-radius: 30px;
+      background: var(--gold);
+      color: white !important;
+      font-weight: 600 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-btn:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section Impactante */
     .hero {
-      text-align: center;
-      padding: 80px 20px 50px;
-      background: linear-gradient(180deg, #f2ebe1 0%, var(--bg) 100%);
       position: relative;
+      min-height: 94vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 60px;
+      background: linear-gradient(180deg, rgba(23, 27, 24, 0.45) 0%, rgba(23, 27, 24, 0.72) 100%),
+                  url('/images/restaurante/fotoboda01_1_2207-164509588477739.webp') center/cover no-repeat;
+      color: white;
+      margin-bottom: 30px;
     }
 
-    .hero .badge {
+    .hero-content {
+      max-width: 820px;
+      z-index: 2;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .hero-badge {
       display: inline-block;
       text-transform: uppercase;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       font-size: 0.85rem;
-      color: var(--primary);
-      margin-bottom: 15px;
+      color: var(--gold-light);
+      margin-bottom: 16px;
       font-weight: 600;
+      border-bottom: 1px solid var(--gold-light);
+      padding-bottom: 4px;
     }
 
     .hero h1 {
-      font-size: 3.6rem;
-      color: var(--primary-dark);
-      margin-bottom: 12px;
-      letter-spacing: 1px;
+      font-size: clamp(3rem, 7vw, 5.2rem);
+      line-height: 1.1;
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      font-weight: 400;
+      font-style: italic;
     }
 
-    .hero p.subtitle {
-      font-size: 1.35rem;
-      color: var(--text-muted);
-      font-style: italic;
+    .hero p.tagline {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 40px;
+    }
+
+    /* Contador Regresivo de Lujo */
+    .countdown-box {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 45px;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 16px 22px;
+      border-radius: 14px;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .countdown-item .num {
       font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+    }
+
+    .countdown-item .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--gold-light);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: white;
+      text-decoration: none;
+      padding: 15px 36px;
+      border-radius: 40px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 25px rgba(157, 129, 81, 0.4);
+      transition: all 0.3s ease;
+      border: 1px solid var(--gold-light);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(157, 129, 81, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      text-decoration: none;
+      padding: 15px 32px;
+      border-radius: 40px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.7);
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: white;
+      transform: translateY(-3px);
+    }
+
+    /* Contenedor Principal */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Secciones Generales */
+    section {
+      padding: 80px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-header .sub {
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      color: var(--dark);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* Sección La Finca Zibá - Estilo Editorial */
+    .finca-feature {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 60px;
+      background: var(--white);
+      padding: 50px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-gold);
+    }
+
+    .finca-img-wrapper {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .finca-img-wrapper img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .finca-img-wrapper:hover img {
+      transform: scale(1.04);
+    }
+
+    .finca-text h3 {
+      font-size: 2.3rem;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .finca-text p {
+      color: var(--text);
+      font-size: 1.02rem;
+      margin-bottom: 22px;
+      line-height: 1.8;
+    }
+
+    .finca-points {
+      list-style: none;
       margin-bottom: 25px;
     }
 
-    /* Tarjetas de Presentación con Imágenes Reales */
-    .details-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin: 30px 0 50px;
+    .finca-points li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--dark);
     }
 
-    .card {
+    .finca-points li::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+
+    /* Tarjetas de Experiencia */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .exp-card {
       background: var(--white);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(157, 129, 97, 0.15);
       overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-gold);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 35px rgba(0,0,0,0.09);
+    .exp-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
     }
 
-    .card img {
+    .exp-card .card-thumb {
+      height: 230px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .exp-card .card-thumb img {
       width: 100%;
-      height: 200px;
+      height: 100%;
       object-fit: cover;
+      transition: transform 0.5s ease;
       display: block;
     }
 
-    .card-body {
-      padding: 24px;
-      text-align: center;
+    .exp-card:hover .card-thumb img {
+      transform: scale(1.08);
+    }
+
+    .exp-card .card-tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(31, 36, 33, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--gold-light);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+
+    .exp-card .card-body {
+      padding: 30px;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    .card-body .icon {
-      font-size: 1.6rem;
-      margin-bottom: 6px;
-      display: block;
+    .exp-card h4 {
+      font-size: 1.7rem;
+      color: var(--dark);
+      margin-bottom: 10px;
     }
 
-    .card-body h3 {
-      font-size: 1.6rem;
-      color: var(--primary-dark);
-      margin-bottom: 8px;
-    }
-
-    /* Galería */
-    .gallery-section {
-      margin: 60px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .section-title h2 {
-      font-size: 2.6rem;
-      color: var(--primary-dark);
-    }
-
-    .section-title p {
+    .exp-card p {
       color: var(--text-muted);
-      font-size: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.7;
     }
 
+    /* Timeline / Itinerario */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto 0;
+      padding: 20px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gold-light);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 45px;
+      width: 50%;
+      padding: 0 40px;
+    }
+
+    .timeline-item.left {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item.right {
+      left: 50%;
+      text-align: left;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      top: 6px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--gold);
+      z-index: 2;
+    }
+
+    .timeline-item.left::after { right: -8px; }
+    .timeline-item.right::after { left: -8px; }
+
+    .timeline-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .timeline-content h4 {
+      font-size: 1.4rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .timeline-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Galería Fotográfica Zibá */
     .gallery-tabs {
       display: flex;
       justify-content: center;
-      gap: 12px;
-      margin-bottom: 28px;
+      gap: 14px;
+      margin-bottom: 35px;
       flex-wrap: wrap;
     }
 
     .tab-btn {
-      padding: 10px 22px;
-      border-radius: 30px;
-      border: 1px solid var(--primary);
+      padding: 12px 28px;
+      border-radius: 40px;
+      border: 1px solid var(--gold);
       background: transparent;
-      color: var(--primary-dark);
+      color: var(--gold-dark);
       font-weight: 600;
       cursor: pointer;
       font-size: 0.9rem;
-      transition: all 0.2s;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.3s;
     }
 
     .tab-btn.active, .tab-btn:hover {
-      background: var(--primary);
+      background: var(--gold);
       color: white;
+      box-shadow: 0 4px 15px rgba(157, 129, 81, 0.3);
     }
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
     }
 
     .gallery-item {
       position: relative;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       aspect-ratio: 4/3;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      background: #e2e8f0;
+      box-shadow: var(--shadow-sm);
+      background: #eae5dc;
     }
 
     .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
+      transition: transform 0.5s ease;
       display: block;
     }
 
     .gallery-item:hover img {
-      transform: scale(1.06);
+      transform: scale(1.08);
     }
 
     .gallery-item .overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.65) 100%);
+      background: linear-gradient(180deg, transparent 40%, rgba(31, 36, 33, 0.75) 100%);
       opacity: 0;
       transition: opacity 0.3s ease;
       display: flex;
       align-items: flex-end;
-      padding: 14px;
+      padding: 16px;
       color: white;
       font-size: 0.85rem;
+      font-weight: 500;
     }
 
     .gallery-item:hover .overlay {
@@ -214,38 +583,40 @@
 
     /* Subida de Fotos para Invitados */
     .upload-box {
-      background: #fdfbf7;
-      border: 2px dashed #d5c3aa;
+      background: var(--gold-soft);
+      border: 2px dashed var(--gold);
       border-radius: var(--radius);
-      padding: 30px;
+      padding: 40px 30px;
       text-align: center;
-      margin-top: 30px;
+      margin-top: 45px;
+      box-shadow: var(--shadow-sm);
     }
 
     .upload-box h3 {
-      font-size: 1.6rem;
-      color: var(--primary-dark);
+      font-size: 2rem;
+      color: var(--gold-dark);
       margin-bottom: 8px;
     }
 
     /* Formulario RSVP */
-    .form-box {
+    .form-wrapper {
       background: var(--white);
-      padding: 38px;
+      padding: 55px;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(157, 129, 97, 0.2);
-      margin-bottom: 60px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-gold);
+      max-width: 820px;
+      margin: 0 auto;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 20px;
+      gap: 24px;
     }
 
     .form-group {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .form-group.full {
@@ -254,10 +625,12 @@
 
     label {
       display: block;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 6px;
-      color: #334155;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: var(--dark);
     }
 
     input[type="text"],
@@ -266,72 +639,74 @@
     select,
     textarea {
       width: 100%;
-      padding: 12px 14px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
+      padding: 14px 16px;
+      border: 1px solid #dcd7ce;
+      border-radius: 10px;
       font-family: inherit;
       font-size: 0.95rem;
-      transition: border-color 0.2s;
+      background: #faf8f5;
+      color: var(--text);
+      transition: all 0.25s ease;
     }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--primary);
+      border-color: var(--gold);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(157, 129, 81, 0.15);
     }
 
-    .btn {
-      display: inline-block;
+    .btn-submit {
       width: 100%;
-      padding: 14px;
-      background: var(--primary);
-      color: var(--white);
+      padding: 16px;
+      background: var(--gold);
+      color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 40px;
       font-size: 1rem;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       cursor: pointer;
-      letter-spacing: 0.5px;
-      transition: background 0.2s;
+      transition: all 0.3s;
+      box-shadow: 0 6px 20px rgba(157, 129, 81, 0.35);
     }
 
-    .btn:hover {
-      background: var(--primary-dark);
-    }
-
-    .btn-secondary {
-      background: #e2e8f0;
-      color: #334155;
-      width: auto;
-      padding: 10px 20px;
-    }
-
-    .btn-secondary:hover {
-      background: #cbd5e1;
+    .btn-submit:hover {
+      background: var(--gold-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(157, 129, 81, 0.45);
     }
 
     .alert {
-      padding: 16px;
-      border-radius: 8px;
-      margin-bottom: 20px;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 25px;
       display: none;
       text-align: center;
-      font-weight: 500;
+      font-weight: 600;
     }
 
-    .alert-success { background: #e9f7ea; color: #27672a; border: 1px solid #c3e6cb; }
-    .alert-error { background: #fde8e8; color: #9b1c1c; border: 1px solid #f8b4b4; }
+    .alert-success { background: #edf7ee; color: #1e6924; border: 1px solid #c0e6c5; }
+    .alert-error { background: #fdf0f0; color: #a12323; border: 1px solid #f8c9c9; }
 
-    /* Panel WhatsApp */
+    /* Tarjeta WhatsApp */
     .whatsapp-card {
-      background: #f0fdf4;
-      border: 1px solid #bbf7d0;
-      padding: 30px;
+      background: #edf8f1;
+      border: 1px solid #aae3c0;
+      padding: 35px;
       border-radius: var(--radius);
-      margin-bottom: 60px;
+      margin: 40px auto 0;
+      max-width: 820px;
       text-align: center;
+      box-shadow: var(--shadow-sm);
     }
 
-    .whatsapp-card h3 { color: #166534; margin-bottom: 8px; }
+    .whatsapp-card h3 {
+      font-size: 1.8rem;
+      color: #1a6b3b;
+      margin-bottom: 8px;
+    }
 
     .whatsapp-btn {
       background: #25d366;
@@ -339,36 +714,41 @@
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 26px;
-      border-radius: 30px;
+      gap: 10px;
+      padding: 14px 30px;
+      border-radius: 40px;
       font-weight: 600;
-      margin-top: 15px;
-      transition: background 0.2s;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      margin-top: 18px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+      transition: all 0.25s;
     }
 
-    .whatsapp-btn:hover { background: #1eb956; }
+    .whatsapp-btn:hover {
+      background: #1eb956;
+      transform: translateY(-2px);
+    }
 
     /* Lightbox Modal */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.92);
+      background: rgba(18, 22, 19, 0.94);
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
-      padding: 20px;
+      z-index: 99999;
+      padding: 25px;
     }
 
-    .lightbox.active {
-      display: flex;
-    }
+    .lightbox.active { display: flex; }
 
     .lightbox-content {
       position: relative;
-      max-width: 90vw;
-      max-height: 85vh;
+      max-width: 92vw;
+      max-height: 88vh;
       text-align: center;
     }
 
@@ -376,12 +756,12 @@
       max-width: 100%;
       max-height: 80vh;
       object-fit: contain;
-      border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border-radius: 10px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
     }
 
     .lightbox-controls {
-      margin-top: 12px;
+      margin-top: 15px;
       display: flex;
       justify-content: center;
       gap: 15px;
@@ -390,212 +770,385 @@
     .lightbox-btn {
       background: rgba(255, 255, 255, 0.2);
       color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 10px 22px;
+      border-radius: 30px;
       cursor: pointer;
       font-weight: 600;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       transition: background 0.2s;
     }
 
     .lightbox-btn:hover {
-      background: rgba(255, 255, 255, 0.4);
+      background: var(--gold);
+      border-color: var(--gold);
     }
 
     .lightbox-close {
       position: absolute;
-      top: -35px;
+      top: -40px;
       right: 0;
       color: white;
-      font-size: 2rem;
+      font-size: 2.4rem;
       cursor: pointer;
       background: none;
       border: none;
     }
 
+    /* Footer */
     footer {
+      background: #1a1e1b;
+      color: #9ea8a2;
       text-align: center;
-      padding: 35px 20px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      border-top: 1px solid #eaeaea;
+      padding: 60px 20px 40px;
+      font-size: 0.9rem;
     }
 
-    @media (max-width: 650px) {
-      .hero h1 { font-size: 2.6rem; }
+    footer h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--gold-light);
+      margin-bottom: 12px;
+    }
+
+    footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 850px) {
+      .finca-feature { grid-template-columns: 1fr; padding: 30px; }
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; padding-left: 55px; padding-right: 0; text-align: left; }
+      .timeline-item.right { left: 0; }
+      .timeline-item.left::after, .timeline-item.right::after { left: 12px; }
+      .form-wrapper { padding: 30px 20px; }
       .form-grid { grid-template-columns: 1fr; }
       .form-group.full { grid-column: span 1; }
+      .navbar { padding: 14px 20px; }
+      .nav-links { display: none; } /* En móvil simplificamos el menú */
     }
   </style>
 </head>
 <body>
 
-  <!-- Cabecera -->
+  <!-- Navegación Fija Glassmorphism -->
+  <nav class="navbar">
+    <a href="#" class="nav-logo">
+      💍 Nuestra Boda
+    </a>
+    <ul class="nav-links">
+      <li><a href="#espacio">El Espacio</a></li>
+      <li><a href="#itinerario">Itinerario</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#rsvp" class="nav-btn">Confirmar Asistencia</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Principal con Imagen de la Finca y Cuenta Atrás -->
   <header class="hero">
-    <div class="container">
-      <span class="badge">Nos casamos</span>
-      <h1>¡Bienvenidos a Nuestra Boda!</h1>
-      <p class="subtitle">Estamos deseando celebrar este día tan especial juntos</p>
+    <div class="hero-content">
+      <span class="hero-badge">Zibá Segovia &bull; José María Eventos</span>
+      <h1>¡Nos Casamos!</h1>
+      <p class="tagline">Un lugar para soñar &bull; Un día para recordar</p>
+
+      <!-- Contador Regresivo -->
+      <div class="countdown-box">
+        <div class="countdown-item">
+          <span class="num" id="cdDays">00</span>
+          <span class="label">Días</span>
+        </div>
+        <div class="countdown-item">
+          <span class="num" id="cdHours">00</span>
+          <span class="label">Horas</span>
+        </div>
+        <div class="countdown-item">
+          <span class="num" id="cdMins">00</span>
+          <span class="label">Minutos</span>
+        </div>
+        <div class="countdown-item">
+          <span class="num" id="cdSecs">00</span>
+          <span class="label">Segundos</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#rsvp" class="btn-gold">Confirmar Asistencia 💌</a>
+        <a href="#espacio" class="btn-outline">Descubrir la Finca 🌿</a>
+      </div>
     </div>
   </header>
 
-  <main class="container">
+  <main>
 
-    <!-- Tarjetas de Información con Fotos Reales del Restaurante -->
-    <section class="details-cards">
-      <div class="card">
-        <img src="/images/restaurante/fotojardin_1_2207-164509588623044.webp" alt="El Lugar y Jardines">
-        <div class="card-body">
-          <span class="icon">🌿</span>
-          <h3>El Entorno y Jardín</h3>
-          <p>Un espacio al aire libre inolvidable para recibir a nuestros invitados.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="/images/restaurante/fotoboda01_1_2207-164509588477739.webp" alt="El Banquete">
-        <div class="card-body">
-          <span class="icon">🥂</span>
-          <h3>El Banquete</h3>
-          <p>Los salones donde celebraremos la cena y la fiesta por todo lo alto.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <img src="/images/restaurante/bodegon01_1_2207-164509579386677.webp" alt="Gastronomía">
-        <div class="card-body">
-          <span class="icon">🍽️</span>
-          <h3>Gastronomía</h3>
-          <p>Un menú seleccionado con mimo, apto para todas las dietas y alérgenos.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Galería Fotográfica -->
-    <section class="gallery-section">
-      <div class="section-title">
-        <h2>Galería de Fotos</h2>
-        <p>Descubre el lugar y los mejores momentos de nuestra celebración</p>
-      </div>
-
-      <div class="gallery-tabs">
-        <button class="tab-btn active" onclick="switchGalleryTab('venue')">🏛️ El Restaurante (25)</button>
-        <button class="tab-btn" onclick="switchGalleryTab('novios')">💍 Los Novios</button>
-        <button class="tab-btn" onclick="switchGalleryTab('invitados')">📸 Fotos de Invitados</button>
-      </div>
-
-      <div id="galleryGrid" class="gallery-grid">
-        <!-- Rellenado dinámicamente con JavaScript -->
-      </div>
-
-      <!-- Zona de Subida de Fotos para los invitados -->
-      <div class="upload-box" id="uploadBox">
-        <h3>📸 ¿Estás en la boda? ¡Sube tus fotos aquí!</h3>
-        <p style="color: var(--text-muted); margin-bottom: 18px; font-size: 0.95rem;">
-          Comparte las fotos que hagas con el móvil para que todos podamos recordarlas.
-        </p>
+    <!-- Sección El Espacio (Zibá Eventos) -->
+    <section id="espacio">
+      <div class="container">
         
-        <form id="uploadForm" enctype="multipart/form-data" style="max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
-          <input type="text" id="photoGuestName" placeholder="Tu nombre" style="background: white;" required>
-          <input type="text" id="photoCaption" placeholder="Dedicatoria o momento (opcional)" style="background: white;">
-          <input type="file" id="photoFileInput" accept="image/*" style="background: white; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;" required>
-          <button type="submit" class="btn" style="margin-top: 5px;">Subir Foto al Álbum 🚀</button>
-        </form>
-        <div id="uploadAlert" class="alert" style="margin-top: 15px;"></div>
-      </div>
-    </section>
-
-    <!-- Sección de Confirmación (RSVP) -->
-    <section class="section-title">
-      <h2>Confirmación de Asistencia</h2>
-      <p>Por favor, confirma tu asistencia para organizar menús y mesas con el catering.</p>
-    </section>
-
-    <div class="form-box">
-      <div id="alertSuccess" class="alert alert-success">
-        ¡Muchas gracias! Hemos recibido tu confirmación correctamente. 💍
-      </div>
-      <div id="alertError" class="alert alert-error">
-        Ocurrió un error al enviar tu confirmación. Inténtalo de nuevo.
-      </div>
-
-      <form id="rsvpForm">
-        <div class="form-grid">
-          
-          <div class="form-group">
-            <label for="name">Nombre y Apellidos *</label>
-            <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
-          </div>
-
-          <div class="form-group">
-            <label for="phone">Teléfono / WhatsApp</label>
-            <input type="tel" id="phone" name="phone" placeholder="Ej: 600123456">
-          </div>
-
-          <div class="form-group">
-            <label for="attending">¿Nos acompañas?</label>
-            <select id="attending" name="attending">
-              <option value="true">¡Sí, allí estaré con vosotros! 🎉</option>
-              <option value="false">Lamentablemente no podré asistir 😢</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="adults">Número de Adultos</label>
-            <input type="number" id="adults" name="adults" min="1" max="10" value="1">
-          </div>
-
-          <div class="form-group">
-            <label for="children">¿Vienen niños? (Menús infantiles)</label>
-            <input type="number" id="children" name="children" min="0" max="10" value="0">
-          </div>
-
-          <div class="form-group">
-            <label for="has_pets">¿Asistes con mascota?</label>
-            <select id="has_pets" name="has_pets" onchange="togglePetsField()">
-              <option value="false">No</option>
-              <option value="true">Sí</option>
-            </select>
-          </div>
-
-          <div class="form-group full" id="petDetailsGroup" style="display: none;">
-            <label for="pet_details">Detalles de la mascota</label>
-            <input type="text" id="pet_details" name="pet_details" placeholder="Ej: Perro mediano, muy tranquilo">
-          </div>
-
-          <div class="form-group full">
-            <label for="allergies">Alergias o Intolerancias alimentarias</label>
-            <textarea id="allergies" name="allergies" rows="2" placeholder="Ej: Celíaco, intolerancia a la lactosa, menú vegetariano..."></textarea>
-          </div>
-
-          <div class="form-group full">
-            <label for="notes">Mensaje para los novios o notas adicionales</label>
-            <textarea id="notes" name="notes" rows="2" placeholder="¿Canción favorita? ¿Algo que quieras decirnos?"></textarea>
-          </div>
-
-          <div class="form-group full">
-            <button type="submit" class="btn">Enviar Confirmación 💌</button>
-          </div>
-
+        <div class="section-header">
+          <span class="sub">El Enclave</span>
+          <h2>Un Espacio Diseñado para la Belleza</h2>
+          <p>Ubicado a los pies de la sierra de Segovia, un oasis verde donde cada rincón se transforma en magia.</p>
         </div>
-      </form>
-    </div>
 
-    <!-- Generador Rápido de Invitación WhatsApp para los novios -->
-    <div class="whatsapp-card">
-      <h3>💬 Enviar Invitación por WhatsApp a un Invitado</h3>
-      <p style="color: #15803d; font-size: 0.95rem;">Escribe el nombre y genera el enlace con el texto listo para enviar por WhatsApp:</p>
-      
-      <div style="display: flex; gap: 10px; max-width: 500px; margin: 15px auto 5px; flex-wrap: wrap;">
-        <input type="text" id="waGuestName" placeholder="Nombre del invitado" style="flex: 1; min-width: 180px;">
-        <input type="tel" id="waGuestPhone" placeholder="Teléfono (opcional)" style="flex: 1; min-width: 140px;">
+        <div class="finca-feature">
+          <div class="finca-img-wrapper">
+            <img src="/images/restaurante/fotojardin_1_2207-164509588623044.webp" alt="Jardines Zibá Segovia">
+          </div>
+          <div class="finca-text">
+            <h3>Jardines y Salones con Encanto</h3>
+            <p>
+              Zibá es un enclave abierto a los sentidos. Espacios al aire libre rodeados de vegetación, fuentes y una arquitectura singular que acogerá tanto la ceremonia como el banquete y la fiesta posterior.
+            </p>
+            <ul class="finca-points">
+              <li>Cóctel de bienvenida en jardines privados</li>
+              <li>Salones acristalados con luz natural y climatización</li>
+              <li>Cocina de alta gastronomía de la mano de Jose María Eventos</li>
+              <li>Aparcamiento privado y accesos cómodos para todos los invitados</li>
+            </ul>
+            <a href="https://maps.google.com/?q=Ziba+Segovia+Jose+Maria+Eventos" target="_blank" class="btn-gold" style="display:inline-block; font-size: 0.85rem; padding: 12px 28px;">
+              📍 Cómo Llegar (Google Maps)
+            </a>
+          </div>
+        </div>
+
+        <!-- 3 Tarjetas de Experiencia con Fotos Reales -->
+        <div class="cards-grid">
+          <div class="exp-card">
+            <div class="card-thumb">
+              <span class="card-tag">El Entorno</span>
+              <img src="/images/restaurante/fachada01b_1_2207-164509588346853.webp" alt="Fachada y exteriores">
+            </div>
+            <div class="card-body">
+              <div>
+                <h4>Exteriores y Paisajismo</h4>
+                <p>Jardines cuidados al milímetro con flores de temporada, rincones fotográficos y fuentes para recibir el atardecer.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="card-thumb">
+              <span class="card-tag">El Banquete</span>
+              <img src="/images/restaurante/salon2_1_2207-164509603474536.webp" alt="Salón Banquete">
+            </div>
+            <div class="card-body">
+              <div>
+                <h4>El Gran Salón</h4>
+                <p>Montajes elegantes, cristalería de ensueño y la mejor acústica e iluminación para disfrutar de una velada inolvidable.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-card">
+            <div class="card-thumb">
+              <span class="card-tag">Gastronomía</span>
+              <img src="/images/restaurante/bodegon02_1_2207-164509583360437.webp" alt="Detalles Gastronómicos">
+            </div>
+            <div class="card-body">
+              <div>
+                <h4>Sabor Tradicional & Vanguardia</h4>
+                <p>Una propuesta gastronómica de primer nivel que adaptaremos al 100% a cualquier menú infantil, alergia o intolerancia.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <a href="#" id="waButton" class="whatsapp-btn" target="_blank" onclick="generateWhatsAppLink(event)">
-        Abrir en WhatsApp 📲
-      </a>
-    </div>
+    </section>
+
+    <!-- Itinerario del Gran Día -->
+    <section id="itinerario" style="background: #f4efe6;">
+      <div class="container">
+        <div class="section-header">
+          <span class="sub">El Programa</span>
+          <h2>Itinerario del Gran Día</h2>
+          <p>Cada momento ha sido pensado para compartir risas, abrazos y mucha diversión con vosotros.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item left">
+            <span class="timeline-time">17:30 h</span>
+            <div class="timeline-content">
+              <h4>Llegada & Cóctel de Bienvenida</h4>
+              <p>Recepción en los jardines con copas de bienvenida y aperitivos al aire libre.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item right">
+            <span class="timeline-time">18:30 h</span>
+            <div class="timeline-content">
+              <h4>La Ceremonia</h4>
+              <p>El momento del "Sí, quiero" rodeados de nuestra familia y grandes amigos.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item left">
+            <span class="timeline-time">20:00 h</span>
+            <div class="timeline-content">
+              <h4>El Banquete</h4>
+              <p>Cena en el salón principal, brindis y momentos emotivos con el menú de gala.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item right">
+            <span class="timeline-time">23:00 h</span>
+            <div class="timeline-content">
+              <h4>Fiesta, Música & Barra Libre</h4>
+              <p>Apertura de baile, barra libre, fotos en el photocall y música hasta que el cuerpo aguante.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería Fotográfica Zibá y Novios -->
+    <section id="galeria">
+      <div class="container">
+        <div class="section-header">
+          <span class="sub">Recuerdos</span>
+          <h2>Galería de la Boda</h2>
+          <p>Explora el restaurante, nuestras fotos y las instantáneas que los invitados compartan.</p>
+        </div>
+
+        <div class="gallery-tabs">
+          <button class="tab-btn active" onclick="switchGalleryTab('venue')">🏛️ El Restaurante Zibá (25)</button>
+          <button class="tab-btn" onclick="switchGalleryTab('novios')">💍 Los Novios (7)</button>
+          <button class="tab-btn" onclick="switchGalleryTab('invitados')">📸 Fotos de Invitados</button>
+        </div>
+
+        <div id="galleryGrid" class="gallery-grid">
+          <!-- Carga dinámica -->
+        </div>
+
+        <!-- Caja de Subida de Fotos para Invitados -->
+        <div class="upload-box" id="uploadBox">
+          <h3>📸 ¿Tienes fotos del día? ¡Compártelas con nosotros!</h3>
+          <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 1rem;">
+            Sube las fotos y selfies que hagas durante la boda para que se añadan al álbum de todos.
+          </p>
+          
+          <form id="uploadForm" enctype="multipart/form-data" style="max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px;">
+            <input type="text" id="photoGuestName" placeholder="Tu nombre y apellidos" required>
+            <input type="text" id="photoCaption" placeholder="Dedicatoria o anécdota (opcional)">
+            <input type="file" id="photoFileInput" accept="image/*" style="background: white; border: 1px solid var(--border-gold);" required>
+            <button type="submit" class="btn-submit" style="margin-top: 6px;">Subir Foto al Álbum 🚀</button>
+          </form>
+          <div id="uploadAlert" class="alert" style="margin-top: 20px;"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Formulario de Confirmación (RSVP) -->
+    <section id="rsvp" style="background: #f5f0e8;">
+      <div class="container">
+        <div class="section-header">
+          <span class="sub">RSVP</span>
+          <h2>Confirmación de Asistencia</h2>
+          <p>Te agradecemos que confirmes cuanto antes para coordinar las mesas y los menús especiales con el catering de Jose María Eventos.</p>
+        </div>
+
+        <div class="form-wrapper">
+          <div id="alertSuccess" class="alert alert-success">
+            ¡Muchas gracias! Tu confirmación ha quedado registrada correctamente en la lista. 💍✨
+          </div>
+          <div id="alertError" class="alert alert-error">
+            Hubo un problema al registrar tu confirmación. Por favor, inténtalo de nuevo.
+          </div>
+
+          <form id="rsvpForm">
+            <div class="form-grid">
+              
+              <div class="form-group">
+                <label for="name">Nombre y Apellidos *</label>
+                <input type="text" id="name" name="name" placeholder="Ej: Laura García López" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Teléfono / WhatsApp</label>
+                <input type="tel" id="phone" name="phone" placeholder="Ej: 600123456">
+              </div>
+
+              <div class="form-group">
+                <label for="attending">¿Nos acompañas en este gran día?</label>
+                <select id="attending" name="attending">
+                  <option value="true">¡Sí, por supuesto! Allí estaré 🎉</option>
+                  <option value="false">Lamentablemente no podré asistir 😢</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="adults">Número de Adultos</label>
+                <input type="number" id="adults" name="adults" min="1" max="10" value="1">
+              </div>
+
+              <div class="form-group">
+                <label for="children">¿Vienes con niños? (Menús infantiles)</label>
+                <input type="number" id="children" name="children" min="0" max="10" value="0">
+              </div>
+
+              <div class="form-group">
+                <label for="has_pets">¿Asistes con mascota?</label>
+                <select id="has_pets" name="has_pets" onchange="togglePetsField()">
+                  <option value="false">No</option>
+                  <option value="true">Sí (Admitidas en exteriores)</option>
+                </select>
+              </div>
+
+              <div class="form-group full" id="petDetailsGroup" style="display: none;">
+                <label for="pet_details">Detalles de la mascota</label>
+                <input type="text" id="pet_details" name="pet_details" placeholder="Ej: Perro pequeño / mediano muy dócil">
+              </div>
+
+              <div class="form-group full">
+                <label for="allergies">Alergias, Intolerancias o Dietas Especiales</label>
+                <textarea id="allergies" name="allergies" rows="2" placeholder="Ej: Celíaco, intolerante a la lactosa, vegetariano, alergia a frutos secos..."></textarea>
+              </div>
+
+              <div class="form-group full">
+                <label for="notes">Mensaje para los Novios o Canción Recomendada</label>
+                <textarea id="notes" name="notes" rows="2" placeholder="¿Qué canción no puede faltar en la fiesta? ¿Algo que quieras decirnos?"></textarea>
+              </div>
+
+              <div class="form-group full">
+                <button type="submit" class="btn-submit">Enviar Confirmación 💌</button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+        <!-- Enviar Invitación por WhatsApp -->
+        <div class="whatsapp-card">
+          <h3>💬 Invitar a un Amigo o Familiar por WhatsApp</h3>
+          <p style="color: #276749; font-size: 0.95rem;">Escribe el nombre y abre WhatsApp con la invitación redactada y el enlace directo:</p>
+          
+          <div style="display: flex; gap: 12px; max-width: 520px; margin: 18px auto 6px; flex-wrap: wrap;">
+            <input type="text" id="waGuestName" placeholder="Nombre del invitado" style="flex: 1; min-width: 180px;">
+            <input type="tel" id="waGuestPhone" placeholder="Teléfono móvil (opcional)" style="flex: 1; min-width: 150px;">
+          </div>
+          <a href="#" id="waButton" class="whatsapp-btn" target="_blank" onclick="generateWhatsAppLink(event)">
+            Enviar Invitación por WhatsApp 📲
+          </a>
+        </div>
+
+      </div>
+    </section>
 
   </main>
 
@@ -613,7 +1166,13 @@
   </div>
 
   <footer>
-    <p>Hecho con ❤️ para nuestra boda | <a href="/admin.html" style="color: var(--primary-dark); font-weight: 500;">Panel de Novios</a></p>
+    <div class="container">
+      <h4>Nuestra Boda &bull; Zibá Segovia</h4>
+      <p style="margin-bottom: 15px;">Finca Jose María Eventos &bull; Segovia</p>
+      <p style="font-size: 0.8rem; color: #738078;">
+        Hecho con ❤️ para celebrar el amor | <a href="/admin.html">Acceso Panel de Novios</a>
+      </p>
+    </div>
   </footer>
 
   <script>
@@ -622,13 +1181,40 @@
     let currentPhotosList = [];
     let currentPhotoIndex = 0;
 
+    // Cuenta Atrás dinámica (Configura una fecha de ejemplo o cámbiala cuando quieras)
+    function startCountdown() {
+      // Fecha objetivo de la boda (ejemplo: dentro de 6 meses o fecha elegida)
+      const weddingDate = new Date();
+      weddingDate.setMonth(weddingDate.getMonth() + 4);
+      weddingDate.setHours(17, 30, 0, 0);
+
+      function update() {
+        const now = new Date().getTime();
+        const diff = weddingDate.getTime() - now;
+
+        if (diff > 0) {
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          document.getElementById('cdDays').innerText = String(days).padStart(2, '0');
+          document.getElementById('cdHours').innerText = String(hours).padStart(2, '0');
+          document.getElementById('cdMins').innerText = String(minutes).padStart(2, '0');
+          document.getElementById('cdSecs').innerText = String(seconds).padStart(2, '0');
+        }
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
     function togglePetsField() {
       const select = document.getElementById('has_pets');
       const group = document.getElementById('petDetailsGroup');
       group.style.display = select.value === 'true' ? 'block' : 'none';
     }
 
-    // Cargar galería
+    // Cargar galería desde el servidor
     async function loadGallery() {
       try {
         const res = await fetch('/api/gallery');
@@ -655,7 +1241,7 @@
       if (currentTab === 'venue') {
         currentPhotosList = galleryData.venue || [];
         if (!currentPhotosList.length) {
-          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 30px;">Cargando fotos del restaurante...</p>';
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 40px;">Cargando fotos del restaurante Zibá...</p>';
           return;
         }
 
@@ -664,15 +1250,15 @@
           item.className = 'gallery-item';
           item.onclick = () => openLightbox(idx);
           item.innerHTML = `
-            <img src="${url}" alt="Restaurante Boda" loading="lazy">
-            <div class="overlay"><span>Ampliar / Descargar</span></div>
+            <img src="${url}" alt="Zibá Restaurante" loading="lazy">
+            <div class="overlay"><span>Ampliar / Descargar 🔍</span></div>
           `;
           grid.appendChild(item);
         });
       } else if (currentTab === 'novios') {
         currentPhotosList = galleryData.novios || [];
         if (!currentPhotosList.length) {
-          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 30px;">Cargando fotos de los novios...</p>';
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 40px;">Cargando fotos de los novios...</p>';
           return;
         }
 
@@ -691,7 +1277,7 @@
         currentPhotosList = guestPhotos.map(p => p.image_url);
 
         if (!guestPhotos.length) {
-          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 30px;">Aún no se han subido fotos de invitados. ¡Sé el primero en compartir la tuya abajo!</p>';
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 40px;">Aún no se han subido fotos de invitados. ¡Sé el primero en compartir la tuya en el recuadro de abajo!</p>';
           return;
         }
 
@@ -701,14 +1287,14 @@
           item.onclick = () => openLightbox(idx);
           item.innerHTML = `
             <img src="${photo.image_url}" alt="Foto de ${escapeHtml(photo.guest_name)}" loading="lazy">
-            <div class="overlay"><span>De: ${escapeHtml(photo.guest_name)}</span></div>
+            <div class="overlay"><span>Foto de ${escapeHtml(photo.guest_name)}</span></div>
           `;
           grid.appendChild(item);
         });
       }
     }
 
-    // Lightbox
+    // Visor Lightbox
     function openLightbox(index) {
       if (!currentPhotosList.length) return;
       currentPhotoIndex = index;
@@ -734,6 +1320,16 @@
       openLightbox(currentPhotoIndex);
     }
 
+    // Navegación por teclado en el Lightbox
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      if (lb.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowRight') nextPhoto();
+        if (e.key === 'ArrowLeft') prevPhoto();
+      }
+    });
+
     // Subir foto desde el formulario
     document.getElementById('uploadForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -756,7 +1352,7 @@
 
         if (res.ok) {
           alertBox.className = 'alert alert-success';
-          alertBox.innerText = '¡Foto subida con éxito! Ya está disponible en la galería 🎉';
+          alertBox.innerText = '¡Foto subida con éxito! Ya se ha añadido a la galería 🎉';
           alertBox.style.display = 'block';
           document.getElementById('uploadForm').reset();
           loadGallery();
@@ -815,7 +1411,7 @@
       const phone = document.getElementById('waGuestPhone').value.replace(/[^0-9]/g, '');
       const currentUrl = window.location.origin;
 
-      const message = `¡Hola ${name}! 💍✨ Nos hace muchísima ilusión invitarte a nuestra boda. Puedes ver todos los detalles y confirmar tu asistencia en nuestra web: ${currentUrl}`;
+      const message = `¡Hola ${name}! 💍✨ Nos hace muchísima ilusión invitarte a nuestra boda en Zibá Segovia. Puedes ver todos los detalles, fotos y confirmar tu asistencia en nuestra web: ${currentUrl}`;
       
       const url = phone 
         ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
@@ -830,7 +1426,8 @@
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
-    // Inicializar galería al cargar la página
+    // Iniciar scripts al arrancar
+    startCountdown();
     loadGallery();
   </script>
 </body>
