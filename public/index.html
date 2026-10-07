@@ -118,61 +118,72 @@
       transform: translateY(-2px);
     }
 
-    /* Hero Section Impactante con Tarjeta de Invitación */
+    /* Hero Section Elegante y Centrado */
     .hero {
       position: relative;
-      min-height: 94vh;
+      min-height: 92vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
       padding: 120px 20px 70px;
-      background: linear-gradient(180deg, rgba(23, 27, 24, 0.6) 0%, rgba(23, 27, 24, 0.85) 100%),
+      background: linear-gradient(180deg, rgba(23, 27, 24, 0.48) 0%, rgba(23, 27, 24, 0.78) 100%),
                   url('/images/restaurante/fotoboda01_1_2207-164509588477739.webp') center/cover no-repeat;
       color: white;
       margin-bottom: 30px;
     }
 
-    .hero-container {
-      max-width: 1140px;
+    .hero-content {
+      max-width: 820px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 390px 1fr;
-      gap: 50px;
-      align-items: center;
-      width: 100%;
       z-index: 2;
+      animation: fadeIn 1.2s ease;
+      text-align: center;
     }
 
-    /* Tarjeta de Invitación Formal (Acuarela) */
-    .invitation-card-wrapper {
-      display: flex;
+    /* Modal de Invitación */
+    .invitation-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 22, 19, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
       justify-content: center;
-      animation: fadeIn 1s ease;
+      align-items: center;
+      z-index: 99999;
+      padding: 20px;
+    }
+
+    .invitation-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .invitation-modal-content {
+      position: relative;
+      max-width: 440px;
+      width: 100%;
+      margin: auto;
+      max-height: 92vh;
+      overflow-y: auto;
     }
 
     .invitation-card {
       background: #fdfbf7;
       border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 25px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.2);
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.2);
       border: 1px solid rgba(157, 129, 81, 0.4);
-      max-width: 370px;
       width: 100%;
       text-align: center;
       color: var(--dark);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      position: relative;
-    }
-
-    .invitation-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 35px 70px rgba(0,0,0,0.65);
     }
 
     .invitation-card-header {
       padding: 6px 0 12px;
       border-bottom: 1px solid rgba(157, 129, 81, 0.2);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .invite-monogram {
@@ -193,57 +204,36 @@
     }
 
     .invitation-img-box {
-      position: relative;
       border-radius: 12px;
       overflow: hidden;
-      cursor: pointer;
       box-shadow: 0 6px 20px rgba(0,0,0,0.1);
       background: white;
+      margin-bottom: 14px;
     }
 
     .invitation-img-box img {
       width: 100%;
       height: auto;
-      max-height: 440px;
-      object-fit: cover;
+      max-height: 480px;
+      object-fit: contain;
       display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .invitation-img-box:hover img {
-      transform: scale(1.03);
-    }
-
-    .invitation-zoom-hint {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(31, 36, 33, 0.82);
-      backdrop-filter: blur(5px);
-      color: white;
-      font-size: 0.72rem;
-      padding: 5px 12px;
-      border-radius: 20px;
-      letter-spacing: 0.5px;
-      font-weight: 500;
     }
 
     .invitation-card-footer {
-      padding: 14px 0 6px;
+      padding: 12px 0 6px;
       border-top: 1px solid rgba(157, 129, 81, 0.2);
-      margin-top: 12px;
     }
 
     .invite-names {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       color: var(--gold-dark);
       font-weight: 600;
       line-height: 1.2;
     }
 
     .invite-date {
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       letter-spacing: 2px;
       text-transform: uppercase;
       color: var(--dark);
@@ -252,15 +242,28 @@
     }
 
     .invite-place {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
       margin-top: 2px;
     }
 
-    .hero-content {
-      z-index: 2;
-      animation: fadeIn 1.2s ease;
-      text-align: left;
+    .modal-close-btn {
+      position: absolute;
+      top: -38px;
+      right: 0;
+      color: white;
+      font-size: 2.2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .modal-actions {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
     }
 
     .hero-badge {
@@ -297,7 +300,7 @@
     /* Contador Regresivo de Lujo */
     .countdown-box {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 14px;
       flex-wrap: wrap;
       margin-bottom: 35px;
@@ -310,10 +313,7 @@
       border: 1px solid rgba(255, 255, 255, 0.25);
       padding: 14px 18px;
       border-radius: 14px;
-      min-width: 80px;
-      text-align: center;
-    }
-      min-width: 90px;
+      min-width: 85px;
       text-align: center;
     }
 
@@ -1009,7 +1009,7 @@
       💍 Nuestra Boda
     </a>
     <ul class="nav-links">
-      <li><a href="#invitacion">Invitación</a></li>
+      <li><a href="javascript:void(0)" onclick="openInvitationModal()">💌 Ver Invitación</a></li>
       <li><a href="#espacio">El Espacio</a></li>
       <li><a href="#itinerario">Itinerario</a></li>
       <li><a href="#galeria">Galería</a></li>
@@ -1017,63 +1017,40 @@
     </ul>
   </nav>
 
-  <!-- Hero Principal con Portada de Invitación y Cuenta Atrás -->
-  <header class="hero" id="invitacion">
-    <div class="hero-container">
+  <!-- Hero Principal Limpio, Centrado y con Botón de Invitación -->
+  <header class="hero">
+    <div class="hero-content">
+      <span class="hero-badge">29 de Mayo de 2027 &bull; Restaurante Magullo, Segovia</span>
+      <h1>¡Nos Casamos!</h1>
+      <p class="tagline">
+        Restaurante Magullo &bull; 29 de Mayo de 2027 &bull; Una historia para celebrar juntos 💍🐾
+      </p>
 
-      <!-- Tarjeta Formal de la Invitación (Acuarela Original) -->
-      <div class="invitation-card-wrapper">
-        <div class="invitation-card">
-          <div class="invitation-card-header">
-            <span class="invite-monogram">Save the Date</span>
-            <span class="invite-title">Nuestra Boda</span>
-          </div>
-          <div class="invitation-img-box" onclick="openLightboxSingle('/images/novios/invitacion-imagen.jpg')">
-            <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida de mano con nuestros perritos">
-            <div class="invitation-zoom-hint">🔍 Toca para ampliar</div>
-          </div>
-          <div class="invitation-card-footer">
-            <p class="invite-names">¡Nos Casamos! 💍🐾</p>
-            <p class="invite-date">29 · Mayo · 2027</p>
-            <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
-          </div>
+      <!-- Contador Regresivo -->
+      <div class="countdown-box">
+        <div class="countdown-item">
+          <span class="num" id="cdDays">00</span>
+          <span class="label">Días</span>
+        </div>
+        <div class="countdown-item">
+          <span class="num" id="cdHours">00</span>
+          <span class="label">Horas</span>
+        </div>
+        <div class="countdown-item">
+          <span class="num" id="cdMins">00</span>
+          <span class="label">Minutos</span>
+        </div>
+        <div class="countdown-item">
+          <span class="num" id="cdSecs">00</span>
+          <span class="label">Segundos</span>
         </div>
       </div>
 
-      <!-- Texto del Hero y Cuenta Atrás -->
-      <div class="hero-content">
-        <span class="hero-badge">29 de Mayo de 2027 &bull; Restaurante Magullo, Segovia</span>
-        <h1>¡Estás Invitado a Nuestra Boda!</h1>
-        <p class="tagline">
-          El comienzo de nuestro viaje juntos &bull; Una historia que queremos celebrar con quienes más queremos 💍🐾
-        </p>
-
-        <!-- Contador Regresivo -->
-        <div class="countdown-box">
-          <div class="countdown-item">
-            <span class="num" id="cdDays">00</span>
-            <span class="label">Días</span>
-          </div>
-          <div class="countdown-item">
-            <span class="num" id="cdHours">00</span>
-            <span class="label">Horas</span>
-          </div>
-          <div class="countdown-item">
-            <span class="num" id="cdMins">00</span>
-            <span class="label">Minutos</span>
-          </div>
-          <div class="countdown-item">
-            <span class="num" id="cdSecs">00</span>
-            <span class="label">Segundos</span>
-          </div>
-        </div>
-
-        <div class="hero-actions">
-          <a href="#rsvp" class="btn-gold">Confirmar Asistencia 💌</a>
-          <a href="#espacio" class="btn-outline">Descubrir el Espacio 🌿</a>
-        </div>
+      <div class="hero-actions">
+        <button class="btn-gold" onclick="openInvitationModal()">💌 Ver Invitación Oficial</button>
+        <a href="#rsvp" class="btn-outline">Confirmar Asistencia ✨</a>
+        <a href="#espacio" class="btn-outline">El Espacio 🌿</a>
       </div>
-
     </div>
   </header>
 
@@ -1336,6 +1313,32 @@
 
   </main>
 
+  <!-- Modal de Invitación Formal (Acuarela) -->
+  <div id="invitationModal" class="invitation-modal" onclick="closeInvitationModal(event)">
+    <div class="invitation-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeInvitationModal(event)">&times;</button>
+      <div class="invitation-card">
+        <div class="invitation-card-header">
+          <span class="invite-monogram">Save the Date</span>
+          <span class="invite-title">Nuestra Boda</span>
+        </div>
+        <div class="invitation-img-box">
+          <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida con nuestros perritos">
+        </div>
+        <div class="invitation-card-footer">
+          <p class="invite-names">¡Nos Casamos! 💍🐾</p>
+          <p class="invite-date">29 · Mayo · 2027</p>
+          <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
+        </div>
+        <div class="modal-actions">
+          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Boda.jpg" class="btn-gold" style="font-size: 0.85rem; padding: 12px 28px;">
+            Descargar Invitación 📥
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Visor de Fotos en Pantalla Completa (Lightbox) -->
   <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
     <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -1495,6 +1498,17 @@
       document.getElementById('lightbox').classList.add('active');
     }
 
+    // Control del Modal de Invitación
+    function openInvitationModal() {
+      document.getElementById('invitationModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeInvitationModal(event) {
+      document.getElementById('invitationModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
     // Abrir una imagen individual (ej. desde la tarjeta del Hero)
     function openLightboxSingle(url) {
       currentPhotosList = [url];
@@ -1520,11 +1534,20 @@
       openLightbox(currentPhotoIndex);
     }
 
-    // Navegación por teclado en el Lightbox
+    // Navegación por teclado
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const invModal = document.getElementById('invitationModal');
+        if (invModal && invModal.classList.contains('active')) {
+          closeInvitationModal();
+        }
+        const lb = document.getElementById('lightbox');
+        if (lb && lb.classList.contains('active')) {
+          closeLightbox();
+        }
+      }
       const lb = document.getElementById('lightbox');
-      if (lb.classList.contains('active')) {
-        if (e.key === 'Escape') closeLightbox();
+      if (lb && lb.classList.contains('active')) {
         if (e.key === 'ArrowRight') nextPhoto();
         if (e.key === 'ArrowLeft') prevPhoto();
       }
