@@ -482,6 +482,7 @@
 
       <div class="gallery-tabs">
         <button class="tab-btn active" onclick="switchGalleryTab('venue')">🏛️ El Restaurante (25)</button>
+        <button class="tab-btn" onclick="switchGalleryTab('novios')">💍 Los Novios</button>
         <button class="tab-btn" onclick="switchGalleryTab('invitados')">📸 Fotos de Invitados</button>
       </div>
 
@@ -665,6 +666,23 @@
           item.innerHTML = `
             <img src="${url}" alt="Restaurante Boda" loading="lazy">
             <div class="overlay"><span>Ampliar / Descargar</span></div>
+          `;
+          grid.appendChild(item);
+        });
+      } else if (currentTab === 'novios') {
+        currentPhotosList = galleryData.novios || [];
+        if (!currentPhotosList.length) {
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 30px;">Cargando fotos de los novios...</p>';
+          return;
+        }
+
+        currentPhotosList.forEach((url, idx) => {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          item.onclick = () => openLightbox(idx);
+          item.innerHTML = `
+            <img src="${url}" alt="Los Novios" loading="lazy">
+            <div class="overlay"><span>Los Novios 💍 (Descargar)</span></div>
           `;
           grid.appendChild(item);
         });
