@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuestra Boda 💍 | Confirmación y Detalles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #9d8161;
+      --primary-light: #f5f0ea;
+      --primary-dark: #6e583e;
+      --text: #333333;
+      --text-muted: #666666;
+      --bg: #faf8f5;
+      --white: #ffffff;
+      --success: #3c763d;
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 70px 20px 40px;
+      background: linear-gradient(180deg, #f3ede4 0%, var(--bg) 100%);
+    }
+
+    .hero .badge {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.85rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .hero p.subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      margin-bottom: 25px;
+    }
+
+    .details-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .card {
+      background: var(--white);
+      padding: 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(157, 129, 97, 0.15);
+      text-align: center;
+    }
+
+    .card .icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    /* Formulario RSVP */
+    .section-title {
+      text-align: center;
+      margin: 50px 0 25px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary-dark);
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+    }
+
+    .form-box {
+      background: var(--white);
+      padding: 35px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(157, 129, 97, 0.2);
+      margin-bottom: 60px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full {
+      grid-column: span 2;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .alert {
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .alert-success {
+      background: #e9f7ea;
+      color: #27672a;
+      border: 1px solid #c3e6cb;
+    }
+
+    .alert-error {
+      background: #fde8e8;
+      color: #9b1c1c;
+      border: 1px solid #f8b4b4;
+    }
+
+    /* Panel WhatsApp */
+    .whatsapp-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 25px;
+      border-radius: var(--radius);
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .whatsapp-card h3 {
+      color: #166534;
+      margin-bottom: 8px;
+    }
+
+    .whatsapp-btn {
+      background: #25d366;
+      color: white;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      margin-top: 12px;
+      transition: background 0.2s;
+    }
+
+    .whatsapp-btn:hover {
+      background: #1eb956;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid #eaeaea;
+    }
+
+    @media (max-width: 650px) {
+      .hero h1 { font-size: 2.6rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="container">
+      <span class="badge">Nos casamos</span>
+      <h1>¡Bienvenidos a Nuestra Boda!</h1>
+      <p class="subtitle">Estamos deseando celebrar este día tan especial juntos</p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Tarjetas de Información -->
+    <section class="details-cards">
+      <div class="card">
+        <span class="icon">📅</span>
+        <h3>La Fecha</h3>
+        <p>Próximamente</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Horario a concretar</p>
+      </div>
+      <div class="card">
+        <span class="icon">📍</span>
+        <h3>El Lugar</h3>
+        <p>Lugar de Celebración</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Ver mapa y cómo llegar</p>
+      </div>
+      <div class="card">
+        <span class="icon">📸</span>
+        <h3>Galería</h3>
+        <p>Fotos de la Boda</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Podrás subir tus fotos el gran día</p>
+      </div>
+    </section>
+
+    <!-- Sección de Confirmación (RSVP) -->
+    <section class="section-title">
+      <h2>Confirmación de Asistencia</h2>
+      <p>Por favor, confirma tu asistencia para que podamos organizar los menús y mesas con el catering.</p>
+    </section>
+
+    <div class="form-box">
+      <div id="alertSuccess" class="alert alert-success">
+        ¡Muchas gracias! Hemos recibido tu confirmación correctamente. 💍
+      </div>
+      <div id="alertError" class="alert alert-error">
+        Ocurrió un error al enviar tu confirmación. Inténtalo de nuevo.
+      </div>
+
+      <form id="rsvpForm">
+        <div class="form-grid">
+          
+          <div class="form-group">
+            <label for="name">Nombre y Apellidos *</label>
+            <input type="text" id="name" name="name" placeholder="Tu nombre completo" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Teléfono / WhatsApp</label>
+            <input type="tel" id="phone" name="phone" placeholder="Ej: 600123456">
+          </div>
+
+          <div class="form-group">
+            <label for="attending">¿Nos acompañas?</label>
+            <select id="attending" name="attending">
+              <option value="true">¡Sí, allí estaré con vosotros! 🎉</option>
+              <option value="false">Lamentablemente no podré asistir 😢</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="adults">Número de Adultos</label>
+            <input type="number" id="adults" name="adults" min="1" max="10" value="1">
+          </div>
+
+          <div class="form-group">
+            <label for="children">¿Vienen niños? (Menús infantiles)</label>
+            <input type="number" id="children" name="children" min="0" max="10" value="0">
+          </div>
+
+          <div class="form-group">
+            <label for="has_pets">¿Asistes con mascota?</label>
+            <select id="has_pets" name="has_pets" onchange="togglePetsField()">
+              <option value="false">No</option>
+              <option value="true">Sí</option>
+            </select>
+          </div>
+
+          <div class="form-group full" id="petDetailsGroup" style="display: none;">
+            <label for="pet_details">Detalles de la mascota</label>
+            <input type="text" id="pet_details" name="pet_details" placeholder="Ej: Perro mediano, muy tranquilo">
+          </div>
+
+          <div class="form-group full">
+            <label for="allergies">Alergias o Intolerancias alimentarias</label>
+            <textarea id="allergies" name="allergies" rows="2" placeholder="Ej: Celíaco, intolerancia a la lactosa, menú vegetariano..."></textarea>
+          </div>
+
+          <div class="form-group full">
+            <label for="notes">Mensaje para los novios o notas adicionales</label>
+            <textarea id="notes" name="notes" rows="2" placeholder="¿Canción favorita? ¿Algo que quieras decirnos?"></textarea>
+          </div>
+
+          <div class="form-group full">
+            <button type="submit" class="btn">Enviar Confirmación 💌</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Generador Rápido de Invitación WhatsApp para los novios -->
+    <div class="whatsapp-card">
+      <h3>💬 Enviar Invitación por WhatsApp a un Invitado</h3>
+      <p style="color: #15803d; font-size: 0.95rem;">Escribe el nombre y genera el enlace con el texto listo para enviar por WhatsApp:</p>
+      
+      <div style="display: flex; gap: 10px; max-width: 500px; margin: 15px auto 5px; flex-wrap: wrap;">
+        <input type="text" id="waGuestName" placeholder="Nombre del invitado" style="flex: 1; min-width: 180px;">
+        <input type="tel" id="waGuestPhone" placeholder="Teléfono (opcional)" style="flex: 1; min-width: 140px;">
+      </div>
+      <a href="#" id="waButton" class="whatsapp-btn" target="_blank" onclick="generateWhatsAppLink(event)">
+        Abrir en WhatsApp 📲
+      </a>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>Hecho con ❤️ para nuestra boda | Gestionado en Render con PostgreSQL</p>
+  </footer>
+
+  <script>
+    function togglePetsField() {
+      const select = document.getElementById('has_pets');
+      const group = document.getElementById('petDetailsGroup');
+      group.style.display = select.value === 'true' ? 'block' : 'none';
+    }
+
+    // Envío del formulario RSVP
+    document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const alertSuccess = document.getElementById('alertSuccess');
+      const alertError = document.getElementById('alertError');
+      alertSuccess.style.display = 'none';
+      alertError.style.display = 'none';
+
+      const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        attending: document.getElementById('attending').value === 'true',
+        adults: parseInt(document.getElementById('adults').value, 10) || 1,
+        children: parseInt(document.getElementById('children').value, 10) || 0,
+        has_pets: document.getElementById('has_pets').value === 'true',
+        pet_details: document.getElementById('pet_details').value,
+        allergies: document.getElementById('allergies').value,
+        notes: document.getElementById('notes').value
+      };
+
+      try {
+        const response = await fetch('/api/rsvp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        if (response.ok) {
+          alertSuccess.style.display = 'block';
+          document.getElementById('rsvpForm').reset();
+          togglePetsField();
+        } else {
+          alertError.style.display = 'block';
+        }
+      } catch (err) {
+        alertError.style.display = 'block';
+      }
+    });
+
+    // Generar enlace de WhatsApp
+    function generateWhatsAppLink(event) {
+      const name = document.getElementById('waGuestName').value.trim() || 'amigo/a';
+      const phone = document.getElementById('waGuestPhone').value.replace(/[^0-9]/g, '');
+      const currentUrl = window.location.origin;
+
+      const message = `¡Hola ${name}! 💍✨ Nos hace muchísima ilusión invitarte a nuestra boda. Puedes ver todos los detalles y confirmar tu asistencia en nuestra web: ${currentUrl}`;
+      
+      const url = phone 
+        ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
+        : `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+      window.open(url, '_blank');
+      event.preventDefault();
+    }
+  </script>
+</body>
+</html>

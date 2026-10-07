@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Novios 💍 | Lista de Invitados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #9d8161;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --border: #e2e8f0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); padding: 30px 20px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
+    h1 { font-size: 1.8rem; color: #0f172a; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 30px; }
+    .stat-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .stat-card span { font-size: 0.85rem; color: #64748b; font-weight: 500; }
+    .stat-card h3 { font-size: 1.9rem; margin-top: 5px; color: var(--primary); }
+
+    .table-container { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow-x: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    th { background: #f1f5f9; padding: 14px 16px; font-weight: 600; color: #475569; border-bottom: 1px solid var(--border); }
+    td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:hover { background: #f8fafc; }
+
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .badge-warning { background: #fef3c7; color: #92400e; }
+
+    .btn { padding: 10px 18px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-secondary { background: #e2e8f0; color: #334155; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>💍 Gestión de Invitados y Catering</h1>
+        <p style="color: #64748b; font-size: 0.9rem;">Consulta de confirmaciones, alergias y recuentos en tiempo real</p>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-secondary" onclick="loadGuests()">🔄 Actualizar</button>
+        <button class="btn btn-primary" onclick="exportToCSV()">📥 Descargar para Catering (CSV)</button>
+        <a href="/" class="btn btn-secondary">🌐 Ver Web</a>
+      </div>
+    </header>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span>Confirmados</span>
+        <h3 id="statConfirmed">0</h3>
+      </div>
+      <div class="stat-card">
+        <span>Adultos</span>
+        <h3 id="statAdults">0</h3>
+      </div>
+      <div class="stat-card">
+        <span>Niños (Menús infantiles)</span>
+        <h3 id="statChildren">0</h3>
+      </div>
+      <div class="stat-card">
+        <span>Mascotas</span>
+        <h3 id="statPets">0</h3>
+      </div>
+      <div class="stat-card">
+        <span>Con Alergias / Dietas</span>
+        <h3 id="statAllergies" style="color: #d97706;">0</h3>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Estado</th>
+            <th>Adultos</th>
+            <th>Niños</th>
+            <th>Mascota</th>
+            <th>Alergias / Intolerancias</th>
+            <th>Notas</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="guestsTableBody">
+          <tr><td colspan="9" style="text-align: center; padding: 30px;">Cargando lista de invitados...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let currentGuests = [];
+
+    async function loadGuests() {
+      try {
+        const res = await fetch('/api/guests');
+        if (!res.ok) throw new Error('Error al cargar');
+        const data = await res.json();
+        
+        currentGuests = data.guests || [];
+        const stats = data.stats || {};
+
+        document.getElementById('statConfirmed').innerText = stats.confirmedCount || 0;
+        document.getElementById('statAdults').innerText = stats.totalAdults || 0;
+        document.getElementById('statChildren').innerText = stats.totalChildren || 0;
+        document.getElementById('statPets').innerText = stats.totalPets || 0;
+        document.getElementById('statAllergies').innerText = stats.withAllergiesCount || 0;
+
+        const tbody = document.getElementById('guestsTableBody');
+        if (currentGuests.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding: 30px; color:#64748b;">Aún no hay confirmaciones registradas.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = currentGuests.map(g => `
+          <tr>
+            <td><strong>${escapeHtml(g.name)}</strong></td>
+            <td>${escapeHtml(g.phone || '-')}</td>
+            <td>
+              <span class="badge ${g.attending ? 'badge-success' : 'badge-danger'}">
+                ${g.attending ? 'Asiste' : 'No asiste'}
+              </span>
+            </td>
+            <td>${g.adults || 0}</td>
+            <td>${g.children || 0}</td>
+            <td>${g.has_pets ? '🐾 ' + escapeHtml(g.pet_details || 'Sí') : 'No'}</td>
+            <td>
+              ${g.allergies ? `<span class="badge badge-warning">${escapeHtml(g.allergies)}</span>` : '<span style="color:#94a3b8;">Ninguna</span>'}
+            </td>
+            <td><small>${escapeHtml(g.notes || '-')}</small></td>
+            <td><small style="color:#64748b;">${new Date(g.created_at).toLocaleDateString()}</small></td>
+          </tr>
+        `).join('');
+
+      } catch (e) {
+        document.getElementById('guestsTableBody').innerHTML = 
+          '<tr><td colspan="9" style="text-align:center; padding: 30px; color: #dc2626;">No se pudo conectar con la base de datos todavía.</td></tr>';
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function exportToCSV() {
+      if (!currentGuests.length) return alert('No hay invitados para exportar');
+      const headers = ['Nombre', 'Teléfono', 'Asiste', 'Adultos', 'Niños', 'Mascota', 'Detalle Mascota', 'Alergias', 'Notas'];
+      const rows = currentGuests.map(g => [
+        `"${g.name || ''}"`,
+        `"${g.phone || ''}"`,
+        g.attending ? 'SI' : 'NO',
+        g.adults || 0,
+        g.children || 0,
+        g.has_pets ? 'SI' : 'NO',
+        `"${g.pet_details || ''}"`,
+        `"${g.allergies || ''}"`,
+        `"${g.notes || ''}"`
+      ]);
+
+      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'invitados_boda.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    loadGuests();
+  </script>
+</body>
+</html>
