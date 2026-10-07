@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nuestra Boda 💍 | Confirmación y Detalles</title>
+  <title>Nuestra Boda 💍 | Confirmación y Galería</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -12,13 +12,12 @@
       --primary: #9d8161;
       --primary-light: #f5f0ea;
       --primary-dark: #6e583e;
-      --text: #333333;
-      --text-muted: #666666;
+      --text: #2d3748;
+      --text-muted: #718096;
       --bg: #faf8f5;
       --white: #ffffff;
-      --success: #3c763d;
       --shadow: 0 10px 30px rgba(0,0,0,0.06);
-      --radius: 14px;
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,7 +35,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1050px;
       margin: 0 auto;
       padding: 0 20px;
     }
@@ -44,81 +43,195 @@
     /* Hero */
     .hero {
       text-align: center;
-      padding: 70px 20px 40px;
-      background: linear-gradient(180deg, #f3ede4 0%, var(--bg) 100%);
+      padding: 80px 20px 50px;
+      background: linear-gradient(180deg, #f2ebe1 0%, var(--bg) 100%);
+      position: relative;
     }
 
     .hero .badge {
       display: inline-block;
       text-transform: uppercase;
-      letter-spacing: 3px;
+      letter-spacing: 4px;
       font-size: 0.85rem;
       color: var(--primary);
-      margin-bottom: 12px;
+      margin-bottom: 15px;
       font-weight: 600;
     }
 
     .hero h1 {
-      font-size: 3.5rem;
+      font-size: 3.6rem;
       color: var(--primary-dark);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       letter-spacing: 1px;
     }
 
     .hero p.subtitle {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       color: var(--text-muted);
       font-style: italic;
       font-family: 'Cormorant Garamond', serif;
       margin-bottom: 25px;
     }
 
+    /* Tarjetas de Presentación con Imágenes Reales */
     .details-cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin: 30px 0;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 30px 0 50px;
     }
 
     .card {
       background: var(--white);
-      padding: 28px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       border: 1px solid rgba(157, 129, 97, 0.15);
-      text-align: center;
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
     }
 
-    .card .icon {
-      font-size: 2rem;
-      margin-bottom: 10px;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px rgba(0,0,0,0.09);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
       display: block;
     }
 
-    .card h3 {
-      font-size: 1.5rem;
+    .card-body {
+      padding: 24px;
+      text-align: center;
+      flex: 1;
+    }
+
+    .card-body .icon {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .card-body h3 {
+      font-size: 1.6rem;
       color: var(--primary-dark);
       margin-bottom: 8px;
     }
 
-    /* Formulario RSVP */
+    /* Galería */
+    .gallery-section {
+      margin: 60px 0;
+    }
+
     .section-title {
       text-align: center;
-      margin: 50px 0 25px;
+      margin-bottom: 30px;
     }
 
     .section-title h2 {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       color: var(--primary-dark);
     }
 
     .section-title p {
       color: var(--text-muted);
+      font-size: 1rem;
     }
 
+    .gallery-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 10px 22px;
+      border-radius: 30px;
+      border: 1px solid var(--primary);
+      background: transparent;
+      color: var(--primary-dark);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      background: #e2e8f0;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-item .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.65) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 14px;
+      color: white;
+      font-size: 0.85rem;
+    }
+
+    .gallery-item:hover .overlay {
+      opacity: 1;
+    }
+
+    /* Subida de Fotos para Invitados */
+    .upload-box {
+      background: #fdfbf7;
+      border: 2px dashed #d5c3aa;
+      border-radius: var(--radius);
+      padding: 30px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .upload-box h3 {
+      font-size: 1.6rem;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    /* Formulario RSVP */
     .form-box {
       background: var(--white);
-      padding: 35px;
+      padding: 38px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       border: 1px solid rgba(157, 129, 97, 0.2);
@@ -132,7 +245,7 @@
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .form-group.full {
@@ -144,7 +257,7 @@
       font-size: 0.9rem;
       font-weight: 500;
       margin-bottom: 6px;
-      color: #444;
+      color: #334155;
     }
 
     input[type="text"],
@@ -154,7 +267,7 @@
     textarea {
       width: 100%;
       padding: 12px 14px;
-      border: 1px solid #ddd;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       font-family: inherit;
       font-size: 0.95rem;
@@ -164,13 +277,6 @@
     input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: var(--primary);
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 10px;
     }
 
     .btn {
@@ -185,11 +291,22 @@
       font-weight: 600;
       cursor: pointer;
       letter-spacing: 0.5px;
-      transition: background 0.2s, transform 0.1s;
+      transition: background 0.2s;
     }
 
     .btn:hover {
       background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+      width: auto;
+      padding: 10px 20px;
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
     }
 
     .alert {
@@ -201,32 +318,20 @@
       font-weight: 500;
     }
 
-    .alert-success {
-      background: #e9f7ea;
-      color: #27672a;
-      border: 1px solid #c3e6cb;
-    }
-
-    .alert-error {
-      background: #fde8e8;
-      color: #9b1c1c;
-      border: 1px solid #f8b4b4;
-    }
+    .alert-success { background: #e9f7ea; color: #27672a; border: 1px solid #c3e6cb; }
+    .alert-error { background: #fde8e8; color: #9b1c1c; border: 1px solid #f8b4b4; }
 
     /* Panel WhatsApp */
     .whatsapp-card {
       background: #f0fdf4;
       border: 1px solid #bbf7d0;
-      padding: 25px;
+      padding: 30px;
       border-radius: var(--radius);
       margin-bottom: 60px;
       text-align: center;
     }
 
-    .whatsapp-card h3 {
-      color: #166534;
-      margin-bottom: 8px;
-    }
+    .whatsapp-card h3 { color: #166534; margin-bottom: 8px; }
 
     .whatsapp-btn {
       background: #25d366;
@@ -235,20 +340,84 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
+      padding: 12px 26px;
       border-radius: 30px;
       font-weight: 600;
-      margin-top: 12px;
+      margin-top: 15px;
       transition: background 0.2s;
     }
 
-    .whatsapp-btn:hover {
-      background: #1eb956;
+    .whatsapp-btn:hover { background: #1eb956; }
+
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      padding: 20px;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 85vh;
+      text-align: center;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-controls {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .lightbox-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -35px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
     }
 
     footer {
       text-align: center;
-      padding: 30px;
+      padding: 35px 20px;
       font-size: 0.85rem;
       color: var(--text-muted);
       border-top: 1px solid #eaeaea;
@@ -263,6 +432,7 @@
 </head>
 <body>
 
+  <!-- Cabecera -->
   <header class="hero">
     <div class="container">
       <span class="badge">Nos casamos</span>
@@ -273,32 +443,73 @@
 
   <main class="container">
 
-    <!-- Tarjetas de Información -->
+    <!-- Tarjetas de Información con Fotos Reales del Restaurante -->
     <section class="details-cards">
       <div class="card">
-        <span class="icon">📅</span>
-        <h3>La Fecha</h3>
-        <p>Próximamente</p>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Horario a concretar</p>
+        <img src="/images/restaurante/fotojardin_1_2207-164509588623044.webp" alt="El Lugar y Jardines">
+        <div class="card-body">
+          <span class="icon">🌿</span>
+          <h3>El Entorno y Jardín</h3>
+          <p>Un espacio al aire libre inolvidable para recibir a nuestros invitados.</p>
+        </div>
       </div>
+
       <div class="card">
-        <span class="icon">📍</span>
-        <h3>El Lugar</h3>
-        <p>Lugar de Celebración</p>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Ver mapa y cómo llegar</p>
+        <img src="/images/restaurante/fotoboda01_1_2207-164509588477739.webp" alt="El Banquete">
+        <div class="card-body">
+          <span class="icon">🥂</span>
+          <h3>El Banquete</h3>
+          <p>Los salones donde celebraremos la cena y la fiesta por todo lo alto.</p>
+        </div>
       </div>
+
       <div class="card">
-        <span class="icon">📸</span>
-        <h3>Galería</h3>
-        <p>Fotos de la Boda</p>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">Podrás subir tus fotos el gran día</p>
+        <img src="/images/restaurante/bodegon01_1_2207-164509579386677.webp" alt="Gastronomía">
+        <div class="card-body">
+          <span class="icon">🍽️</span>
+          <h3>Gastronomía</h3>
+          <p>Un menú seleccionado con mimo, apto para todas las dietas y alérgenos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Galería Fotográfica -->
+    <section class="gallery-section">
+      <div class="section-title">
+        <h2>Galería de Fotos</h2>
+        <p>Descubre el lugar y los mejores momentos de nuestra celebración</p>
+      </div>
+
+      <div class="gallery-tabs">
+        <button class="tab-btn active" onclick="switchGalleryTab('venue')">🏛️ El Restaurante (25)</button>
+        <button class="tab-btn" onclick="switchGalleryTab('invitados')">📸 Fotos de Invitados</button>
+      </div>
+
+      <div id="galleryGrid" class="gallery-grid">
+        <!-- Rellenado dinámicamente con JavaScript -->
+      </div>
+
+      <!-- Zona de Subida de Fotos para los invitados -->
+      <div class="upload-box" id="uploadBox">
+        <h3>📸 ¿Estás en la boda? ¡Sube tus fotos aquí!</h3>
+        <p style="color: var(--text-muted); margin-bottom: 18px; font-size: 0.95rem;">
+          Comparte las fotos que hagas con el móvil para que todos podamos recordarlas.
+        </p>
+        
+        <form id="uploadForm" enctype="multipart/form-data" style="max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px;">
+          <input type="text" id="photoGuestName" placeholder="Tu nombre" style="background: white;" required>
+          <input type="text" id="photoCaption" placeholder="Dedicatoria o momento (opcional)" style="background: white;">
+          <input type="file" id="photoFileInput" accept="image/*" style="background: white; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1;" required>
+          <button type="submit" class="btn" style="margin-top: 5px;">Subir Foto al Álbum 🚀</button>
+        </form>
+        <div id="uploadAlert" class="alert" style="margin-top: 15px;"></div>
       </div>
     </section>
 
     <!-- Sección de Confirmación (RSVP) -->
     <section class="section-title">
       <h2>Confirmación de Asistencia</h2>
-      <p>Por favor, confirma tu asistencia para que podamos organizar los menús y mesas con el catering.</p>
+      <p>Por favor, confirma tu asistencia para organizar menús y mesas con el catering.</p>
     </section>
 
     <div class="form-box">
@@ -387,16 +598,159 @@
 
   </main>
 
+  <!-- Visor de Fotos en Pantalla Completa (Lightbox) -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+      <img id="lightboxImg" src="" alt="Foto Boda">
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" onclick="prevPhoto()">❮ Anterior</button>
+        <a id="lightboxDownload" class="lightbox-btn" href="" download target="_blank">Descargar Foto 📥</a>
+        <button class="lightbox-btn" onclick="nextPhoto()">Siguiente ❯</button>
+      </div>
+    </div>
+  </div>
+
   <footer>
-    <p>Hecho con ❤️ para nuestra boda | Gestionado en Render con PostgreSQL</p>
+    <p>Hecho con ❤️ para nuestra boda | <a href="/admin.html" style="color: var(--primary-dark); font-weight: 500;">Panel de Novios</a></p>
   </footer>
 
   <script>
+    let galleryData = { venue: [], novios: [], invitados: [] };
+    let currentTab = 'venue';
+    let currentPhotosList = [];
+    let currentPhotoIndex = 0;
+
     function togglePetsField() {
       const select = document.getElementById('has_pets');
       const group = document.getElementById('petDetailsGroup');
       group.style.display = select.value === 'true' ? 'block' : 'none';
     }
+
+    // Cargar galería
+    async function loadGallery() {
+      try {
+        const res = await fetch('/api/gallery');
+        if (res.ok) {
+          galleryData = await res.json();
+          renderGallery();
+        }
+      } catch (err) {
+        console.error('Error cargando galería:', err);
+      }
+    }
+
+    function switchGalleryTab(tab) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGallery();
+    }
+
+    function renderGallery() {
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '';
+
+      if (currentTab === 'venue') {
+        currentPhotosList = galleryData.venue || [];
+        if (!currentPhotosList.length) {
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 30px;">Cargando fotos del restaurante...</p>';
+          return;
+        }
+
+        currentPhotosList.forEach((url, idx) => {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          item.onclick = () => openLightbox(idx);
+          item.innerHTML = `
+            <img src="${url}" alt="Restaurante Boda" loading="lazy">
+            <div class="overlay"><span>Ampliar / Descargar</span></div>
+          `;
+          grid.appendChild(item);
+        });
+      } else {
+        const guestPhotos = galleryData.invitados || [];
+        currentPhotosList = guestPhotos.map(p => p.image_url);
+
+        if (!guestPhotos.length) {
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 30px;">Aún no se han subido fotos de invitados. ¡Sé el primero en compartir la tuya abajo!</p>';
+          return;
+        }
+
+        guestPhotos.forEach((photo, idx) => {
+          const item = document.createElement('div');
+          item.className = 'gallery-item';
+          item.onclick = () => openLightbox(idx);
+          item.innerHTML = `
+            <img src="${photo.image_url}" alt="Foto de ${escapeHtml(photo.guest_name)}" loading="lazy">
+            <div class="overlay"><span>De: ${escapeHtml(photo.guest_name)}</span></div>
+          `;
+          grid.appendChild(item);
+        });
+      }
+    }
+
+    // Lightbox
+    function openLightbox(index) {
+      if (!currentPhotosList.length) return;
+      currentPhotoIndex = index;
+      const url = currentPhotosList[currentPhotoIndex];
+      document.getElementById('lightboxImg').src = url;
+      document.getElementById('lightboxDownload').href = url;
+      document.getElementById('lightbox').classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    function nextPhoto() {
+      if (!currentPhotosList.length) return;
+      currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotosList.length;
+      openLightbox(currentPhotoIndex);
+    }
+
+    function prevPhoto() {
+      if (!currentPhotosList.length) return;
+      currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotosList.length) % currentPhotosList.length;
+      openLightbox(currentPhotoIndex);
+    }
+
+    // Subir foto desde el formulario
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('uploadAlert');
+      alertBox.style.display = 'none';
+
+      const fileInput = document.getElementById('photoFileInput');
+      if (!fileInput.files.length) return;
+
+      const formData = new FormData();
+      formData.append('photo', fileInput.files[0]);
+      formData.append('guest_name', document.getElementById('photoGuestName').value);
+      formData.append('caption', document.getElementById('photoCaption').value);
+
+      try {
+        const res = await fetch('/api/photos/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (res.ok) {
+          alertBox.className = 'alert alert-success';
+          alertBox.innerText = '¡Foto subida con éxito! Ya está disponible en la galería 🎉';
+          alertBox.style.display = 'block';
+          document.getElementById('uploadForm').reset();
+          loadGallery();
+        } else {
+          throw new Error('Error al subir');
+        }
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = 'Error al subir la imagen. Inténtalo de nuevo.';
+        alertBox.style.display = 'block';
+      }
+    });
 
     // Envío del formulario RSVP
     document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
@@ -438,7 +792,6 @@
       }
     });
 
-    // Generar enlace de WhatsApp
     function generateWhatsAppLink(event) {
       const name = document.getElementById('waGuestName').value.trim() || 'amigo/a';
       const phone = document.getElementById('waGuestPhone').value.replace(/[^0-9]/g, '');
@@ -453,6 +806,14 @@
       window.open(url, '_blank');
       event.preventDefault();
     }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    // Inicializar galería al cargar la página
+    loadGallery();
   </script>
 </body>
 </html>

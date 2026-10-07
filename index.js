@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
 const path = require('path');
+const fs = require('fs');
+const multer = require('multer');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +14,36 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+// Configuración de almacenamiento para fotos subidas por invitados
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, 'images', 'invitados');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase() || '.jpg';
+    const cleanBase = path.basename(file.originalname, ext).replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 20);
+    const uniqueName = `foto_${Date.now()}_${cleanBase}${ext}`;
+    cb(null, uniqueName);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 15 * 1024 * 1024 }, // 15MB máx
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Solo se permiten archivos de imagen (JPG, PNG, WEBP, etc.)'));
+    }
+  }
+});
 
 // Configuración de PostgreSQL
 let pool = null;
@@ -89,7 +121,6 @@ app.get('/api/guests', async (req, res) => {
   try {
     const { rows: guests } = await pool.query('SELECT * FROM guests ORDER BY created_at DESC');
 
-    // Estadísticas
     const stats = guests.reduce(
       (acc, g) => {
         if (g.attending) {
@@ -177,6 +208,98 @@ app.get('/api/whatsapp-invite', (req, res) => {
     : `https://wa.me/?text=${encodeURIComponent(message)}`;
 
   res.json({ message, inviteLink, whatsappUrl });
+});
+
+// Endpoint para consultar fotos de la galería (restaurante, novios e invitados)
+app.get('/api/gallery', async (req, res) => {
+  try {
+    const venueDir = path.join(__dirname, 'images', 'restaurante');
+    const noviosDir = path.join(__dirname, 'images', 'novios');
+    const imageRegex = /\.(webp|jpg|jpeg|png|gif)$/i;
+
+    const venue = fs.existsSync(venueDir)
+      ? fs.readdirSync(venueDir).filter(f => imageRegex.test(f)).map(f => `/images/restaurante/${f}`)
+      : [];
+
+    const novios = fs.existsSync(noviosDir)
+      ? fs.readdirSync(noviosDir).filter(f => imageRegex.test(f)).map(f => `/images/novios/${f}`)
+      : [];
+
+    let invitados = [];
+    if (pool) {
+      const { rows } = await pool.query('SELECT * FROM photos ORDER BY created_at DESC');
+      invitados = rows;
+    } else {
+      const invitadosDir = path.join(__dirname, 'images', 'invitados');
+      if (fs.existsSync(invitadosDir)) {
+        invitados = fs.readdirSync(invitadosDir)
+          .filter(f => imageRegex.test(f))
+          .map(f => ({
+            id: f,
+            image_url: `/images/invitados/${f}`,
+            guest_name: 'Invitado',
+            caption: '',
+            is_approved: true
+          }));
+      }
+    }
+
+    res.json({ venue, novios, invitados });
+  } catch (err) {
+    console.error('Error leyendo galería:', err);
+    res.status(500).json({ error: 'Error al consultar imágenes' });
+  }
+});
+
+// Endpoint para que los invitados suban fotos desde la web
+app.post('/api/photos/upload', upload.single('photo'), async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Debes seleccionar una imagen para subir' });
+  }
+
+  const guestName = req.body.guest_name ? req.body.guest_name.trim() : 'Invitado anónimo';
+  const caption = req.body.caption ? req.body.caption.trim() : '';
+  const imageUrl = `/images/invitados/${req.file.filename}`;
+
+  try {
+    let photoRecord = {
+      id: Date.now(),
+      guest_name: guestName,
+      image_url: imageUrl,
+      caption,
+      is_approved: true,
+      created_at: new Date()
+    };
+
+    if (pool) {
+      const result = await pool.query(
+        'INSERT INTO photos (guest_name, image_url, caption, is_approved) VALUES ($1, $2, $3, $4) RETURNING *',
+        [guestName, imageUrl, caption, true]
+      );
+      photoRecord = result.rows[0];
+    }
+
+    res.status(201).json({ success: true, photo: photoRecord });
+  } catch (err) {
+    console.error('Error al guardar foto en BD:', err);
+    res.status(500).json({ error: 'Error al registrar la foto' });
+  }
+});
+
+// Endpoint para que los novios aprueben / seleccionen fotos destacadas
+app.patch('/api/photos/:id/toggle-approve', async (req, res) => {
+  if (!pool) return res.status(503).json({ error: 'Base de datos no disponible' });
+  const { id } = req.params;
+  try {
+    const result = await pool.query(
+      'UPDATE photos SET is_approved = NOT is_approved WHERE id = $1 RETURNING *',
+      [id]
+    );
+    if (result.rows.length === 0) return res.status(404).json({ error: 'Foto no encontrada' });
+    res.json({ success: true, photo: result.rows[0] });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Iniciar servidor
