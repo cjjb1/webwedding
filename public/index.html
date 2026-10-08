@@ -1465,8 +1465,8 @@
         </div>
 
         <div class="gallery-tabs">
-          <button class="tab-btn active" onclick="switchGalleryTab('venue')"><i data-lucide="landmark"></i> Restaurante Magullo (25)</button>
-          <button class="tab-btn" onclick="switchGalleryTab('novios')"><i data-lucide="gem"></i> Los Novios (7)</button>
+          <button class="tab-btn active" onclick="switchGalleryTab('novios')"><i data-lucide="gem"></i> Los Novios (7)</button>
+          <button class="tab-btn" onclick="switchGalleryTab('venue')"><i data-lucide="landmark"></i> Restaurante Magullo (25)</button>
           <button class="tab-btn" onclick="switchGalleryTab('invitados')"><i data-lucide="camera"></i> Fotos de Invitados</button>
         </div>
 
@@ -1682,14 +1682,14 @@
 
   <script>
     let galleryData = { venue: [], novios: [], invitados: [] };
-    let currentTab = 'venue';
+    let currentTab = 'novios';
     let currentPhotosList = [];
     let currentPhotoIndex = 0;
 
     // Cuenta Atrás exacta para el 29 de Mayo de 2027
     function startCountdown() {
-      // Fecha oficial: 29 de Mayo de 2027 a las 17:30
-      const weddingDate = new Date('2027-05-29T17:30:00');
+      // Fecha oficial: 29 de Mayo de 2027 a las 13:30
+      const weddingDate = new Date('2027-05-29T13:30:00');
 
       function update() {
         const now = new Date().getTime();
@@ -1738,7 +1738,10 @@
     function switchGalleryTab(tab) {
       currentTab = tab;
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      const triggerBtn = (window.event && window.event.target) ? window.event.target.closest('.tab-btn') : null;
+      if (triggerBtn) {
+        triggerBtn.classList.add('active');
+      }
       renderGallery();
     }
 
