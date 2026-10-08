@@ -22,6 +22,11 @@ app.use(express.static(path.join(__dirname, 'public'), {
 }));
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// Ruta limpia para la historia de los novios
+app.get('/historia', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'historia.html'));
+});
+
 // Configuración de almacenamiento para fotos subidas por invitados
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

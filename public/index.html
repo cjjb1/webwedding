@@ -346,8 +346,51 @@
       font-weight: 300;
       letter-spacing: 2px;
       color: rgba(255,255,255,0.92);
-      margin-bottom: 35px;
+      margin-bottom: 30px;
       line-height: 1.6;
+    }
+
+    /* Frase destacada y sutil de la historia en el Hero */
+    .hero-story-teaser {
+      margin: 14px auto 24px;
+      max-width: 720px;
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .story-teaser-intro {
+      font-size: clamp(1rem, 1.9vw, 1.16rem);
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.95);
+      line-height: 1.6;
+      font-weight: 300;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .story-subtle-link {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.15rem, 2.2vw, 1.38rem);
+      font-style: italic;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: rgba(216, 194, 157, 0.6);
+      text-underline-offset: 6px;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    .story-subtle-link:hover {
+      color: #ffffff;
+      text-decoration-color: #ffffff;
+      transform: translateY(-1px);
+      text-shadow: 0 0 14px rgba(216, 194, 157, 0.85);
     }
 
     /* Contador Regresivo de Lujo */
@@ -1288,6 +1331,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="javascript:void(0)" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación</a></li>
+      <li><a href="/historia.html"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
       <li><a href="#itinerario">Itinerario</a></li>
       <li><a href="#espacio">El Espacio</a></li>
       <li><a href="#galeria">Galería</a></li>
@@ -1300,6 +1344,17 @@
     <div class="hero-content">
       <span class="hero-badge">29 de Mayo de 2027 &bull; Restaurante Magullo, Segovia</span>
       <h1>Blanca y Álvaro, nos casamos</h1>
+      
+      <!-- Teaser Cómo se conocieron Blanca y Álvaro -->
+      <div class="hero-story-teaser">
+        <p class="story-teaser-intro">
+          Muchos os preguntaréis cómo se conocieron Blanca y Álvaro, y la verdad que fue totalmente casualidad...
+        </p>
+        <a href="/historia.html" class="story-subtle-link">
+          ¿Quieres saber nuestra historia?...
+        </a>
+      </div>
+
       <p class="tagline">
         Restaurante Magullo &bull; 29 de Mayo de 2027 &bull; Una historia para celebrar juntos <i data-lucide="gem"></i> <i data-lucide="paw-print"></i>
       </p>
@@ -1326,7 +1381,7 @@
 
       <div class="hero-actions">
         <button class="btn-outline" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación Oficial</button>
-        <a href="#rsvp" class="btn-confirm"><i data-lucide="sparkles"></i> Confirmar Asistencia</a>
+        <a href="#rsvp" class="btn-confirm"><i data-lucide="heart"></i> Confirmar Asistencia</a>
         <a href="#itinerario" class="btn-outline"><i data-lucide="calendar"></i> Itinerario</a>
       </div>
     </div>

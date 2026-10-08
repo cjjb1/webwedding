@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómo se conocieron Blanca & Álvaro | Nuestra Historia</title>
+  
+  <!-- Previsualización Open Graph -->
+  <meta property="og:title" content="Cómo se conocieron Blanca & Álvaro · Postigo de la Luna">
+  <meta property="og:description" content="Muchos os preguntaréis cómo se conocieron Blanca y Álvaro, y la verdad que fue totalmente casualidad, una alineación de los astros o de la luna mejor dicho...">
+  <meta property="og:image" content="/images/segovia/postigo-de-la-luna.jpg">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="/images/logo/anillo.png">
+  <link rel="apple-touch-icon" href="/images/logo/anillo.png">
+
+  <!-- Iconos Lucide -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Tipografías de lujo estilo editorial -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #0f1614;
+      --surface: #FFFFFF;
+      --primary: #344B48;
+      --primary-hover: #263B38;
+      --heading: #fcfbf9;
+      --text: #eaebe8;
+      --text-muted: #b8c2be;
+      --accent: #d8c29d;
+      --accent-gold: #c2a477;
+      --border-gold: rgba(216, 194, 157, 0.35);
+      --glass-bg: rgba(18, 25, 23, 0.78);
+      --glass-card: rgba(25, 36, 33, 0.65);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      line-height: 1.85;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* Fondo con la imagen del Postigo de la Luna */
+      background: 
+        linear-gradient(180deg, rgba(12, 18, 16, 0.68) 0%, rgba(14, 20, 18, 0.82) 45%, rgba(10, 15, 13, 0.94) 100%),
+        url('/images/segovia/postigo-de-la-luna.jpg') center center / cover no-repeat fixed;
+      position: relative;
+    }
+
+    /* Lucide icons */
+    .lucide, svg.lucide {
+      width: 1.15em;
+      height: 1.15em;
+      vertical-align: -0.18em;
+      stroke-width: 1.8;
+      display: inline-block;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+      color: var(--heading);
+    }
+
+    /* Barra de Navegación */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(14, 20, 18, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(216, 194, 157, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-logo .logo-img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-btn {
+      padding: 9px 24px;
+      border-radius: 40px;
+      background: var(--primary);
+      color: white !important;
+      font-size: 0.82rem;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease !important;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(216, 194, 157, 0.4);
+    }
+
+    /* Contenido Principal */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 130px 20px 80px;
+    }
+
+    .story-wrapper {
+      max-width: 840px;
+      width: 100%;
+      margin: 0 auto;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Cabecera del Relato */
+    .story-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .story-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(216, 194, 157, 0.12);
+      border: 1px solid var(--border-gold);
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .story-header h1 {
+      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+      line-height: 1.15;
+      margin-bottom: 12px;
+      font-style: italic;
+      font-weight: 400;
+      text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .story-header .subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    .divider-flourish {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px auto 0;
+      max-width: 320px;
+      opacity: 0.85;
+    }
+
+    .divider-flourish::before,
+    .divider-flourish::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .divider-flourish span {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* Tarjeta Principal del Relato */
+    .story-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 48px 45px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    /* Párrafos del Relato */
+    .story-paragraph {
+      font-size: clamp(1.02rem, 1.9vw, 1.16rem);
+      font-weight: 300;
+      line-height: 2;
+      color: #f1f2ee;
+      margin-bottom: 28px;
+      text-align: justify;
+    }
+
+    .story-paragraph.first-paragraph::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      float: left;
+      line-height: 0.85;
+      padding-right: 14px;
+      padding-top: 4px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Bloque Destacado de la Cita / Noche Mágica */
+    .quote-box {
+      margin: 35px 0;
+      padding: 24px 28px;
+      background: rgba(216, 194, 157, 0.08);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      position: relative;
+    }
+
+    .quote-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+      font-style: italic;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .quote-box .quote-caption {
+      margin-top: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Párrafo Final Destacado con Amor */
+    .final-touch {
+      margin-top: 35px;
+      padding: 24px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(52, 75, 72, 0.35) 0%, rgba(216, 194, 157, 0.12) 100%);
+      border: 1px solid rgba(216, 194, 157, 0.4);
+      text-align: center;
+    }
+
+    .final-touch p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.35rem, 2.7vw, 1.75rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .final-touch .hearts-decor {
+      color: var(--accent);
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+    }
+
+    /* Píldoras con Datos Clave */
+    .milestones {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 35px;
+    }
+
+    .milestone-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(216, 194, 157, 0.2);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .milestone-item:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .milestone-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(216, 194, 157, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .milestone-text .m-title {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      font-weight: 600;
+      display: block;
+    }
+
+    .milestone-text .m-val {
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Acciones Inferiores */
+    .story-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold,
+    .btn-confirm {
+      background: var(--primary);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-gold:hover,
+    .btn-confirm:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(216, 194, 157, 0.45);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      padding: 14px 30px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* Modal de Invitación */
+    .invitation-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 22, 19, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      padding: 20px;
+    }
+
+    .invitation-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .invitation-modal-content {
+      position: relative;
+      max-width: 440px;
+      width: 100%;
+      margin: auto;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .invitation-card {
+      background: #fdfbf7;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.2);
+      border: 1px solid rgba(157, 129, 81, 0.4);
+      width: 100%;
+      text-align: center;
+      color: #263431;
+    }
+
+    .invitation-card-header {
+      padding: 6px 0 12px;
+      border-bottom: 1px solid rgba(157, 129, 81, 0.2);
+      margin-bottom: 14px;
+    }
+
+    .invite-monogram {
+      display: block;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #C2A477;
+      font-weight: 700;
+    }
+
+    .invite-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #263431;
+    }
+
+    .invitation-img-box {
+      margin: 14px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border: 1px solid rgba(157, 129, 81, 0.25);
+    }
+
+    .invitation-img-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .invitation-card-footer {
+      margin: 14px 0;
+    }
+
+    .invite-names {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #344B48;
+      margin-bottom: 4px;
+    }
+
+    .invite-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #C2A477;
+      letter-spacing: 2px;
+    }
+
+    .invite-place {
+      font-size: 0.85rem;
+      color: #687772;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      background: white;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 10;
+      color: #263431;
+      transition: transform 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(10, 15, 13, 0.95);
+      border-top: 1px solid rgba(216, 194, 157, 0.2);
+      padding: 30px 20px;
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 12px 18px; }
+      .nav-logo { font-size: 1.35rem; }
+      .nav-links { display: none; }
+      .story-card { padding: 30px 22px; }
+      .story-paragraph { text-align: left; }
+      main { padding: 105px 16px 50px; }
+      .story-actions { flex-direction: column; width: 100%; }
+      .story-actions a, .story-actions button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación Fija -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo/anillo.png" alt="Logo Alianza Blanca & Álvaro" class="logo-img">
+      <span>Blanca & Álvaro</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/"><i data-lucide="home"></i> Volver a la Boda</a></li>
+      <li><a href="javascript:void(0)" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación</a></li>
+      <li><a href="/#rsvp" class="nav-btn"><i data-lucide="sparkles"></i> Confirmar Asistencia</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="story-wrapper">
+      
+      <!-- Cabecera Editorial -->
+      <div class="story-header">
+        <span class="story-badge">
+          <i data-lucide="moon"></i> Segovia &bull; 5 de Marzo de 2022
+        </span>
+        <h1>Cómo se conocieron Blanca y Álvaro</h1>
+        <p class="subtitle">Una alineación de los astros... o de la luna, mejor dicho</p>
+        <div class="divider-flourish">
+          <span>&bull;</span>
+          <i data-lucide="sparkles" style="color: var(--accent);"></i>
+          <span>&bull;</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta del Relato -->
+      <article class="story-card">
+        
+        <p class="story-paragraph first-paragraph">
+          Muchos os preguntaréis cómo se conocieron Blanca y Álvaro, y la verdad que fue totalmente casualidad, una alineación de los astros, o de la luna mejor dicho, y es que el destino los había cruzado un montón de veces a lo largo de los años. Álvaro era muy consciente de la existencia de Blanca, y por el contrario, Blanca muy inconsciente de la existencia de Álvaro.
+        </p>
+
+        <!-- Cita destacada evocadora -->
+        <div class="quote-box">
+          <p>
+            «Y bendita fue esa corazonada, pues cuando la noche empezaba a desaparecer para dar paso a un nuevo día, Blanca bajó las escaleras del Postigo de la Luna...»
+          </p>
+          <div class="quote-caption">
+            <i data-lucide="map-pin"></i> Escaleras del Postigo del Consuelo / Postigo de la Luna, Segovia
+          </div>
+        </div>
+
+        <p class="story-paragraph">
+          Pero una noche, el 5 de marzo de 2022, con una luna creciente tras un nuevo comienzo del ciclo lunar, Álvaro decidió a última hora salir a dar una vuelta ese día, solo, sin expectativas puestas, guiándose por la corazonada de que debía salir, incluso sin sus amigos. Y bendita fue esa corazonada, pues cuando la noche empezaba a desaparecer para dar paso a un nuevo día, Blanca bajó las escaleras del Postigo de la Luna. Tras un cruce de miradas y alguna que otra palabra de vacile, se encendió una llama dentro de cada uno la cual no sabían que lo había hecho ni eran conscientes que existía.
+        </p>
+
+        <!-- Broche de Oro -->
+        <div class="final-touch">
+          <p>«Esa noche Álvaro entró por primera vez en casa de Blanca y desde ese día no ha vuelto a salir.»</p>
+          <div class="hearts-decor">
+            <i data-lucide="gem"></i> &bull; <i data-lucide="paw-print"></i> &bull; <i data-lucide="sparkles"></i>
+          </div>
+        </div>
+
+        <!-- Hitos de su historia -->
+        <div class="milestones">
+          <div class="milestone-item">
+            <div class="milestone-icon">
+              <i data-lucide="moon"></i>
+            </div>
+            <div class="milestone-text">
+              <span class="m-title">5 de Marzo de 2022</span>
+              <span class="m-val">Noche de luna creciente</span>
+            </div>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon">
+              <i data-lucide="map-pin"></i>
+            </div>
+            <div class="milestone-text">
+              <span class="m-title">El Encuentro</span>
+              <span class="m-val">Postigo de la Luna, Segovia</span>
+            </div>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon">
+              <i data-lucide="gem"></i>
+            </div>
+            <div class="milestone-text">
+              <span class="m-title">El Gran Día</span>
+              <span class="m-val">29 de Mayo de 2027</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="story-actions">
+          <a href="/" class="btn-outline">
+            <i data-lucide="arrow-left"></i> Volver a la Boda
+          </a>
+          <button class="btn-outline" onclick="openInvitationModal()">
+            <i data-lucide="mail"></i> Ver Invitación Oficial
+          </button>
+          <a href="/#rsvp" class="btn-confirm">
+            <i data-lucide="sparkles"></i> Confirmar Asistencia
+          </a>
+        </div>
+
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Modal de Invitación Oficial -->
+  <div id="invitationModal" class="invitation-modal" onclick="closeInvitationModal(event)">
+    <div class="invitation-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeInvitationModal(event)">&times;</button>
+      <div class="invitation-card">
+        <div class="invitation-card-header">
+          <span class="invite-monogram">Save the Date</span>
+          <span class="invite-title">Blanca & Álvaro</span>
+        </div>
+        <div class="invitation-img-box">
+          <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida con nuestros perritos">
+        </div>
+        <div class="invitation-card-footer">
+          <p class="invite-names">¡Blanca y Álvaro nos casamos! <i data-lucide="gem"></i> <i data-lucide="paw-print"></i></p>
+          <p class="invite-date">29 &bull; Mayo &bull; 2027</p>
+          <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
+        </div>
+        <div class="modal-actions" style="margin-top: 15px;">
+          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-confirm">
+            <i data-lucide="download"></i> Descargar Invitación
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Blanca & Álvaro &bull; 29 de Mayo de 2027 &bull; Segovia</p>
+  </footer>
+
+  <script>
+    // Inicializar iconos Lucide
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    // Funciones del Modal de Invitación
+    function openInvitationModal() {
+      const modal = document.getElementById('invitationModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeInvitationModal(e) {
+      const modal = document.getElementById('invitationModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeInvitationModal();
+    });
+  </script>
+</body>
+</html>
