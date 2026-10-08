@@ -12,6 +12,8 @@
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://webwedding.onrender.com/images/novios/invitacion-imagen.jpg">
+  <link rel="icon" type="image/png" href="/images/logo/anillo.png">
+  <link rel="apple-touch-icon" href="/images/logo/anillo.png">
 
   <!-- Tipografías de lujo estilo editorial -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,14 +75,28 @@
 
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
+      font-size: 1.65rem;
       font-weight: 700;
       color: var(--gold-dark);
       text-decoration: none;
       letter-spacing: 2px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-logo .logo-img {
+      height: 44px;
+      width: auto;
+      max-width: 65px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .nav-logo:hover .logo-img {
+      transform: scale(1.08) rotate(-3deg);
     }
 
     .nav-links {
@@ -996,7 +1012,9 @@
       .form-wrapper { padding: 30px 20px; }
       .form-grid { grid-template-columns: 1fr; }
       .form-group.full { grid-column: span 1; }
-      .navbar { padding: 14px 20px; }
+      .navbar { padding: 12px 18px; }
+      .nav-logo { font-size: 1.35rem; gap: 9px; }
+      .nav-logo .logo-img { height: 34px; max-width: 50px; }
       .nav-links { display: none; } /* En móvil simplificamos el menú */
     }
   </style>
@@ -1006,7 +1024,8 @@
   <!-- Navegación Fija Glassmorphism -->
   <nav class="navbar">
     <a href="#" class="nav-logo">
-      💍 Blanca & Álvaro
+      <img src="/images/logo/anillo.png" alt="Logo Alianza Blanca & Álvaro" class="logo-img">
+      <span>Blanca & Álvaro</span>
     </a>
     <ul class="nav-links">
       <li><a href="javascript:void(0)" onclick="openInvitationModal()">💌 Ver Invitación</a></li>
@@ -1354,6 +1373,9 @@
 
   <footer>
     <div class="container">
+      <div style="margin-bottom: 15px;">
+        <img src="/images/logo/anillo.png" alt="Logo Alianza Blanca & Álvaro" style="height: 48px; width: auto; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.15)); opacity: 0.95;">
+      </div>
       <h4>Blanca y Álvaro &bull; Restaurante Magullo</h4>
       <p style="margin-bottom: 15px;">29 de Mayo de 2027 &bull; Segovia</p>
       <p style="font-size: 0.8rem; color: #738078;">
