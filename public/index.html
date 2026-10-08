@@ -74,6 +74,12 @@
       color: var(--text);
       line-height: 1.7;
       overflow-x: hidden;
+      width: 100%;
+    }
+
+    img, video {
+      max-width: 100%;
+      height: auto;
     }
 
     h1, h2, h3, h4, .serif {
@@ -557,7 +563,7 @@
     /* Sección El Espacio Restaurante Magullo - Estilo Editorial */
     .finca-feature {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       gap: 50px;
       align-items: center;
       margin-bottom: 60px;
@@ -566,6 +572,9 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow-md);
       border: 1px solid var(--border);
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
     }
 
     .finca-img-wrapper {
@@ -573,10 +582,15 @@
       border-radius: 14px;
       overflow: hidden;
       box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .finca-img-wrapper img {
       width: 100%;
+      max-width: 100%;
       height: 380px;
       object-fit: cover;
       display: block;
@@ -587,11 +601,21 @@
       transform: scale(1.04);
     }
 
+    .finca-text {
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
     .finca-text h3 {
-      font-size: 2.3rem;
+      font-size: clamp(1.8rem, 3.2vw, 2.3rem);
       color: var(--heading);
       margin-bottom: 16px;
-      line-height: 1.2;
+      line-height: 1.25;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
     }
 
     .finca-text p {
@@ -599,35 +623,43 @@
       font-size: 1.02rem;
       margin-bottom: 22px;
       line-height: 1.8;
+      overflow-wrap: break-word;
     }
 
     .finca-points {
       list-style: none;
       margin-bottom: 25px;
+      padding-left: 0;
+      max-width: 100%;
     }
 
     .finca-points li {
       margin-bottom: 12px;
       display: flex;
-      align-items: center;
-      gap: 12px;
+      align-items: flex-start;
+      gap: 10px;
       font-size: 0.95rem;
       font-weight: 500;
       color: var(--heading);
+      line-height: 1.5;
     }
 
     .finca-points li::before {
       content: '✦';
       color: var(--accent);
-      font-size: 1.1rem;
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 2px;
     }
 
     /* Tarjetas de Experiencia */
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 30px;
       margin-top: 30px;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .exp-card {
@@ -1302,8 +1334,11 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Responsive */
+    /* Responsive Adaptativo y Fluido */
     @media (max-width: 950px) {
+      .container {
+        padding: 0 20px;
+      }
       .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
@@ -1321,7 +1356,22 @@
       .invitation-card {
         max-width: 320px;
       }
-      .finca-feature { grid-template-columns: 1fr; padding: 30px; }
+      .finca-feature {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 30px;
+        padding: 30px 24px;
+        margin-bottom: 45px;
+      }
+      .finca-img-wrapper img {
+        height: 280px;
+      }
+      .finca-text h3 {
+        font-size: 1.95rem;
+      }
+      .cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 22px;
+      }
       .timeline::before { left: 20px; }
       .timeline-item { width: 100%; padding-left: 55px; padding-right: 0; text-align: left; }
       .timeline-item.right { left: 0; }
@@ -1333,6 +1383,189 @@
       .nav-logo { font-size: 1.35rem; gap: 9px; }
       .nav-logo .logo-img { height: 34px; max-width: 50px; }
       .nav-links { display: none; } /* En móvil simplificamos el menú */
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+      .hero {
+        padding: 100px 16px 50px;
+      }
+      .hero-story-teaser {
+        padding: 16px 14px;
+        margin: 14px auto 20px;
+        width: 100%;
+        max-width: 100%;
+      }
+      .story-teaser-intro {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      .story-subtle-link {
+        font-size: 1.15rem;
+      }
+      .section-header {
+        margin-bottom: 30px;
+      }
+      .section-header h2 {
+        font-size: 2.1rem;
+      }
+      .section-header p {
+        font-size: 0.95rem;
+      }
+      .finca-feature {
+        padding: 20px 16px;
+        border-radius: 16px;
+        gap: 22px;
+      }
+      .finca-img-wrapper {
+        border-radius: 12px;
+      }
+      .finca-img-wrapper img {
+        height: 230px;
+      }
+      .finca-text h3 {
+        font-size: 1.65rem;
+        margin-bottom: 12px;
+      }
+      .finca-text p {
+        font-size: 0.92rem;
+        line-height: 1.65;
+        margin-bottom: 16px;
+      }
+      .finca-points li {
+        font-size: 0.88rem;
+        margin-bottom: 10px;
+      }
+      .finca-text .btn-confirm {
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+        white-space: normal;
+        text-align: center;
+        padding: 13px 18px;
+        font-size: 0.82rem;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .exp-card .card-thumb {
+        height: 190px;
+      }
+      .exp-card .card-body {
+        padding: 20px 16px;
+      }
+      .exp-card h4 {
+        font-size: 1.4rem;
+      }
+      .gallery-tabs {
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .tab-btn {
+        padding: 9px 16px;
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .gallery-item {
+        border-radius: 10px;
+      }
+      .upload-box {
+        padding: 26px 16px;
+      }
+      .upload-box h3 {
+        font-size: 1.6rem;
+      }
+      .timeline-item {
+        padding-left: 45px;
+        margin-bottom: 30px;
+      }
+      .timeline-time {
+        font-size: 1.55rem;
+      }
+      .timeline-content h4 {
+        font-size: 1.25rem;
+      }
+      .form-wrapper {
+        padding: 24px 16px;
+        border-radius: 16px;
+      }
+      .allergies-wrapper-box {
+        padding: 16px 12px;
+      }
+      .allergy-entry-card {
+        padding: 14px 12px;
+      }
+      .whatsapp-card {
+        padding: 24px 16px;
+        margin-top: 30px;
+      }
+      .whatsapp-card h3 {
+        font-size: 1.35rem;
+      }
+      .whatsapp-btn {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px 16px;
+        font-size: 0.8rem;
+        white-space: normal;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 90px 14px 40px;
+      }
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      .hero p.tagline {
+        font-size: 0.92rem;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+      }
+      .countdown-box {
+        gap: 6px;
+        margin-bottom: 25px;
+      }
+      .countdown-item {
+        min-width: 66px;
+        padding: 8px 6px;
+        border-radius: 10px;
+      }
+      .countdown-item .num {
+        font-size: 1.9rem;
+      }
+      .countdown-item .label {
+        font-size: 0.62rem;
+        letter-spacing: 1px;
+      }
+      .hero-actions {
+        gap: 10px;
+      }
+      .hero-actions button,
+      .hero-actions a {
+        width: 100%;
+        padding: 12px 18px;
+        font-size: 0.82rem;
+      }
+      .finca-feature {
+        padding: 16px 12px;
+      }
+      .finca-img-wrapper img {
+        height: 200px;
+      }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
     }
   </style>
 </head>
