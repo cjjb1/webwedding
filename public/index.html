@@ -933,6 +933,81 @@
       font-weight: 500;
     }
 
+    /* Gestor de Alergias e Intolerancias por Persona */
+    .allergies-wrapper-box {
+      background: #fdfbf7;
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 22px;
+      margin-top: 5px;
+    }
+
+    .allergy-entry-card {
+      background: #ffffff;
+      border: 1px solid #e8e2d8;
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+      animation: fadeIn 0.25s ease;
+    }
+
+    .allergy-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gold-dark);
+    }
+
+    .btn-remove-allergy {
+      background: none;
+      border: none;
+      color: #dc2626;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: background 0.15s;
+    }
+
+    .btn-remove-allergy:hover {
+      background: #fee2e2;
+    }
+
+    .btn-add-allergy {
+      background: #ffffff;
+      border: 1.5px dashed var(--gold);
+      color: var(--gold-dark);
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-add-allergy:hover {
+      background: #fbf8f2;
+      border-color: var(--gold-dark);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 700px) {
+      .allergy-grid-2 {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
     /* Tarjeta WhatsApp */
     .whatsapp-card {
       background: #edf8f1;
@@ -1366,8 +1441,8 @@
               <div class="form-group">
                 <label for="attending">¿Nos acompañas en este gran día?</label>
                 <select id="attending" name="attending">
-                  <option value="true">¡Sí, por supuesto! Allí estaré 🎉</option>
-                  <option value="false">Lamentablemente no podré asistir 😢</option>
+                  <option value="true">¡Sí, por supuesto! Allí estaré</option>
+                  <option value="false">Lamentablemente no podré asistir</option>
                 </select>
               </div>
 
@@ -1395,27 +1470,32 @@
               </div>
 
               <div class="form-group full">
-                <label for="allergy_type">Alergias, Intolerancias o Menú Especial</label>
-                <select id="allergy_type" name="allergy_type" onchange="toggleAllergyDetails()">
-                  <option value="">Ninguna (Menú tradicional)</option>
-                  <option value="Celiaco">Celíaco</option>
-                  <option value="Intolerante a la lactosa">Intolerante a la lactosa</option>
-                  <option value="Alergia a frutos secos">Alergia a frutos secos</option>
-                  <option value="Vegetariano">Vegetariano</option>
-                  <option value="Vegano">Vegano</option>
-                  <option value="Otros">Otros</option>
+                <label for="has_allergies">¿Alguien con intolerancias alimentarias o menú especial?</label>
+                <select id="has_allergies" name="has_allergies" onchange="toggleHasAllergies(this.value)">
+                  <option value="false">No</option>
+                  <option value="true">Sí</option>
                 </select>
+              </div>
 
-                <!-- Cuadro condicional para Frutos Secos -->
-                <div id="nutsGroup" style="display: none; margin-top: 14px;">
-                  <label for="nuts_detail" style="font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 6px;">¿A qué frutos secos eres alérgico/a? *</label>
-                  <input type="text" id="nuts_detail" name="nuts_detail" placeholder="Ej: Nueces, almendras, cacahuetes, pistachos...">
-                </div>
+              <!-- Contenedor dinámico de Intolerancias -->
+              <div class="form-group full" id="allergiesContainer" style="display: none;">
+                <div class="allergies-wrapper-box">
+                  <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                    <span style="font-weight: 700; color: var(--gold-dark); font-size: 0.95rem;">
+                      Detalle de personas e intolerancias alimentarias
+                    </span>
+                    <span style="font-size: 0.8rem; color: #718096;">Restaurante Magullo adaptará cada menú</span>
+                  </div>
 
-                <!-- Cuadro condicional para Otros -->
-                <div id="othersGroup" style="display: none; margin-top: 14px;">
-                  <label for="others_detail" style="font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 6px;">Especifica tu alergia o intolerancia *</label>
-                  <input type="text" id="others_detail" name="others_detail" placeholder="Ej: Marisco, fructosa, huevo, o combinaciones...">
+                  <div id="allergyEntriesList">
+                    <!-- Entradas de personas con alergias añadidas dinámicamente -->
+                  </div>
+
+                  <div style="margin-top: 15px;">
+                    <button type="button" class="btn-add-allergy" onclick="addAllergyEntry()">
+                      ➕ Más intolerancias (añadir acompañante o niño)
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -1844,23 +1924,125 @@
       }
     });
 
-    // Control dinámico de campos de Alergias
-    function toggleAllergyDetails() {
-      const type = document.getElementById('allergy_type').value;
-      const nutsGroup = document.getElementById('nutsGroup');
-      const othersGroup = document.getElementById('othersGroup');
+    // Gestión dinámica de intolerancias alimentarias por persona
+    let allergyEntryCount = 0;
 
-      if (type === 'Alergia a frutos secos') {
-        nutsGroup.style.display = 'block';
-        othersGroup.style.display = 'none';
-        document.getElementById('nuts_detail').focus();
-      } else if (type === 'Otros') {
-        othersGroup.style.display = 'block';
-        nutsGroup.style.display = 'none';
-        document.getElementById('others_detail').focus();
+    function toggleHasAllergies(val) {
+      const container = document.getElementById('allergiesContainer');
+      const list = document.getElementById('allergyEntriesList');
+
+      if (val === 'true') {
+        container.style.display = 'block';
+        if (list.children.length === 0) {
+          addAllergyEntry();
+        }
       } else {
-        nutsGroup.style.display = 'none';
-        othersGroup.style.display = 'none';
+        container.style.display = 'none';
+      }
+    }
+
+    function addAllergyEntry() {
+      allergyEntryCount++;
+      const container = document.getElementById('allergyEntriesList');
+      const entryId = allergyEntryCount;
+      const mainName = (document.getElementById('name').value || '').trim();
+      const defaultPersonLabel = mainName ? `${mainName} (Titular)` : 'Yo mismo/a (Titular)';
+
+      const card = document.createElement('div');
+      card.className = 'allergy-entry-card';
+      card.id = `allergyEntry_${entryId}`;
+
+      card.innerHTML = `
+        <div class="allergy-card-header">
+          <span>🍽️ Intolerancia #${container.children.length + 1}</span>
+          <button type="button" class="btn-remove-allergy" onclick="removeAllergyEntry(${entryId})">🗑️ Quitar</button>
+        </div>
+        <div class="allergy-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div>
+            <label style="font-size: 0.8rem; margin-bottom: 5px;">¿Quién es la persona afectada? *</label>
+            <select class="allergy-person-select" onchange="handlePersonSelectChange(${entryId}, this)">
+              <option value="${escapeHtml(mainName || 'Titular')}">${escapeHtml(defaultPersonLabel)}</option>
+              <option value="__custom__">Otro acompañante o niño (escribir nombre)...</option>
+              <optgroup label="── Lista oficial de invitados ──">
+                ${preloadedGuestList.map(g => `<option value="${escapeHtml(g.name)}">${escapeHtml(g.name)}</option>`).join('')}
+              </optgroup>
+            </select>
+            <div id="customPersonWrap_${entryId}" style="display: none; margin-top: 8px;">
+              <input type="text" class="allergy-custom-person" placeholder="Escribe el nombre del acompañante o niño...">
+            </div>
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; margin-bottom: 5px;">Tipo de intolerancia o menú especial *</label>
+            <select class="allergy-type-select" onchange="handleEntryTypeChange(${entryId}, this)">
+              <option value="">Selecciona tipo de alergia...</option>
+              <option value="Celiaco">Celíaco (Sin Gluten)</option>
+              <option value="Intolerante a la lactosa">Intolerante a la lactosa</option>
+              <option value="Alergia a frutos secos">Alergia a frutos secos</option>
+              <option value="Vegetariano">Vegetariano</option>
+              <option value="Vegano">Vegano</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Cuadros condicionales para Frutos Secos y Otros -->
+        <div id="nutsWrap_${entryId}" style="display: none; margin-top: 12px;">
+          <label style="font-size: 0.8rem; color: #4a5568; font-weight: 600; margin-bottom: 4px; display: block;">¿A qué frutos secos eres alérgico/a? *</label>
+          <input type="text" class="allergy-nuts-detail" placeholder="Ej: Nueces, cacahuetes, almendras, pistachos...">
+        </div>
+        <div id="othersWrap_${entryId}" style="display: none; margin-top: 12px;">
+          <label style="font-size: 0.8rem; color: #4a5568; font-weight: 600; margin-bottom: 4px; display: block;">Especifica la alergia o intolerancia *</label>
+          <input type="text" class="allergy-others-detail" placeholder="Ej: Marisco, fructosa, huevo, o combinaciones...">
+        </div>
+      `;
+
+      container.appendChild(card);
+    }
+
+    function removeAllergyEntry(id) {
+      const el = document.getElementById(`allergyEntry_${id}`);
+      if (el) el.remove();
+      const list = document.getElementById('allergyEntriesList');
+      if (list.children.length === 0) {
+        document.getElementById('has_allergies').value = 'false';
+        document.getElementById('allergiesContainer').style.display = 'none';
+      } else {
+        // Re-enumerar cabeceras
+        Array.from(list.children).forEach((card, index) => {
+          const headerSpan = card.querySelector('.allergy-card-header span');
+          if (headerSpan) headerSpan.innerText = `🍽️ Intolerancia #${index + 1}`;
+        });
+      }
+    }
+
+    function handlePersonSelectChange(entryId, selectEl) {
+      const customWrap = document.getElementById(`customPersonWrap_${entryId}`);
+      if (selectEl.value === '__custom__') {
+        customWrap.style.display = 'block';
+        const input = customWrap.querySelector('input');
+        if (input) input.focus();
+      } else {
+        customWrap.style.display = 'none';
+      }
+    }
+
+    function handleEntryTypeChange(entryId, selectEl) {
+      const nutsWrap = document.getElementById(`nutsWrap_${entryId}`);
+      const othersWrap = document.getElementById(`othersWrap_${entryId}`);
+
+      if (selectEl.value === 'Alergia a frutos secos') {
+        nutsWrap.style.display = 'block';
+        othersWrap.style.display = 'none';
+        const input = nutsWrap.querySelector('input');
+        if (input) input.focus();
+      } else if (selectEl.value === 'Otros') {
+        othersWrap.style.display = 'block';
+        nutsWrap.style.display = 'none';
+        const input = othersWrap.querySelector('input');
+        if (input) input.focus();
+      } else {
+        nutsWrap.style.display = 'none';
+        othersWrap.style.display = 'none';
       }
     }
 
@@ -1873,17 +2055,42 @@
       alertSuccess.style.display = 'none';
       alertError.style.display = 'none';
 
-      // Construir valor detallado de Alergias
+      // Recopilar intolerancias detalladas por persona si se marcó Sí
       let finalAllergies = '';
-      const allergyType = document.getElementById('allergy_type').value;
-      if (allergyType === 'Alergia a frutos secos') {
-        const detail = document.getElementById('nuts_detail').value.trim();
-        finalAllergies = detail ? `Alergia a frutos secos: ${detail}` : 'Alergia a frutos secos';
-      } else if (allergyType === 'Otros') {
-        const detail = document.getElementById('others_detail').value.trim();
-        finalAllergies = detail ? `Otros: ${detail}` : 'Otras alergias / dietas';
-      } else if (allergyType) {
-        finalAllergies = allergyType;
+      const hasAllergies = document.getElementById('has_allergies').value === 'true';
+
+      if (hasAllergies) {
+        const cards = document.querySelectorAll('#allergyEntriesList .allergy-entry-card');
+        const allergyList = [];
+
+        cards.forEach(card => {
+          const personSelect = card.querySelector('.allergy-person-select');
+          let personName = personSelect ? personSelect.value : '';
+          if (personName === '__custom__') {
+            const customInput = card.querySelector('.allergy-custom-person');
+            personName = (customInput ? customInput.value.trim() : '') || 'Acompañante / Niño';
+          }
+
+          const typeSelect = card.querySelector('.allergy-type-select');
+          const allergyType = typeSelect ? typeSelect.value : '';
+
+          if (!allergyType) return;
+
+          let detailText = allergyType;
+          if (allergyType === 'Alergia a frutos secos') {
+            const nutsInput = card.querySelector('.allergy-nuts-detail');
+            const nutsVal = nutsInput ? nutsInput.value.trim() : '';
+            detailText = nutsVal ? `Alergia a frutos secos (${nutsVal})` : 'Alergia a frutos secos';
+          } else if (allergyType === 'Otros') {
+            const othersInput = card.querySelector('.allergy-others-detail');
+            const othersVal = othersInput ? othersInput.value.trim() : '';
+            detailText = othersVal ? `Otros (${othersVal})` : 'Otras alergias / dietas';
+          }
+
+          allergyList.push(`${personName}: ${detailText}`);
+        });
+
+        finalAllergies = allergyList.join(' | ');
       }
 
       const formData = {
@@ -1912,8 +2119,11 @@
           document.getElementById('guestId').value = '';
           document.getElementById('nameStatusHint').style.display = 'none';
           document.getElementById('nameSuggestions').style.display = 'none';
+          document.getElementById('has_allergies').value = 'false';
+          document.getElementById('allergiesContainer').style.display = 'none';
+          document.getElementById('allergyEntriesList').innerHTML = '';
+          allergyEntryCount = 0;
           togglePetsField();
-          toggleAllergyDetails();
           fetchGuestNames(); // Actualizar lista tras el alta/confirmación
         } else {
           alertError.style.display = 'block';
