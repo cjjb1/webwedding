@@ -356,18 +356,17 @@
       font-family: 'Montserrat', sans-serif;
       font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 1.8px;
+      letter-spacing: 1.6px;
       display: inline-flex;
       align-items: center;
       gap: 8px;
       cursor: pointer;
       text-decoration: none;
-      padding: 7px 14px;
+      padding: 8px 18px;
       border-radius: 20px;
       transition: all 0.25s ease;
       line-height: 1.4;
       text-align: left;
-      flex-wrap: wrap;
     }
 
     .quote-caption-link:hover {
@@ -376,28 +375,6 @@
       border-color: var(--accent);
       transform: translateY(-1px);
       box-shadow: 0 4px 15px rgba(216, 194, 157, 0.3);
-    }
-
-    .quote-caption-link .caption-hint {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.72rem;
-      padding: 2px 9px;
-      background: var(--primary);
-      border: 1px solid var(--accent);
-      border-radius: 12px;
-      color: #ffffff;
-      text-transform: none;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-      margin-left: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .quote-caption-link:hover .caption-hint {
-      background: var(--accent);
-      color: #141c19;
     }
 
     /* Modal Ventana Flotante del Postigo de la Luna */
@@ -495,7 +472,7 @@
 
     .postigo-thumb {
       position: relative;
-      height: 250px;
+      height: 270px;
       overflow: hidden;
       cursor: pointer;
     }
@@ -536,22 +513,29 @@
       color: #141c19;
     }
 
-    .postigo-card-caption {
-      padding: 16px 18px;
-      flex: 1;
+    .postigo-unified-caption {
+      text-align: center;
+      padding: 18px 24px;
+      margin-bottom: 22px;
+      background: rgba(216, 194, 157, 0.06);
+      border: 1px solid rgba(216, 194, 157, 0.22);
+      border-radius: 14px;
     }
 
-    .postigo-card-caption h4 {
+    .postigo-unified-caption h4 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
+      font-size: 1.45rem;
       color: #ffffff;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
     }
 
-    .postigo-card-caption p {
-      font-size: 0.86rem;
+    .postigo-unified-caption p {
+      font-size: 0.95rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.6;
+      margin: 0;
+      font-style: italic;
     }
 
     .postigo-modal-footer {
@@ -1032,7 +1016,6 @@
             <button type="button" class="quote-caption-link" onclick="openPostigoModal()" title="Ver fotos del Postigo de la Luna">
               <i data-lucide="map-pin"></i>
               <span>Escaleras del Postigo del Consuelo / Postigo de la Luna, Segovia</span>
-              <span class="caption-hint"><i data-lucide="camera"></i> Ver fotos</span>
             </button>
           </div>
         </div>
@@ -1143,22 +1126,19 @@
             <img src="/images/segovia/postigo-de-la-luna.jpg" alt="Escaleras del Postigo de la Luna">
             <span class="zoom-badge"><i data-lucide="zoom-in"></i> Ampliar</span>
           </div>
-          <div class="postigo-card-caption">
-            <h4>Escaleras del Postigo de la Luna</h4>
-            <p>Por donde bajó Blanca cuando la noche empezaba a dar paso al nuevo día.</p>
-          </div>
         </div>
 
         <div class="postigo-card">
           <div class="postigo-thumb" onclick="openLightboxImage('/images/segovia/postigo-luna.jpg')">
-            <img src="/images/segovia/postigo-luna.jpg" alt="Postigo de la Luna junto al Acueducto de Segovia">
+            <img src="/images/segovia/postigo-luna.jpg" alt="Escaleras del Postigo de la Luna">
             <span class="zoom-badge"><i data-lucide="zoom-in"></i> Ampliar</span>
           </div>
-          <div class="postigo-card-caption">
-            <h4>Postigo de la Luna & Acueducto</h4>
-            <p>Vista nocturna del enclave histórico en Segovia bajo la luz lunar.</p>
-          </div>
         </div>
+      </div>
+
+      <div class="postigo-unified-caption">
+        <h4>Escaleras del Postigo de la Luna</h4>
+        <p>Por donde bajó Blanca cuando la noche empezaba a dar paso al nuevo día.</p>
       </div>
 
       <div class="postigo-modal-footer">
