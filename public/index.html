@@ -1917,10 +1917,8 @@
     }
 
     document.addEventListener('click', (e) => {
-      const wrap = document.querySelector('.autocomplete-wrap');
-      if (wrap && !wrap.contains(e.target)) {
-        const dropdown = document.getElementById('nameSuggestions');
-        if (dropdown) dropdown.style.display = 'none';
+      if (!e.target.closest('.autocomplete-wrap')) {
+        document.querySelectorAll('.autocomplete-dropdown').forEach(d => d.style.display = 'none');
       }
     });
 
@@ -1946,7 +1944,6 @@
       const container = document.getElementById('allergyEntriesList');
       const entryId = allergyEntryCount;
       const mainName = (document.getElementById('name').value || '').trim();
-      const defaultPersonLabel = mainName ? `${mainName} (Titular)` : 'Yo mismo/a (Titular)';
 
       const card = document.createElement('div');
       card.className = 'allergy-entry-card';
@@ -1958,18 +1955,20 @@
           <button type="button" class="btn-remove-allergy" onclick="removeAllergyEntry(${entryId})">🗑️ Quitar</button>
         </div>
         <div class="allergy-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-          <div>
+          <div class="autocomplete-wrap" style="position: relative;">
             <label style="font-size: 0.8rem; margin-bottom: 5px;">¿Quién es la persona afectada? *</label>
-            <select class="allergy-person-select" onchange="handlePersonSelectChange(${entryId}, this)">
-              <option value="${escapeHtml(mainName || 'Titular')}">${escapeHtml(defaultPersonLabel)}</option>
-              <option value="__custom__">Otro acompañante o niño (escribir nombre)...</option>
-              <optgroup label="── Lista oficial de invitados ──">
-                ${preloadedGuestList.map(g => `<option value="${escapeHtml(g.name)}">${escapeHtml(g.name)}</option>`).join('')}
-              </optgroup>
-            </select>
-            <div id="customPersonWrap_${entryId}" style="display: none; margin-top: 8px;">
-              <input type="text" class="allergy-custom-person" placeholder="Escribe el nombre del acompañante o niño...">
-            </div>
+            <input 
+              type="text" 
+              class="allergy-person-input" 
+              id="allergyPersonInput_${entryId}"
+              value="${entryId === 1 && mainName ? escapeHtml(mainName) : ''}"
+              placeholder="Escribe el nombre de la persona..." 
+              autocomplete="off" 
+              required
+              oninput="handleAllergyPersonInput(${entryId}, this.value)"
+              onfocus="handleAllergyPersonFocus(${entryId})"
+            >
+            <div id="allergyPersonSuggestions_${entryId}" class="autocomplete-dropdown" style="display: none;"></div>
           </div>
           <div>
             <label style="font-size: 0.8rem; margin-bottom: 5px;">Tipo de intolerancia o menú especial *</label>
@@ -2015,15 +2014,81 @@
       }
     }
 
-    function handlePersonSelectChange(entryId, selectEl) {
-      const customWrap = document.getElementById(`customPersonWrap_${entryId}`);
-      if (selectEl.value === '__custom__') {
-        customWrap.style.display = 'block';
-        const input = customWrap.querySelector('input');
-        if (input) input.focus();
+    function handleAllergyPersonFocus(entryId) {
+      const input = document.getElementById(`allergyPersonInput_${entryId}`);
+      const dropdown = document.getElementById(`allergyPersonSuggestions_${entryId}`);
+      const cleanVal = (input.value || '').trim();
+
+      if (!cleanVal) {
+        const mainName = (document.getElementById('name').value || '').trim();
+        let html = '';
+        if (mainName) {
+          html += `
+            <div class="autocomplete-item" onclick="selectAllergyPerson(${entryId}, '${escapeHtml(mainName)}')">
+              <span><strong>${escapeHtml(mainName)}</strong> (Titular)</span>
+              <span class="badge-in-list">Tú</span>
+            </div>
+          `;
+        }
+        html += `
+          <div class="autocomplete-new-hint" style="cursor: default;">
+            💡 Escribe para buscar en la lista de invitados o indicar acompañante / niño
+          </div>
+        `;
+        dropdown.innerHTML = html;
+        dropdown.style.display = 'block';
       } else {
-        customWrap.style.display = 'none';
+        handleAllergyPersonInput(entryId, cleanVal);
       }
+    }
+
+    function handleAllergyPersonInput(entryId, val) {
+      const dropdown = document.getElementById(`allergyPersonSuggestions_${entryId}`);
+      const cleanVal = (val || '').trim();
+      const normVal = normalizeText(cleanVal);
+
+      if (!cleanVal) {
+        handleAllergyPersonFocus(entryId);
+        return;
+      }
+
+      const matches = preloadedGuestList.filter(g => normalizeText(g.name).includes(normVal));
+
+      if (matches.length > 0) {
+        let html = matches.slice(0, 5).map(g => `
+          <div class="autocomplete-item" onclick="selectAllergyPerson(${entryId}, '${escapeHtml(g.name)}')">
+            <span><strong>${escapeHtml(g.name)}</strong></span>
+            <span class="badge-in-list">En lista</span>
+          </div>
+        `).join('');
+
+        html += `
+          <div class="autocomplete-new-hint" onclick="closeAllergyPersonDropdown(${entryId})">
+            ✨ Usar "${escapeHtml(cleanVal)}" (Acompañante o niño no listado)
+          </div>
+        `;
+
+        dropdown.innerHTML = html;
+        dropdown.style.display = 'block';
+      } else {
+        dropdown.innerHTML = `
+          <div class="autocomplete-new-hint" onclick="closeAllergyPersonDropdown(${entryId})">
+            ✨ Usar "${escapeHtml(cleanVal)}" (Acompañante o niño no listado)
+          </div>
+        `;
+        dropdown.style.display = 'block';
+      }
+    }
+
+    function selectAllergyPerson(entryId, name) {
+      const input = document.getElementById(`allergyPersonInput_${entryId}`);
+      if (input) input.value = name;
+      closeAllergyPersonDropdown(entryId);
+    }
+
+    function closeAllergyPersonDropdown(entryId) {
+      const dropdown = document.getElementById(`allergyPersonSuggestions_${entryId}`);
+      if (dropdown) dropdown.style.display = 'none';
     }
 
     function handleEntryTypeChange(entryId, selectEl) {
@@ -2064,12 +2129,8 @@
         const allergyList = [];
 
         cards.forEach(card => {
-          const personSelect = card.querySelector('.allergy-person-select');
-          let personName = personSelect ? personSelect.value : '';
-          if (personName === '__custom__') {
-            const customInput = card.querySelector('.allergy-custom-person');
-            personName = (customInput ? customInput.value.trim() : '') || 'Acompañante / Niño';
-          }
+          const personInput = card.querySelector('.allergy-person-input');
+          const personName = (personInput ? personInput.value.trim() : '') || 'Invitado';
 
           const typeSelect = card.querySelector('.allergy-type-select');
           const allergyType = typeSelect ? typeSelect.value : '';
