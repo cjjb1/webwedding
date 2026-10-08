@@ -350,39 +350,56 @@
       line-height: 1.6;
     }
 
-    /* Frase destacada y sutil de la historia en el Hero */
+    /* Frame general translúcido de la historia en el Hero */
     .hero-story-teaser {
-      margin: 14px auto 24px;
-      max-width: 720px;
-      padding: 0 15px;
+      margin: 16px auto 26px;
+      max-width: 680px;
+      background: rgba(20, 28, 25, 0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(216, 194, 157, 0.45);
+      border-radius: 18px;
+      padding: 18px 26px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .hero-story-teaser:hover {
+      transform: translateY(-2px);
+      border-color: rgba(216, 194, 157, 0.85);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      background: rgba(20, 28, 25, 0.6);
     }
 
     .story-teaser-intro {
-      font-size: clamp(1rem, 1.9vw, 1.16rem);
+      font-size: clamp(0.98rem, 1.8vw, 1.14rem);
       font-style: italic;
-      color: rgba(255, 255, 255, 0.95);
-      line-height: 1.6;
+      color: #ffffff;
+      line-height: 1.55;
       font-weight: 300;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      text-align: center;
     }
 
     .story-subtle-link {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.15rem, 2.2vw, 1.38rem);
+      font-size: clamp(1.15rem, 2.2vw, 1.36rem);
       font-style: italic;
       font-weight: 600;
       color: var(--accent);
       text-decoration: underline;
-      text-decoration-color: rgba(216, 194, 157, 0.6);
+      text-decoration-color: rgba(216, 194, 157, 0.65);
       text-underline-offset: 6px;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
       transition: all 0.3s ease;
       cursor: pointer;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       letter-spacing: 0.5px;
     }
 
@@ -390,7 +407,7 @@
       color: #ffffff;
       text-decoration-color: #ffffff;
       transform: translateY(-1px);
-      text-shadow: 0 0 14px rgba(216, 194, 157, 0.85);
+      text-shadow: 0 0 14px rgba(216, 194, 157, 0.9);
     }
 
     /* Contador Regresivo de Lujo */
