@@ -436,7 +436,7 @@
     }
 
     .btn-outline {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       color: white;
       text-decoration: none;
       padding: 15px 32px;
@@ -446,14 +446,22 @@
       letter-spacing: 1.5px;
       text-transform: uppercase;
       border: 1px solid rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: inherit;
+      cursor: pointer;
     }
 
     .btn-outline:hover {
       background: rgba(255, 255, 255, 0.25);
       border-color: white;
       transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
     }
 
     /* Contenedor Principal */
@@ -1294,8 +1302,8 @@
       </div>
 
       <div class="hero-actions">
-        <button class="btn-gold" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación Oficial</button>
-        <a href="#rsvp" class="btn-confirm"><i data-lucide="sparkles"></i> Confirmar Asistencia</a>
+        <button class="btn-outline" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación Oficial</button>
+        <a href="#rsvp" class="btn-outline"><i data-lucide="sparkles"></i> Confirmar Asistencia</a>
         <a href="#espacio" class="btn-outline"><i data-lucide="leaf"></i> El Espacio</a>
       </div>
     </div>
