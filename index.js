@@ -443,7 +443,7 @@ app.get('/api/whatsapp-invite', (req, res) => {
   const baseUrl = `${req.protocol}://${req.get('host')}`;
   const inviteLink = code ? `${baseUrl}?invitacion=${encodeURIComponent(code)}` : baseUrl;
 
-  const message = `¡Hola ${name}! 💍✨ Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles y confirmar tu asistencia en el siguiente enlace: ${inviteLink}`;
+  const message = `¡Hola ${name}! Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles y confirmar tu asistencia en el siguiente enlace: ${inviteLink}`;
   const cleanPhone = phone.replace(/[^0-9]/g, '');
 
   const whatsappUrl = cleanPhone

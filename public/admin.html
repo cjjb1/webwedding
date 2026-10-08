@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blanca & Álvaro | Panel de Invitados y WhatsApp</title>
   <link rel="icon" type="image/png" href="/images/logo/anillo.png">
+  
+  <!-- Iconos Lucide -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -19,6 +23,19 @@
       --text-muted: #64748b;
       --border: #e2e8f0;
       --radius: 12px;
+    }
+
+    /* Lucide icons */
+    .lucide, svg.lucide {
+      width: 1.1em;
+      height: 1.1em;
+      vertical-align: -0.18em;
+      stroke-width: 1.8;
+      display: inline-block;
+    }
+    .btn .lucide, .btn-wa .lucide, .tab-btn .lucide {
+      margin-right: 5px;
+      vertical-align: -0.18em;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -113,10 +130,10 @@
         </div>
       </div>
       <div class="header-actions">
-        <button class="btn btn-secondary" onclick="syncWithDoc()">🔄 Sincronizar Lista (81)</button>
-        <button class="btn btn-primary" onclick="openAddModal()">➕ Añadir Invitado</button>
-        <button class="btn btn-secondary" onclick="exportToCSV()">📥 Descargar CSV</button>
-        <a href="/" class="btn btn-secondary">🌐 Ver Web</a>
+        <button class="btn btn-secondary" onclick="syncWithDoc()"><i data-lucide="refresh-cw"></i> Sincronizar Lista (81)</button>
+        <button class="btn btn-primary" onclick="openAddModal()"><i data-lucide="user-plus"></i> Añadir Invitado</button>
+        <button class="btn btn-secondary" onclick="exportToCSV()"><i data-lucide="download"></i> Descargar CSV</button>
+        <a href="/" class="btn btn-secondary"><i data-lucide="globe"></i> Ver Web</a>
       </div>
     </header>
 
@@ -147,10 +164,10 @@
     <!-- Pestañas de Navegación -->
     <div class="tabs-bar">
       <button class="tab-btn active" id="tabBtnWa" onclick="switchTab('whatsapp')">
-        📱 Agenda y Envíos WhatsApp (<span id="tabCountWa">0</span>)
+        <i data-lucide="message-square"></i> Agenda y Envíos WhatsApp (<span id="tabCountWa">0</span>)
       </button>
       <button class="tab-btn" id="tabBtnCatering" onclick="switchTab('catering')">
-        🍽️ Control de Catering y Restaurante Magullo
+        <i data-lucide="utensils"></i> Control de Catering y Restaurante Magullo
       </button>
     </div>
 
@@ -158,7 +175,7 @@
     <div id="viewWhatsApp">
       <div class="toolbar">
         <div class="search-box">
-          <span>🔍</span>
+          <span style="display: flex; align-items: center;"><i data-lucide="search"></i></span>
           <input type="text" id="searchInput" placeholder="Buscar invitado por nombre o teléfono..." oninput="filterGuests()">
         </div>
         <div class="filter-pills">
@@ -202,7 +219,7 @@
             Mascotas: <strong id="catPets" style="color: #0f172a;">0</strong>
           </p>
         </div>
-        <button class="btn btn-primary" onclick="exportToCSV()">📥 Descargar Informe Completo para Cocina (CSV)</button>
+        <button class="btn btn-primary" onclick="exportToCSV()"><i data-lucide="download"></i> Descargar Informe Completo para Cocina (CSV)</button>
       </div>
 
       <div class="table-container">
@@ -230,7 +247,7 @@
   <!-- Modal para añadir nuevo invitado -->
   <div class="modal-overlay" id="addModal">
     <div class="modal-box">
-      <h3>➕ Añadir Nuevo Invitado</h3>
+      <h3><i data-lucide="user-plus"></i> Añadir Nuevo Invitado</h3>
       <div class="modal-field">
         <label>Nombre y Apellidos</label>
         <input type="text" id="newGuestName" placeholder="Ej. Carlos Martínez">
@@ -352,23 +369,23 @@
                   class="btn-wa ${isSent ? 'sent' : ''}" 
                   onclick="triggerWhatsAppInvite(${g.id}, '${escapeHtml(g.name)}', '${escapeHtml(g.phone || '')}')"
                 >
-                  💬 ${isSent ? 'Reenviar' : 'Enviar WhatsApp'}
+                  <i data-lucide="message-circle"></i> ${isSent ? 'Reenviar' : 'Enviar WhatsApp'}
                 </button>
               </td>
               <td>
                 <span class="badge ${isSent ? 'badge-success' : 'badge-neutral'}">
-                  ${isSent ? '✅ Enviado' : '⏳ Pendiente'}
+                  <i data-lucide="${isSent ? 'check-circle-2' : 'clock'}"></i> ${isSent ? 'Enviado' : 'Pendiente'}
                 </span>
               </td>
               <td>
                 <select class="select-status" onchange="saveGuestStatus(${g.id}, this.value)">
-                  <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Pendiente</option>
-                  <option value="confirmed" ${status === 'confirmed' ? 'selected' : ''}>✅ Asiste</option>
-                  <option value="declined" ${status === 'declined' ? 'selected' : ''}>❌ No asiste</option>
+                  <option value="pending" ${status === 'pending' ? 'selected' : ''}>Pendiente</option>
+                  <option value="confirmed" ${status === 'confirmed' ? 'selected' : ''}>Asiste</option>
+                  <option value="declined" ${status === 'declined' ? 'selected' : ''}>No asiste</option>
                 </select>
               </td>
               <td style="text-align: right;">
-                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="deleteGuest(${g.id}, '${escapeHtml(g.name)}')">🗑️</button>
+                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="deleteGuest(${g.id}, '${escapeHtml(g.name)}')"><i data-lucide="trash-2"></i></button>
               </td>
             </tr>
           `;
@@ -389,7 +406,7 @@
             <td><span class="badge badge-success">Asiste</span></td>
             <td><strong>${g.adults || 1}</strong></td>
             <td>${g.children ? `<span class="badge badge-warning">${g.children} niño(s)</span>` : '0'}</td>
-            <td>${g.has_pets ? '🐾 ' + escapeHtml(g.pet_details || 'Sí') : 'No'}</td>
+            <td>${g.has_pets ? '<i data-lucide="paw-print"></i> ' + escapeHtml(g.pet_details || 'Sí') : 'No'}</td>
             <td>
               ${g.allergies ? `<span class="badge badge-danger">${escapeHtml(g.allergies)}</span>` : '<span style="color:#94a3b8;">Ninguna</span>'}
             </td>
@@ -397,6 +414,8 @@
           </tr>
         `).join('');
       }
+
+      if (window.lucide) lucide.createIcons();
     }
 
     // Guardar teléfono al cambiar el input
@@ -408,7 +427,7 @@
           body: JSON.stringify({ phone })
         });
         if (res.ok) {
-          showToast('Teléfono guardado correctamente ✅');
+          showToast('Teléfono guardado correctamente');
           const guest = allGuests.find(g => g.id === id);
           if (guest) guest.phone = phone.trim();
         } else {
@@ -429,7 +448,7 @@
           body: JSON.stringify({ status, attending })
         });
         if (res.ok) {
-          showToast('Estado actualizado ✅');
+          showToast('Estado actualizado');
           loadGuests();
         }
       } catch (e) {
@@ -468,14 +487,14 @@
       }
 
       const currentOrigin = window.location.origin;
-      const message = `¡Hola ${name}! 💍✨ Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles, fotos y confirmar tu asistencia en nuestra web: ${currentOrigin}`;
+      const message = `¡Hola ${name}! Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles, fotos y confirmar tu asistencia en nuestra web: ${currentOrigin}`;
 
       const waUrl = clean 
         ? `https://wa.me/${clean}?text=${encodeURIComponent(message)}`
         : `https://wa.me/?text=${encodeURIComponent(message)}`;
 
       window.open(waUrl, '_blank');
-      showToast(`Abriendo WhatsApp para ${name} 📲`);
+      showToast(`Abriendo WhatsApp para ${name}`);
       loadGuests();
     }
 
@@ -580,6 +599,7 @@
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
+    if (window.lucide) lucide.createIcons();
     loadGuests();
   </script>
 </body>

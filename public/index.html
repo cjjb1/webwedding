@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blanca y Álvaro, nos casamos 💍 | 29 de Mayo de 2027 · Restaurante Magullo (Segovia)</title>
+  <title>Blanca y Álvaro, nos casamos | 29 de Mayo de 2027 · Restaurante Magullo (Segovia)</title>
   
   <!-- Previsualización en WhatsApp con la imagen de la portada -->
-  <meta property="og:title" content="Blanca y Álvaro, nos casamos 💍 · 29 de Mayo de 2027">
+  <meta property="og:title" content="Blanca y Álvaro, nos casamos · 29 de Mayo de 2027">
   <meta property="og:description" content="¡Blanca y Álvaro nos casamos! Estás invitado a celebrarlo con nosotros el 29 de Mayo de 2027 en Restaurante Magullo (Segovia).">
   <meta property="og:image" content="https://webwedding.onrender.com/images/novios/invitacion-imagen.jpg">
   <meta property="og:type" content="website">
@@ -14,6 +14,9 @@
   <meta name="twitter:image" content="https://webwedding.onrender.com/images/novios/invitacion-imagen.jpg">
   <link rel="icon" type="image/png" href="/images/logo/anillo.png">
   <link rel="apple-touch-icon" href="/images/logo/anillo.png">
+
+  <!-- Iconos Lucide -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 
   <!-- Tipografías de lujo estilo editorial -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,6 +40,19 @@
       --shadow-md: 0 12px 35px rgba(31, 36, 33, 0.08);
       --shadow-lg: 0 20px 50px rgba(31, 36, 33, 0.12);
       --radius: 18px;
+    }
+
+    /* Lucide icons */
+    .lucide, svg.lucide {
+      width: 1.15em;
+      height: 1.15em;
+      vertical-align: -0.18em;
+      stroke-width: 1.8;
+      display: inline-block;
+    }
+    .btn-gold .lucide, .btn-outline .lucide, .btn-submit .lucide, .whatsapp-btn .lucide, .tab-btn .lucide {
+      margin-right: 6px;
+      vertical-align: -0.18em;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1190,7 +1206,7 @@
       <span>Blanca & Álvaro</span>
     </a>
     <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="openInvitationModal()">💌 Ver Invitación</a></li>
+      <li><a href="javascript:void(0)" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación</a></li>
       <li><a href="#espacio">El Espacio</a></li>
       <li><a href="#itinerario">Itinerario</a></li>
       <li><a href="#galeria">Galería</a></li>
@@ -1204,7 +1220,7 @@
       <span class="hero-badge">29 de Mayo de 2027 &bull; Restaurante Magullo, Segovia</span>
       <h1>Blanca y Álvaro, nos casamos</h1>
       <p class="tagline">
-        Restaurante Magullo &bull; 29 de Mayo de 2027 &bull; Una historia para celebrar juntos 💍🐾
+        Restaurante Magullo &bull; 29 de Mayo de 2027 &bull; Una historia para celebrar juntos <i data-lucide="gem"></i> <i data-lucide="paw-print"></i>
       </p>
 
       <!-- Contador Regresivo -->
@@ -1228,9 +1244,9 @@
       </div>
 
       <div class="hero-actions">
-        <button class="btn-gold" onclick="openInvitationModal()">💌 Ver Invitación Oficial</button>
-        <a href="#rsvp" class="btn-outline">Confirmar Asistencia ✨</a>
-        <a href="#espacio" class="btn-outline">El Espacio 🌿</a>
+        <button class="btn-gold" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación Oficial</button>
+        <a href="#rsvp" class="btn-outline"><i data-lucide="sparkles"></i> Confirmar Asistencia</a>
+        <a href="#espacio" class="btn-outline"><i data-lucide="leaf"></i> El Espacio</a>
       </div>
     </div>
   </header>
@@ -1263,7 +1279,7 @@
               <li>Amplio aparcamiento privado y accesos cómodos</li>
             </ul>
             <a href="https://maps.google.com/?q=Restaurante+Magullo+Segovia" target="_blank" class="btn-gold" style="display:inline-block; font-size: 0.85rem; padding: 12px 28px;">
-              📍 Cómo Llegar a Restaurante Magullo (Google Maps)
+              <i data-lucide="map-pin"></i> Cómo Llegar a Restaurante Magullo (Google Maps)
             </a>
           </div>
         </div>
@@ -1368,9 +1384,9 @@
         </div>
 
         <div class="gallery-tabs">
-          <button class="tab-btn active" onclick="switchGalleryTab('venue')">🏛️ Restaurante Magullo (25)</button>
-          <button class="tab-btn" onclick="switchGalleryTab('novios')">💍 Los Novios (7)</button>
-          <button class="tab-btn" onclick="switchGalleryTab('invitados')">📸 Fotos de Invitados</button>
+          <button class="tab-btn active" onclick="switchGalleryTab('venue')"><i data-lucide="landmark"></i> Restaurante Magullo (25)</button>
+          <button class="tab-btn" onclick="switchGalleryTab('novios')"><i data-lucide="gem"></i> Los Novios (7)</button>
+          <button class="tab-btn" onclick="switchGalleryTab('invitados')"><i data-lucide="camera"></i> Fotos de Invitados</button>
         </div>
 
         <div id="galleryGrid" class="gallery-grid">
@@ -1379,7 +1395,7 @@
 
         <!-- Caja de Subida de Fotos para Invitados -->
         <div class="upload-box" id="uploadBox">
-          <h3>📸 ¿Tienes fotos del día? ¡Compártelas con nosotros!</h3>
+          <h3><i data-lucide="camera"></i> ¿Tienes fotos del día? ¡Compártelas con nosotros!</h3>
           <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 1rem;">
             Sube las fotos y selfies que hagas durante la boda para que se añadan al álbum de todos.
           </p>
@@ -1388,7 +1404,7 @@
             <input type="text" id="photoGuestName" placeholder="Tu nombre y apellidos" required>
             <input type="text" id="photoCaption" placeholder="Dedicatoria o anécdota (opcional)">
             <input type="file" id="photoFileInput" accept="image/*" style="background: white; border: 1px solid var(--border-gold);" required>
-            <button type="submit" class="btn-submit" style="margin-top: 6px;">Subir Foto al Álbum 🚀</button>
+            <button type="submit" class="btn-submit" style="margin-top: 6px;"><i data-lucide="upload"></i> Subir Foto al Álbum</button>
           </form>
           <div id="uploadAlert" class="alert" style="margin-top: 20px;"></div>
         </div>
@@ -1407,7 +1423,7 @@
 
         <div class="form-wrapper">
           <div id="alertSuccess" class="alert alert-success">
-            ¡Muchas gracias! Tu confirmación ha quedado registrada correctamente en la lista. 💍✨
+            <i data-lucide="check-circle-2"></i> ¡Muchas gracias! Tu confirmación ha quedado registrada correctamente en la lista.
           </div>
           <div id="alertError" class="alert alert-error">
             Hubo un problema al registrar tu confirmación. Por favor, inténtalo de nuevo.
@@ -1493,7 +1509,7 @@
 
                   <div style="margin-top: 15px;">
                     <button type="button" class="btn-add-allergy" onclick="addAllergyEntry()">
-                      ➕ Más intolerancias (añadir acompañante o niño)
+                      <i data-lucide="plus"></i> Más intolerancias (añadir acompañante o niño)
                     </button>
                   </div>
                 </div>
@@ -1505,7 +1521,7 @@
               </div>
 
               <div class="form-group full">
-                <button type="submit" class="btn-submit">Enviar Confirmación 💌</button>
+                <button type="submit" class="btn-submit"><i data-lucide="send"></i> Enviar Confirmación</button>
               </div>
 
             </div>
@@ -1514,7 +1530,7 @@
 
         <!-- Enviar Invitación por WhatsApp -->
         <div class="whatsapp-card">
-          <h3>💬 Invitar a un Amigo o Familiar por WhatsApp</h3>
+          <h3><i data-lucide="message-circle"></i> Invitar a un Amigo o Familiar por WhatsApp</h3>
           <p style="color: #276749; font-size: 0.95rem;">Escribe el nombre y abre WhatsApp con la invitación redactada y el enlace directo:</p>
           
           <div style="display: flex; gap: 12px; max-width: 520px; margin: 18px auto 6px; flex-wrap: wrap;">
@@ -1522,7 +1538,7 @@
             <input type="tel" id="waGuestPhone" placeholder="Teléfono móvil (opcional)" style="flex: 1; min-width: 150px;">
           </div>
           <a href="#" id="waButton" class="whatsapp-btn" target="_blank" onclick="generateWhatsAppLink(event)">
-            Enviar Invitación por WhatsApp 📲
+            <i data-lucide="smartphone"></i> Enviar Invitación por WhatsApp
           </a>
         </div>
 
@@ -1544,13 +1560,13 @@
           <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida con nuestros perritos">
         </div>
         <div class="invitation-card-footer">
-          <p class="invite-names">¡Blanca y Álvaro nos casamos! 💍🐾</p>
+          <p class="invite-names">¡Blanca y Álvaro nos casamos! <i data-lucide="gem"></i> <i data-lucide="paw-print"></i></p>
           <p class="invite-date">29 · Mayo · 2027</p>
           <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
         </div>
         <div class="modal-actions">
           <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-gold" style="font-size: 0.85rem; padding: 12px 28px;">
-            Descargar Invitación 📥
+            <i data-lucide="download"></i> Descargar Invitación
           </a>
         </div>
       </div>
@@ -1563,9 +1579,9 @@
       <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
       <img id="lightboxImg" src="" alt="Foto Boda">
       <div class="lightbox-controls">
-        <button class="lightbox-btn" onclick="prevPhoto()">❮ Anterior</button>
-        <a id="lightboxDownload" class="lightbox-btn" href="" download target="_blank">Descargar Foto 📥</a>
-        <button class="lightbox-btn" onclick="nextPhoto()">Siguiente ❯</button>
+        <button class="lightbox-btn" onclick="prevPhoto()"><i data-lucide="chevron-left"></i> Anterior</button>
+        <a id="lightboxDownload" class="lightbox-btn" href="" download target="_blank"><i data-lucide="download"></i> Descargar Foto</a>
+        <button class="lightbox-btn" onclick="nextPhoto()">Siguiente <i data-lucide="chevron-right"></i></button>
       </div>
     </div>
   </div>
@@ -1578,7 +1594,7 @@
       <h4>Blanca y Álvaro &bull; Restaurante Magullo</h4>
       <p style="margin-bottom: 15px;">29 de Mayo de 2027 &bull; Segovia</p>
       <p style="font-size: 0.8rem; color: #738078;">
-        Hecho con ❤️ para celebrar el amor | <a href="/admin.html">Acceso Panel de Novios</a>
+        Hecho con <i data-lucide="heart" style="color: #722F37; fill: #722F37;"></i> para celebrar el amor | <a href="/admin.html">Acceso Panel de Novios</a>
       </p>
     </div>
   </footer>
@@ -1662,7 +1678,7 @@
           item.onclick = () => openLightbox(idx);
           item.innerHTML = `
             <img src="${url}" alt="Restaurante Magullo Segovia" loading="lazy">
-            <div class="overlay"><span>Ampliar / Descargar 🔍</span></div>
+            <div class="overlay"><span>Ampliar / Descargar <i data-lucide="zoom-in"></i></span></div>
           `;
           grid.appendChild(item);
         });
@@ -1683,7 +1699,7 @@
           item.onclick = () => openLightbox(idx);
           item.innerHTML = `
             <img src="${url}" alt="Los Novios" loading="lazy">
-            <div class="overlay"><span>${isCover ? '🎨 Portada de la Invitación (Descargar)' : 'Los Novios 💍 (Descargar)'}</span></div>
+            <div class="overlay"><span>${isCover ? '<i data-lucide="image"></i> Portada de la Invitación (Descargar)' : 'Los Novios <i data-lucide="gem"></i> (Descargar)'}</span></div>
           `;
           grid.appendChild(item);
         });
@@ -1707,6 +1723,8 @@
           grid.appendChild(item);
         });
       }
+
+      if (window.lucide) lucide.createIcons();
     }
 
     // Visor Lightbox
@@ -1796,8 +1814,9 @@
 
         if (res.ok) {
           alertBox.className = 'alert alert-success';
-          alertBox.innerText = '¡Foto subida con éxito! Ya se ha añadido a la galería 🎉';
+          alertBox.innerHTML = '<i data-lucide="sparkles"></i> ¡Foto subida con éxito! Ya se ha añadido a la galería.';
           alertBox.style.display = 'block';
+          if (window.lucide) lucide.createIcons();
           document.getElementById('uploadForm').reset();
           loadGallery();
         } else {
@@ -1857,13 +1876,13 @@
       if (exactMatch) {
         guestIdInput.value = exactMatch.id;
         hintBox.className = 'name-hint-box found';
-        hintBox.innerHTML = `<span>✅ ¡Hola ${escapeHtml(exactMatch.name)}! Estás en la lista oficial de invitados.</span>`;
+        hintBox.innerHTML = `<span><i data-lucide="check-circle-2" style="color:#2e7d32;"></i> ¡Hola ${escapeHtml(exactMatch.name)}! Estás en la lista oficial de invitados.</span>`;
       } else if (matches.length > 0) {
         hintBox.className = 'name-hint-box';
         hintBox.style.display = 'none';
       } else {
         hintBox.className = 'name-hint-box new';
-        hintBox.innerHTML = `<span>✨ Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
+        hintBox.innerHTML = `<span><i data-lucide="sparkles" style="color:#b38a38;"></i> Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
       }
 
       if (matches.length > 0) {
@@ -1876,7 +1895,7 @@
 
         html += `
           <div class="autocomplete-new-hint" onclick="selectNewGuestName()">
-            ✨ ¿No eres ninguno de ellos? Continuar como nueva alta
+            <i data-lucide="user-plus"></i> ¿No eres ninguno de ellos? Continuar como nueva alta
           </div>
         `;
 
@@ -1885,11 +1904,13 @@
       } else {
         dropdown.innerHTML = `
           <div class="autocomplete-new-hint" style="cursor: default;">
-            ✨ "${escapeHtml(cleanVal)}" no está en la lista previa. ¡No te preocupes! Te daremos de alta al confirmar.
+            <i data-lucide="sparkles"></i> "${escapeHtml(cleanVal)}" no está en la lista previa. ¡No te preocupes! Te daremos de alta al confirmar.
           </div>
         `;
         dropdown.style.display = 'block';
       }
+
+      if (window.lucide) lucide.createIcons();
     }
 
     function selectGuest(id, name, phone) {
@@ -1905,7 +1926,8 @@
       
       const hintBox = document.getElementById('nameStatusHint');
       hintBox.className = 'name-hint-box found';
-      hintBox.innerHTML = `<span>✅ ¡Hola ${escapeHtml(name)}! Te hemos localizado en la lista oficial de invitados.</span>`;
+      hintBox.innerHTML = `<span><i data-lucide="check-circle-2" style="color:#2e7d32;"></i> ¡Hola ${escapeHtml(name)}! Te hemos localizado en la lista oficial de invitados.</span>`;
+      if (window.lucide) lucide.createIcons();
     }
 
     function selectNewGuestName() {
@@ -1913,7 +1935,8 @@
       document.getElementById('guestId').value = '';
       const hintBox = document.getElementById('nameStatusHint');
       hintBox.className = 'name-hint-box new';
-      hintBox.innerHTML = `<span>✨ Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
+      hintBox.innerHTML = `<span><i data-lucide="sparkles" style="color:#b38a38;"></i> Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
+      if (window.lucide) lucide.createIcons();
     }
 
     document.addEventListener('click', (e) => {
@@ -1951,8 +1974,8 @@
 
       card.innerHTML = `
         <div class="allergy-card-header">
-          <span>🍽️ Intolerancia #${container.children.length + 1}</span>
-          <button type="button" class="btn-remove-allergy" onclick="removeAllergyEntry(${entryId})">🗑️ Quitar</button>
+          <span><i data-lucide="utensils"></i> Intolerancia #${container.children.length + 1}</span>
+          <button type="button" class="btn-remove-allergy" onclick="removeAllergyEntry(${entryId})"><i data-lucide="trash-2"></i> Quitar</button>
         </div>
         <div class="allergy-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <div class="autocomplete-wrap" style="position: relative;">
@@ -1996,6 +2019,7 @@
       `;
 
       container.appendChild(card);
+      if (window.lucide) lucide.createIcons();
     }
 
     function removeAllergyEntry(id) {
@@ -2009,8 +2033,9 @@
         // Re-enumerar cabeceras
         Array.from(list.children).forEach((card, index) => {
           const headerSpan = card.querySelector('.allergy-card-header span');
-          if (headerSpan) headerSpan.innerText = `🍽️ Intolerancia #${index + 1}`;
+          if (headerSpan) headerSpan.innerHTML = `<i data-lucide="utensils"></i> Intolerancia #${index + 1}`;
         });
+        if (window.lucide) lucide.createIcons();
       }
     }
 
@@ -2032,11 +2057,12 @@
         }
         html += `
           <div class="autocomplete-new-hint" style="cursor: default;">
-            💡 Escribe para buscar en la lista de invitados o indicar acompañante / niño
+            <i data-lucide="info"></i> Escribe para buscar en la lista de invitados o indicar acompañante / niño
           </div>
         `;
         dropdown.innerHTML = html;
         dropdown.style.display = 'block';
+        if (window.lucide) lucide.createIcons();
       } else {
         handleAllergyPersonInput(entryId, cleanVal);
       }
@@ -2064,7 +2090,7 @@
 
         html += `
           <div class="autocomplete-new-hint" onclick="closeAllergyPersonDropdown(${entryId})">
-            ✨ Usar "${escapeHtml(cleanVal)}" (Acompañante o niño no listado)
+            <i data-lucide="user-plus"></i> Usar "${escapeHtml(cleanVal)}" (Acompañante o niño no listado)
           </div>
         `;
 
@@ -2073,11 +2099,13 @@
       } else {
         dropdown.innerHTML = `
           <div class="autocomplete-new-hint" onclick="closeAllergyPersonDropdown(${entryId})">
-            ✨ Usar "${escapeHtml(cleanVal)}" (Acompañante o niño no listado)
+            <i data-lucide="user-plus"></i> Usar "${escapeHtml(cleanVal)}" (Acompañante o niño no listado)
           </div>
         `;
         dropdown.style.display = 'block';
       }
+
+      if (window.lucide) lucide.createIcons();
     }
 
     function selectAllergyPerson(entryId, name) {
@@ -2199,7 +2227,7 @@
       const phone = document.getElementById('waGuestPhone').value.replace(/[^0-9]/g, '');
       const currentUrl = window.location.origin;
 
-      const message = `¡Hola ${name}! 💍✨ Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles, fotos y confirmar tu asistencia en nuestra web: ${currentUrl}`;
+      const message = `¡Hola ${name}! Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles, fotos y confirmar tu asistencia en nuestra web: ${currentUrl}`;
       
       const url = phone 
         ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}`
@@ -2214,7 +2242,8 @@
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
-    // Iniciar scripts al arrancar
+    // Iniciar scripts e iconos al arrancar
+    if (window.lucide) lucide.createIcons();
     startCountdown();
     loadGallery();
     fetchGuestNames();
