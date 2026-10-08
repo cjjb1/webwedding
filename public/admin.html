@@ -3,170 +3,553 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blanca & Álvaro | Panel de Invitados</title>
+  <title>Blanca & Álvaro | Panel de Invitados y WhatsApp</title>
   <link rel="icon" type="image/png" href="/images/logo/anillo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #9d8161;
+      --primary-dark: #6e5831;
+      --primary-light: #f5efe6;
+      --wa-green: #25d366;
+      --wa-dark: #128c7e;
       --bg: #f8fafc;
       --card: #ffffff;
       --text: #1e293b;
+      --text-muted: #64748b;
       --border: #e2e8f0;
+      --radius: 12px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); padding: 30px 20px; }
-    .container { max-width: 1100px; margin: 0 auto; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); padding: 25px 20px; }
+    .container { max-width: 1200px; margin: 0 auto; }
 
-    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px; }
-    h1 { font-size: 1.8rem; color: #0f172a; }
+    header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+    .header-brand { display: flex; align-items: center; gap: 16px; }
+    .header-brand h1 { font-size: 1.7rem; color: #0f172a; font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: 0.5px; }
+    .header-brand p { color: var(--text-muted); font-size: 0.88rem; }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 30px; }
-    .stat-card { background: var(--card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-    .stat-card span { font-size: 0.85rem; color: #64748b; font-weight: 500; }
-    .stat-card h3 { font-size: 1.9rem; margin-top: 5px; color: var(--primary); }
+    .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    .table-container { background: var(--card); border-radius: 12px; border: 1px solid var(--border); overflow-x: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.9rem; }
+    /* Métricas principales */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 25px; }
+    .stat-card { background: var(--card); padding: 18px 20px; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+    .stat-card span { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-card h3 { font-size: 1.85rem; margin-top: 5px; color: var(--primary); font-weight: 700; }
+    .stat-card.wa h3 { color: var(--wa-dark); }
+    .stat-card.confirmed h3 { color: #166534; }
+    .stat-card.alert h3 { color: #d97706; }
+
+    /* Pestañas */
+    .tabs-bar { display: flex; gap: 10px; border-bottom: 2px solid var(--border); margin-bottom: 20px; }
+    .tab-btn { padding: 12px 22px; font-weight: 600; font-size: 0.92rem; background: none; border: none; cursor: pointer; color: var(--text-muted); border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 8px; }
+    .tab-btn:hover { color: var(--primary); }
+    .tab-btn.active { color: var(--primary-dark); border-bottom-color: var(--primary); font-weight: 700; }
+
+    /* Barra de control y búsqueda */
+    .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 18px; flex-wrap: wrap; }
+    .search-box { position: relative; flex: 1; min-width: 250px; max-width: 450px; }
+    .search-box input { width: 100%; padding: 10px 14px 10px 38px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.9rem; background: white; outline: none; }
+    .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(157, 129, 97, 0.2); }
+    .search-box span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 0.95rem; color: var(--text-muted); }
+
+    .filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pill { padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--border); background: white; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+    .pill:hover { border-color: var(--primary); color: var(--primary); }
+    .pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+    /* Tabla */
+    .table-container { background: var(--card); border-radius: var(--radius); border: 1px solid var(--border); overflow-x: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem; }
     th { background: #f1f5f9; padding: 14px 16px; font-weight: 600; color: #475569; border-bottom: 1px solid var(--border); }
-    td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
-    tr:hover { background: #f8fafc; }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:hover { background: #fafcff; }
 
-    .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+    /* Botones y Badges */
+    .btn { padding: 9px 16px; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #e2e8f0; color: #334155; }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-wa { background: #25d366; color: white; border-radius: 6px; padding: 7px 12px; font-size: 0.82rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; border: none; cursor: pointer; }
+    .btn-wa:hover { background: #128c7e; }
+    .btn-wa.sent { background: #e2e8f0; color: #334155; }
+    .btn-wa.sent:hover { background: #25d366; color: white; }
+
+    .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
     .badge-success { background: #dcfce7; color: #166534; }
     .badge-danger { background: #fee2e2; color: #991b1b; }
     .badge-warning { background: #fef3c7; color: #92400e; }
+    .badge-neutral { background: #f1f5f9; color: #64748b; }
 
-    .btn { padding: 10px 18px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-secondary { background: #e2e8f0; color: #334155; }
+    .input-phone { padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.85rem; width: 140px; }
+    .input-phone:focus { border-color: var(--primary); outline: none; }
+
+    .select-status { padding: 5px 8px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.82rem; background: white; }
+
+    /* Toast flotante para feedback */
+    #toast { position: fixed; bottom: 25px; right: 25px; background: #0f172a; color: white; padding: 12px 20px; border-radius: 8px; font-size: 0.88rem; box-shadow: 0 8px 20px rgba(0,0,0,0.2); display: none; z-index: 1000; }
+
+    /* Modal simple para añadir invitado */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 999; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 420px; }
+    .modal-box h3 { margin-bottom: 15px; font-size: 1.2rem; }
+    .modal-field { margin-bottom: 14px; }
+    .modal-field label { display: block; font-size: 0.85rem; margin-bottom: 5px; font-weight: 600; }
+    .modal-field input { width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border); font-size: 0.9rem; }
+    .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <div style="display: flex; align-items: center; gap: 16px;">
+      <div class="header-brand">
         <img src="/images/logo/anillo.png" alt="Logo Alianza" style="height: 48px; width: auto; object-fit: contain;">
         <div>
-          <h1>Blanca & Álvaro · Gestión de Invitados</h1>
-          <p style="color: #64748b; font-size: 0.9rem;">29 de Mayo de 2027 &bull; Confirmaciones, alergias y catering en tiempo real</p>
+          <h1>Blanca & Álvaro · Panel de Invitados y WhatsApp</h1>
+          <p>29 de Mayo de 2027 &bull; Restaurante Magullo (Segovia) &bull; Envíos WhatsApp y Catering en vivo</p>
         </div>
       </div>
-      <div style="display: flex; gap: 10px;">
-        <button class="btn btn-secondary" onclick="loadGuests()">🔄 Actualizar</button>
-        <button class="btn btn-primary" onclick="exportToCSV()">📥 Descargar para Catering (CSV)</button>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="syncWithDoc()">🔄 Sincronizar Lista (81)</button>
+        <button class="btn btn-primary" onclick="openAddModal()">➕ Añadir Invitado</button>
+        <button class="btn btn-secondary" onclick="exportToCSV()">📥 Descargar CSV</button>
         <a href="/" class="btn btn-secondary">🌐 Ver Web</a>
       </div>
     </header>
 
+    <!-- Métricas -->
     <div class="stats-grid">
       <div class="stat-card">
-        <span>Confirmados</span>
+        <span>Total Invitados</span>
+        <h3 id="statTotal">0</h3>
+      </div>
+      <div class="stat-card">
+        <span>Móviles Registrados</span>
+        <h3 id="statPhones">0</h3>
+      </div>
+      <div class="stat-card wa">
+        <span>Invitaciones WhatsApp</span>
+        <h3 id="statWhatsApp">0</h3>
+      </div>
+      <div class="stat-card confirmed">
+        <span>Confirmados (Asisten)</span>
         <h3 id="statConfirmed">0</h3>
       </div>
-      <div class="stat-card">
-        <span>Adultos</span>
-        <h3 id="statAdults">0</h3>
-      </div>
-      <div class="stat-card">
-        <span>Niños (Menús infantiles)</span>
-        <h3 id="statChildren">0</h3>
-      </div>
-      <div class="stat-card">
-        <span>Mascotas</span>
-        <h3 id="statPets">0</h3>
-      </div>
-      <div class="stat-card">
-        <span>Con Alergias / Dietas</span>
-        <h3 id="statAllergies" style="color: #d97706;">0</h3>
+      <div class="stat-card alert">
+        <span>Alérgenos / Dietas</span>
+        <h3 id="statAllergies">0</h3>
       </div>
     </div>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Teléfono</th>
-            <th>Estado</th>
-            <th>Adultos</th>
-            <th>Niños</th>
-            <th>Mascota</th>
-            <th>Alergias / Intolerancias</th>
-            <th>Notas</th>
-            <th>Fecha</th>
-          </tr>
-        </thead>
-        <tbody id="guestsTableBody">
-          <tr><td colspan="9" style="text-align: center; padding: 30px;">Cargando lista de invitados...</td></tr>
-        </tbody>
-      </table>
+    <!-- Pestañas de Navegación -->
+    <div class="tabs-bar">
+      <button class="tab-btn active" id="tabBtnWa" onclick="switchTab('whatsapp')">
+        📱 Agenda y Envíos WhatsApp (<span id="tabCountWa">0</span>)
+      </button>
+      <button class="tab-btn" id="tabBtnCatering" onclick="switchTab('catering')">
+        🍽️ Control de Catering y Restaurante Magullo
+      </button>
+    </div>
+
+    <!-- VISTA 1: AGENDA Y ENVÍOS WHATSAPP -->
+    <div id="viewWhatsApp">
+      <div class="toolbar">
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" id="searchInput" placeholder="Buscar invitado por nombre o teléfono..." oninput="filterGuests()">
+        </div>
+        <div class="filter-pills">
+          <button class="pill active" onclick="setFilter('all', this)">Todos</button>
+          <button class="pill" onclick="setFilter('no-phone', this)">Sin móvil</button>
+          <button class="pill" onclick="setFilter('has-phone', this)">Con móvil</button>
+          <button class="pill" onclick="setFilter('wa-pending', this)">WhatsApp pendiente</button>
+          <button class="pill" onclick="setFilter('wa-sent', this)">WhatsApp enviado</button>
+          <button class="pill" onclick="setFilter('confirmed', this)">Confirmados</button>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 40px;">#</th>
+              <th>Invitado</th>
+              <th>Teléfono Móvil</th>
+              <th>Enviar WhatsApp</th>
+              <th>Estado WhatsApp</th>
+              <th>Estado Confirmación</th>
+              <th style="text-align: right;">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="waTableBody">
+            <tr><td colspan="7" style="text-align: center; padding: 30px;">Cargando lista de invitados...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- VISTA 2: CATERING Y RESTAURANTE -->
+    <div id="viewCatering" style="display: none;">
+      <div style="background: white; padding: 15px 20px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>
+          <h4 style="color: var(--primary-dark); margin-bottom: 4px;">Resumen para cocina de Restaurante Magullo</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Adultos: <strong id="catAdults" style="color: #0f172a;">0</strong> &bull; 
+            Menús infantiles: <strong id="catChildren" style="color: #0f172a;">0</strong> &bull; 
+            Mascotas: <strong id="catPets" style="color: #0f172a;">0</strong>
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="exportToCSV()">📥 Descargar Informe Completo para Cocina (CSV)</button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Teléfono</th>
+              <th>Asistencia</th>
+              <th>Adultos</th>
+              <th>Niños</th>
+              <th>Mascota</th>
+              <th>Alergias / Intolerancias</th>
+              <th>Notas / Canción</th>
+            </tr>
+          </thead>
+          <tbody id="cateringTableBody">
+            <tr><td colspan="8" style="text-align: center; padding: 30px;">Cargando datos de catering...</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
-  <script>
-    let currentGuests = [];
+  <!-- Modal para añadir nuevo invitado -->
+  <div class="modal-overlay" id="addModal">
+    <div class="modal-box">
+      <h3>➕ Añadir Nuevo Invitado</h3>
+      <div class="modal-field">
+        <label>Nombre y Apellidos</label>
+        <input type="text" id="newGuestName" placeholder="Ej. Carlos Martínez">
+      </div>
+      <div class="modal-field">
+        <label>Teléfono Móvil (opcional)</label>
+        <input type="tel" id="newGuestPhone" placeholder="Ej. 612345678">
+      </div>
+      <div class="modal-field">
+        <label>Notas / Relación (opcional)</label>
+        <input type="text" id="newGuestNotes" placeholder="Ej. Amigo de Álvaro">
+      </div>
+      <div class="modal-buttons">
+        <button class="btn btn-secondary" onclick="closeAddModal()">Cancelar</button>
+        <button class="btn btn-primary" onclick="submitNewGuest()">Guardar</button>
+      </div>
+    </div>
+  </div>
 
+  <div id="toast"></div>
+
+  <script>
+    let allGuests = [];
+    let currentFilter = 'all';
+    let currentTab = 'whatsapp';
+
+    // Cargar datos
     async function loadGuests() {
       try {
         const res = await fetch('/api/guests');
-        if (!res.ok) throw new Error('Error al cargar');
+        if (!res.ok) throw new Error('Error al consultar');
         const data = await res.json();
-        
-        currentGuests = data.guests || [];
+        allGuests = data.guests || [];
         const stats = data.stats || {};
 
+        // Actualizar métricas
+        document.getElementById('statTotal').innerText = stats.totalGuests || allGuests.length;
+        document.getElementById('statPhones').innerText = `${stats.withPhoneCount || 0} / ${allGuests.length}`;
+        document.getElementById('statWhatsApp').innerText = `${stats.whatsappSentCount || 0} / ${allGuests.length}`;
         document.getElementById('statConfirmed').innerText = stats.confirmedCount || 0;
-        document.getElementById('statAdults').innerText = stats.totalAdults || 0;
-        document.getElementById('statChildren').innerText = stats.totalChildren || 0;
-        document.getElementById('statPets').innerText = stats.totalPets || 0;
         document.getElementById('statAllergies').innerText = stats.withAllergiesCount || 0;
 
-        const tbody = document.getElementById('guestsTableBody');
-        if (currentGuests.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; padding: 30px; color:#64748b;">Aún no hay confirmaciones registradas.</td></tr>';
-          return;
-        }
+        document.getElementById('tabCountWa').innerText = allGuests.length;
 
-        tbody.innerHTML = currentGuests.map(g => `
-          <tr>
-            <td><strong>${escapeHtml(g.name)}</strong></td>
-            <td>${escapeHtml(g.phone || '-')}</td>
-            <td>
-              <span class="badge ${g.attending ? 'badge-success' : 'badge-danger'}">
-                ${g.attending ? 'Asiste' : 'No asiste'}
-              </span>
-            </td>
-            <td>${g.adults || 0}</td>
-            <td>${g.children || 0}</td>
-            <td>${g.has_pets ? '🐾 ' + escapeHtml(g.pet_details || 'Sí') : 'No'}</td>
-            <td>
-              ${g.allergies ? `<span class="badge badge-warning">${escapeHtml(g.allergies)}</span>` : '<span style="color:#94a3b8;">Ninguna</span>'}
-            </td>
-            <td><small>${escapeHtml(g.notes || '-')}</small></td>
-            <td><small style="color:#64748b;">${new Date(g.created_at).toLocaleDateString()}</small></td>
-          </tr>
-        `).join('');
+        // Métricas de catering
+        document.getElementById('catAdults').innerText = stats.totalAdults || 0;
+        document.getElementById('catChildren').innerText = stats.totalChildren || 0;
+        document.getElementById('catPets').innerText = stats.totalPets || 0;
 
-      } catch (e) {
-        document.getElementById('guestsTableBody').innerHTML = 
-          '<tr><td colspan="9" style="text-align:center; padding: 30px; color: #dc2626;">No se pudo conectar con la base de datos todavía.</td></tr>';
+        renderTables();
+      } catch (err) {
+        showToast('Error al conectar con la base de datos');
       }
     }
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('tabBtnWa').classList.toggle('active', tab === 'whatsapp');
+      document.getElementById('tabBtnCatering').classList.toggle('active', tab === 'catering');
+      document.getElementById('viewWhatsApp').style.display = tab === 'whatsapp' ? 'block' : 'none';
+      document.getElementById('viewCatering').style.display = tab === 'catering' ? 'block' : 'none';
     }
 
+    function setFilter(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-pills .pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderTables();
+    }
+
+    function filterGuests() {
+      renderTables();
+    }
+
+    function renderTables() {
+      const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+
+      const filtered = allGuests.filter(g => {
+        // Filtro de búsqueda texto
+        const matchName = (g.name || '').toLowerCase().includes(query);
+        const matchPhone = (g.phone || '').includes(query);
+        if (query && !matchName && !matchPhone) return false;
+
+        // Filtro por píldoras
+        if (currentFilter === 'no-phone') return !g.phone || !g.phone.trim();
+        if (currentFilter === 'has-phone') return g.phone && g.phone.trim();
+        if (currentFilter === 'wa-pending') return !g.whatsapp_sent;
+        if (currentFilter === 'wa-sent') return g.whatsapp_sent;
+        if (currentFilter === 'confirmed') return g.status === 'confirmed' || g.attending === true;
+
+        return true;
+      });
+
+      // Render tabla WhatsApp
+      const tbodyWa = document.getElementById('waTableBody');
+      if (filtered.length === 0) {
+        tbodyWa.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 30px; color: #64748b;">No se encontraron invitados con estos criterios.</td></tr>';
+      } else {
+        tbodyWa.innerHTML = filtered.map((g, index) => {
+          const isSent = Boolean(g.whatsapp_sent);
+          const status = g.status || (g.attending === true ? 'confirmed' : g.attending === false ? 'declined' : 'pending');
+
+          return `
+            <tr>
+              <td style="color: #94a3b8; font-weight: 500;">${index + 1}</td>
+              <td><strong>${escapeHtml(g.name)}</strong></td>
+              <td>
+                <input 
+                  type="tel" 
+                  class="input-phone" 
+                  value="${escapeHtml(g.phone || '')}" 
+                  placeholder="Añadir móvil..." 
+                  onchange="saveGuestPhone(${g.id}, this.value)"
+                  onkeydown="if(event.key==='Enter') this.blur()"
+                >
+              </td>
+              <td>
+                <button 
+                  class="btn-wa ${isSent ? 'sent' : ''}" 
+                  onclick="triggerWhatsAppInvite(${g.id}, '${escapeHtml(g.name)}', '${escapeHtml(g.phone || '')}')"
+                >
+                  💬 ${isSent ? 'Reenviar' : 'Enviar WhatsApp'}
+                </button>
+              </td>
+              <td>
+                <span class="badge ${isSent ? 'badge-success' : 'badge-neutral'}">
+                  ${isSent ? '✅ Enviado' : '⏳ Pendiente'}
+                </span>
+              </td>
+              <td>
+                <select class="select-status" onchange="saveGuestStatus(${g.id}, this.value)">
+                  <option value="pending" ${status === 'pending' ? 'selected' : ''}>⏳ Pendiente</option>
+                  <option value="confirmed" ${status === 'confirmed' ? 'selected' : ''}>✅ Asiste</option>
+                  <option value="declined" ${status === 'declined' ? 'selected' : ''}>❌ No asiste</option>
+                </select>
+              </td>
+              <td style="text-align: right;">
+                <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="deleteGuest(${g.id}, '${escapeHtml(g.name)}')">🗑️</button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Render tabla Catering (solo confirmados o lista de catering)
+      const tbodyCatering = document.getElementById('cateringTableBody');
+      const cateringList = allGuests.filter(g => g.attending === true || g.status === 'confirmed');
+
+      if (cateringList.length === 0) {
+        tbodyCatering.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px; color: #64748b;">Aún no hay invitados confirmados para el menú.</td></tr>';
+      } else {
+        tbodyCatering.innerHTML = cateringList.map(g => `
+          <tr>
+            <td><strong>${escapeHtml(g.name)}</strong></td>
+            <td>${escapeHtml(g.phone || '-')}</td>
+            <td><span class="badge badge-success">Asiste</span></td>
+            <td><strong>${g.adults || 1}</strong></td>
+            <td>${g.children ? `<span class="badge badge-warning">${g.children} niño(s)</span>` : '0'}</td>
+            <td>${g.has_pets ? '🐾 ' + escapeHtml(g.pet_details || 'Sí') : 'No'}</td>
+            <td>
+              ${g.allergies ? `<span class="badge badge-danger">${escapeHtml(g.allergies)}</span>` : '<span style="color:#94a3b8;">Ninguna</span>'}
+            </td>
+            <td><small>${escapeHtml(g.notes || '-')}</small></td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Guardar teléfono al cambiar el input
+    async function saveGuestPhone(id, phone) {
+      try {
+        const res = await fetch(`/api/guests/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone })
+        });
+        if (res.ok) {
+          showToast('Teléfono guardado correctamente ✅');
+          const guest = allGuests.find(g => g.id === id);
+          if (guest) guest.phone = phone.trim();
+        } else {
+          throw new Error();
+        }
+      } catch (e) {
+        showToast('Error al guardar el teléfono');
+      }
+    }
+
+    // Guardar estado de asistencia
+    async function saveGuestStatus(id, status) {
+      try {
+        const attending = status === 'confirmed' ? true : status === 'declined' ? false : null;
+        const res = await fetch(`/api/guests/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status, attending })
+        });
+        if (res.ok) {
+          showToast('Estado actualizado ✅');
+          loadGuests();
+        }
+      } catch (e) {
+        showToast('Error al actualizar estado');
+      }
+    }
+
+    // Acción de enviar WhatsApp
+    async function triggerWhatsAppInvite(id, name, currentPhone) {
+      let phone = currentPhone ? currentPhone.trim() : '';
+
+      if (!phone) {
+        const input = prompt(`Introduce el teléfono móvil de ${name} (ej: 612345678):`);
+        if (!input) return;
+        phone = input.trim();
+        // Guardar teléfono en backend
+        await fetch(`/api/guests/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ phone })
+        });
+      }
+
+      // Marcar como enviado en la base de datos
+      await fetch(`/api/guests/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ whatsapp_sent: true })
+      });
+
+      // Preparar número internacional (España por defecto)
+      let clean = phone.replace(/[^0-9]/g, '');
+      if (clean.startsWith('0034')) clean = clean.substring(4);
+      if (clean.length === 9 && (clean.startsWith('6') || clean.startsWith('7'))) {
+        clean = '34' + clean;
+      }
+
+      const currentOrigin = window.location.origin;
+      const message = `¡Hola ${name}! 💍✨ Blanca y Álvaro nos casamos el 29 de Mayo de 2027 en Restaurante Magullo (Segovia). Puedes ver todos los detalles, fotos y confirmar tu asistencia en nuestra web: ${currentOrigin}`;
+
+      const waUrl = clean 
+        ? `https://wa.me/${clean}?text=${encodeURIComponent(message)}`
+        : `https://wa.me/?text=${encodeURIComponent(message)}`;
+
+      window.open(waUrl, '_blank');
+      showToast(`Abriendo WhatsApp para ${name} 📲`);
+      loadGuests();
+    }
+
+    // Sincronizar desde archivo
+    async function syncWithDoc() {
+      if (!confirm('¿Deseas sincronizar la lista de invitados con el archivo doc/listado_invitados.txt?')) return;
+      try {
+        const res = await fetch('/api/guests/sync', { method: 'POST' });
+        const data = await res.json();
+        showToast(`Lista sincronizada (${data.count} invitados)`);
+        loadGuests();
+      } catch (e) {
+        showToast('Error al sincronizar con el archivo');
+      }
+    }
+
+    // Modal Añadir Invitado
+    function openAddModal() {
+      document.getElementById('newGuestName').value = '';
+      document.getElementById('newGuestPhone').value = '';
+      document.getElementById('newGuestNotes').value = '';
+      document.getElementById('addModal').classList.add('active');
+    }
+    function closeAddModal() {
+      document.getElementById('addModal').classList.remove('active');
+    }
+
+    async function submitNewGuest() {
+      const name = document.getElementById('newGuestName').value.trim();
+      const phone = document.getElementById('newGuestPhone').value.trim();
+      const notes = document.getElementById('newGuestNotes').value.trim();
+
+      if (!name) return alert('Por favor, indica el nombre del invitado');
+
+      try {
+        const res = await fetch('/api/guests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, phone, notes })
+        });
+        if (res.ok) {
+          showToast(`Invitado ${name} añadido con éxito`);
+          closeAddModal();
+          loadGuests();
+        }
+      } catch (e) {
+        showToast('Error al añadir invitado');
+      }
+    }
+
+    // Eliminar invitado
+    async function deleteGuest(id, name) {
+      if (!confirm(`¿Seguro que deseas eliminar a ${name} de la lista?`)) return;
+      try {
+        const res = await fetch(`/api/guests/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          showToast(`Invitado ${name} eliminado`);
+          loadGuests();
+        }
+      } catch (e) {
+        showToast('Error al eliminar invitado');
+      }
+    }
+
+    // Exportar CSV
     function exportToCSV() {
-      if (!currentGuests.length) return alert('No hay invitados para exportar');
-      const headers = ['Nombre', 'Teléfono', 'Asiste', 'Adultos', 'Niños', 'Mascota', 'Detalle Mascota', 'Alergias', 'Notas'];
-      const rows = currentGuests.map(g => [
+      if (!allGuests.length) return alert('No hay invitados para exportar');
+      const headers = ['#', 'Nombre', 'Teléfono', 'WhatsApp Enviado', 'Estado Asistencia', 'Adultos', 'Niños', 'Mascota', 'Detalle Mascota', 'Alergias', 'Notas'];
+      const rows = allGuests.map((g, idx) => [
+        idx + 1,
         `"${g.name || ''}"`,
         `"${g.phone || ''}"`,
-        g.attending ? 'SI' : 'NO',
+        g.whatsapp_sent ? 'SI' : 'NO',
+        g.status === 'confirmed' || g.attending === true ? 'ASISTE' : g.status === 'declined' || g.attending === false ? 'NO ASISTE' : 'PENDIENTE',
         g.adults || 0,
         g.children || 0,
         g.has_pets ? 'SI' : 'NO',
@@ -175,14 +558,26 @@
         `"${g.notes || ''}"`
       ]);
 
-      const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
       const encodedUri = encodeURI(csvContent);
       const link = document.createElement('a');
       link.setAttribute('href', encodedUri);
-      link.setAttribute('download', 'invitados_boda.csv');
+      link.setAttribute('download', 'invitados_boda_blanca_y_alvaro.csv');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 3200);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
 
     loadGuests();

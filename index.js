@@ -68,7 +68,7 @@ if (process.env.DATABASE_URL) {
           id SERIAL PRIMARY KEY,
           name VARCHAR(255) NOT NULL,
           phone VARCHAR(50),
-          attending BOOLEAN DEFAULT TRUE,
+          attending BOOLEAN DEFAULT NULL,
           adults INTEGER DEFAULT 1,
           children INTEGER DEFAULT 0,
           has_pets BOOLEAN DEFAULT FALSE,
@@ -76,9 +76,14 @@ if (process.env.DATABASE_URL) {
           allergies TEXT,
           notes TEXT,
           invitation_code VARCHAR(64) UNIQUE,
+          whatsapp_sent BOOLEAN DEFAULT FALSE,
+          status VARCHAR(50) DEFAULT 'pending',
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );
+
+        ALTER TABLE guests ADD COLUMN IF NOT EXISTS whatsapp_sent BOOLEAN DEFAULT FALSE;
+        ALTER TABLE guests ADD COLUMN IF NOT EXISTS status VARCHAR(50) DEFAULT 'pending';
 
         CREATE TABLE IF NOT EXISTS photos (
           id SERIAL PRIMARY KEY,
@@ -90,6 +95,9 @@ if (process.env.DATABASE_URL) {
         );
       `);
       console.log('✅ Base de datos inicializada correctamente (tablas guests y photos listas).');
+
+      // Sincronizar automáticamente la lista oficial de invitados si existe
+      await syncGuestsFromDoc();
     } catch (err) {
       console.error('❌ Error al inicializar la base de datos:', err.message);
     }
@@ -99,6 +107,42 @@ if (process.env.DATABASE_URL) {
 } else {
   console.warn('⚠️ No se ha detectado DATABASE_URL en las variables de entorno. El servidor arranca en modo demostración.');
 }
+
+// Función auxiliar para sincronizar la lista de invitados desde el archivo de texto
+const syncGuestsFromDoc = async () => {
+  if (!pool) return;
+  try {
+    const possiblePaths = [
+      path.join(__dirname, 'doc', 'listado_invitados.txt'),
+      path.join(__dirname, 'doc', 'lista_invitados.txt')
+    ];
+    const filePath = possiblePaths.find(p => fs.existsSync(p));
+
+    if (!filePath) {
+      console.log('ℹ️ No se encontró archivo de listado de invitados para sincronizar.');
+      return;
+    }
+
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+    let inserted = 0;
+    for (const name of lines) {
+      const existing = await pool.query('SELECT id FROM guests WHERE LOWER(TRIM(name)) = LOWER(TRIM($1)) LIMIT 1', [name]);
+      if (existing.rows.length === 0) {
+        await pool.query(
+          `INSERT INTO guests (name, status, attending, whatsapp_sent)
+           VALUES ($1, 'pending', NULL, FALSE)`,
+          [name]
+        );
+        inserted++;
+      }
+    }
+    console.log(`✅ Sincronización de invitados completada (${lines.length} leídos, ${inserted} nuevos insertados desde ${path.basename(filePath)}).`);
+  } catch (err) {
+    console.error('⚠️ Error al sincronizar listado de invitados desde doc:', err.message);
+  }
+};
 
 // Ruta de estado de salud (Health Check)
 app.get('/health', async (req, res) => {
@@ -125,28 +169,162 @@ app.get('/api/guests', async (req, res) => {
   }
 
   try {
-    const { rows: guests } = await pool.query('SELECT * FROM guests ORDER BY created_at DESC');
+    const { rows: guests } = await pool.query('SELECT * FROM guests ORDER BY name ASC');
 
     const stats = guests.reduce(
       (acc, g) => {
-        if (g.attending) {
+        acc.totalGuests += 1;
+        if (g.phone && g.phone.trim()) acc.withPhoneCount += 1;
+        if (g.whatsapp_sent) acc.whatsappSentCount += 1;
+
+        if (g.attending === true || g.status === 'confirmed') {
           acc.confirmedCount += 1;
           acc.totalAdults += g.adults || 0;
           acc.totalChildren += g.children || 0;
           if (g.has_pets) acc.totalPets += 1;
           if (g.allergies && g.allergies.trim()) acc.withAllergiesCount += 1;
-        } else {
+        } else if (g.attending === false || g.status === 'declined') {
           acc.declinedCount += 1;
+        } else {
+          acc.pendingCount += 1;
         }
         return acc;
       },
-      { confirmedCount: 0, declinedCount: 0, totalAdults: 0, totalChildren: 0, totalPets: 0, withAllergiesCount: 0 }
+      {
+        totalGuests: 0,
+        withPhoneCount: 0,
+        whatsappSentCount: 0,
+        confirmedCount: 0,
+        declinedCount: 0,
+        pendingCount: 0,
+        totalAdults: 0,
+        totalChildren: 0,
+        totalPets: 0,
+        withAllergiesCount: 0
+      }
     );
 
     res.json({ stats, guests });
   } catch (err) {
     console.error('Error al listar invitados:', err);
     res.status(500).json({ error: 'Error al consultar invitados' });
+  }
+});
+
+// Sincronizar invitados manualmente desde archivo doc
+app.post('/api/guests/sync', async (req, res) => {
+  if (!pool) return res.status(503).json({ error: 'Base de datos no disponible' });
+  try {
+    await syncGuestsFromDoc();
+    const { rows: guests } = await pool.query('SELECT * FROM guests ORDER BY name ASC');
+    res.json({ success: true, message: 'Invitados sincronizados correctamente', count: guests.length });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al sincronizar: ' + err.message });
+  }
+});
+
+// Añadir un nuevo invitado manualmente desde el panel
+app.post('/api/guests', async (req, res) => {
+  if (!pool) return res.status(503).json({ error: 'Base de datos no disponible' });
+  const { name, phone = null, notes = null } = req.body;
+  if (!name || !name.trim()) {
+    return res.status(400).json({ error: 'El nombre es obligatorio' });
+  }
+  try {
+    const result = await pool.query(
+      `INSERT INTO guests (name, phone, status, attending, whatsapp_sent, notes)
+       VALUES ($1, $2, 'pending', NULL, FALSE, $3)
+       RETURNING *`,
+      [name.trim(), phone ? phone.trim() : null, notes ? notes.trim() : null]
+    );
+    res.status(201).json({ success: true, guest: result.rows[0] });
+  } catch (err) {
+    console.error('Error al añadir invitado:', err);
+    res.status(500).json({ error: 'Error al añadir invitado' });
+  }
+});
+
+// Actualizar datos de un invitado (teléfono, envío de WhatsApp, estado RSVP, etc.)
+app.put('/api/guests/:id', async (req, res) => {
+  if (!pool) return res.status(503).json({ error: 'Base de datos no disponible' });
+  const { id } = req.params;
+  const { phone, whatsapp_sent, status, attending, notes, adults, children, has_pets, allergies } = req.body;
+
+  try {
+    const fields = [];
+    const values = [];
+    let idx = 1;
+
+    if (phone !== undefined) {
+      fields.push(`phone = $${idx++}`);
+      values.push(phone ? phone.trim() : null);
+    }
+    if (whatsapp_sent !== undefined) {
+      fields.push(`whatsapp_sent = $${idx++}`);
+      values.push(Boolean(whatsapp_sent));
+    }
+    if (status !== undefined) {
+      fields.push(`status = $${idx++}`);
+      values.push(status);
+    }
+    if (attending !== undefined) {
+      fields.push(`attending = $${idx++}`);
+      values.push(attending === null ? null : Boolean(attending));
+    }
+    if (notes !== undefined) {
+      fields.push(`notes = $${idx++}`);
+      values.push(notes ? notes.trim() : null);
+    }
+    if (adults !== undefined) {
+      fields.push(`adults = $${idx++}`);
+      values.push(parseInt(adults, 10) || 0);
+    }
+    if (children !== undefined) {
+      fields.push(`children = $${idx++}`);
+      values.push(parseInt(children, 10) || 0);
+    }
+    if (has_pets !== undefined) {
+      fields.push(`has_pets = $${idx++}`);
+      values.push(Boolean(has_pets));
+    }
+    if (allergies !== undefined) {
+      fields.push(`allergies = $${idx++}`);
+      values.push(allergies ? allergies.trim() : null);
+    }
+
+    if (fields.length === 0) {
+      return res.status(400).json({ error: 'No se enviaron campos para actualizar' });
+    }
+
+    fields.push(`updated_at = CURRENT_TIMESTAMP`);
+    values.push(id);
+
+    const query = `UPDATE guests SET ${fields.join(', ')} WHERE id = $${idx} RETURNING *`;
+    const result = await pool.query(query, values);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Invitado no encontrado' });
+    }
+
+    res.json({ success: true, guest: result.rows[0] });
+  } catch (err) {
+    console.error('Error al actualizar invitado:', err);
+    res.status(500).json({ error: 'Error al actualizar invitado' });
+  }
+});
+
+// Eliminar invitado
+app.delete('/api/guests/:id', async (req, res) => {
+  if (!pool) return res.status(503).json({ error: 'Base de datos no disponible' });
+  const { id } = req.params;
+  try {
+    const result = await pool.query('DELETE FROM guests WHERE id = $1 RETURNING *', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Invitado no encontrado' });
+    }
+    res.json({ success: true, message: 'Invitado eliminado' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al eliminar invitado' });
   }
 });
 
@@ -173,27 +351,68 @@ app.post('/api/rsvp', async (req, res) => {
     return res.status(400).json({ error: 'El nombre es obligatorio' });
   }
 
-  try {
-    const query = `
-      INSERT INTO guests (name, phone, attending, adults, children, has_pets, pet_details, allergies, notes, invitation_code, updated_at)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, CURRENT_TIMESTAMP)
-      RETURNING *;
-    `;
-    const values = [
-      name.trim(),
-      phone ? phone.trim() : null,
-      Boolean(attending),
-      parseInt(adults, 10) || 0,
-      parseInt(children, 10) || 0,
-      Boolean(has_pets),
-      pet_details ? pet_details.trim() : null,
-      allergies ? allergies.trim() : null,
-      notes ? notes.trim() : null,
-      invitation_code || null
-    ];
+  const cleanName = name.trim();
+  const isAttending = Boolean(attending);
+  const guestStatus = isAttending ? 'confirmed' : 'declined';
 
-    const result = await pool.query(query, values);
-    res.status(201).json({ success: true, guest: result.rows[0] });
+  try {
+    // Buscar si el invitado ya existe por nombre (case-insensitive)
+    const existing = await pool.query(
+      'SELECT id, phone FROM guests WHERE LOWER(TRIM(name)) = LOWER(TRIM($1)) LIMIT 1',
+      [cleanName]
+    );
+
+    let savedGuest;
+    if (existing.rows.length > 0) {
+      const guestId = existing.rows[0].id;
+      const finalPhone = phone && phone.trim() ? phone.trim() : existing.rows[0].phone;
+      const updateQuery = `
+        UPDATE guests
+        SET phone = $1, attending = $2, status = $3, adults = $4, children = $5,
+            has_pets = $6, pet_details = $7, allergies = $8, notes = $9,
+            invitation_code = COALESCE($10, invitation_code), updated_at = CURRENT_TIMESTAMP
+        WHERE id = $11
+        RETURNING *;
+      `;
+      const updateValues = [
+        finalPhone,
+        isAttending,
+        guestStatus,
+        parseInt(adults, 10) || 0,
+        parseInt(children, 10) || 0,
+        Boolean(has_pets),
+        pet_details ? pet_details.trim() : null,
+        allergies ? allergies.trim() : null,
+        notes ? notes.trim() : null,
+        invitation_code || null,
+        guestId
+      ];
+      const result = await pool.query(updateQuery, updateValues);
+      savedGuest = result.rows[0];
+    } else {
+      const insertQuery = `
+        INSERT INTO guests (name, phone, attending, status, adults, children, has_pets, pet_details, allergies, notes, invitation_code, updated_at)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP)
+        RETURNING *;
+      `;
+      const insertValues = [
+        cleanName,
+        phone ? phone.trim() : null,
+        isAttending,
+        guestStatus,
+        parseInt(adults, 10) || 0,
+        parseInt(children, 10) || 0,
+        Boolean(has_pets),
+        pet_details ? pet_details.trim() : null,
+        allergies ? allergies.trim() : null,
+        notes ? notes.trim() : null,
+        invitation_code || null
+      ];
+      const result = await pool.query(insertQuery, insertValues);
+      savedGuest = result.rows[0];
+    }
+
+    res.status(201).json({ success: true, guest: savedGuest });
   } catch (err) {
     console.error('Error al guardar confirmación:', err);
     res.status(500).json({ error: 'Error al registrar la confirmación' });
