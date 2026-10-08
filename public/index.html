@@ -177,6 +177,53 @@
       box-shadow: 0 6px 18px rgba(52, 75, 72, 0.4);
     }
 
+    /* Botón Hamburguesa Móvil (3 rayitas) */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1002;
+      transition: all 0.25s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(194, 164, 119, 0.12);
+      border-color: rgba(194, 164, 119, 0.3);
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 25px;
+      height: 2.5px;
+      background-color: var(--heading);
+      border-radius: 3px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+      background-color: var(--primary);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+      background-color: var(--primary);
+    }
+
     /* Hero Section Elegante y Centrado */
     .hero {
       position: relative;
@@ -1382,7 +1429,77 @@
       .navbar { padding: 12px 18px; }
       .nav-logo { font-size: 1.35rem; gap: 9px; }
       .nav-logo .logo-img { height: 34px; max-width: 50px; }
-      .nav-links { display: none; } /* En móvil simplificamos el menú */
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 58px;
+        left: 0;
+        right: 0;
+        background: rgba(248, 248, 245, 0.98);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-bottom: 2px solid var(--accent);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 0 20px;
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+      }
+
+      .nav-links.active {
+        max-height: 480px;
+        opacity: 1;
+        visibility: visible;
+        padding: 18px 20px 24px;
+      }
+
+      .nav-links li {
+        width: 100%;
+        list-style: none;
+      }
+
+      .nav-links li a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 16px;
+        border-radius: 12px;
+        color: var(--heading);
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .nav-links li a:hover,
+      .nav-links li a:active {
+        background: rgba(194, 164, 119, 0.15);
+        color: var(--primary);
+        transform: translateX(4px);
+      }
+
+      .nav-links li a.nav-btn {
+        margin-top: 6px;
+        justify-content: center;
+        padding: 12px 18px;
+        background: var(--primary);
+        color: white !important;
+        border-radius: 30px;
+        border: 1.5px solid var(--accent);
+        box-shadow: 0 4px 15px rgba(52, 75, 72, 0.3);
+      }
     }
 
     @media (max-width: 768px) {
@@ -1577,13 +1694,21 @@
       <img src="/images/logo/anillo.png" alt="Logo Alianza Blanca & Álvaro" class="logo-img">
       <span>Blanca & Álvaro</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="javascript:void(0)" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación</a></li>
-      <li><a href="/historia.html"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
-      <li><a href="#itinerario">Itinerario</a></li>
-      <li><a href="#espacio">El Espacio</a></li>
-      <li><a href="#galeria">Galería</a></li>
-      <li><a href="#rsvp" class="nav-btn">Confirmar Asistencia</a></li>
+
+    <!-- Botón Hamburguesa Móvil (3 rayitas) -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menú de Navegación" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="javascript:void(0)" onclick="openInvitationModal(); closeMobileMenu();"><i data-lucide="mail"></i> Ver Invitación</a></li>
+      <li><a href="/historia.html" onclick="closeMobileMenu()"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
+      <li><a href="#itinerario" onclick="closeMobileMenu()"><i data-lucide="calendar"></i> Itinerario</a></li>
+      <li><a href="#espacio" onclick="closeMobileMenu()"><i data-lucide="landmark"></i> El Espacio</a></li>
+      <li><a href="#galeria" onclick="closeMobileMenu()"><i data-lucide="camera"></i> Galería</a></li>
+      <li><a href="#rsvp" class="nav-btn" onclick="closeMobileMenu()"><i data-lucide="heart"></i> Confirmar Asistencia</a></li>
     </ul>
   </nav>
 
@@ -2628,6 +2753,33 @@
       if (!str) return '';
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
+
+    // Control del Menú Móvil Hamburguesa (3 rayitas)
+    function toggleMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      if (btn && links) {
+        btn.classList.toggle('active');
+        links.classList.toggle('active');
+      }
+    }
+
+    function closeMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      if (btn && links) {
+        btn.classList.remove('active');
+        links.classList.remove('active');
+      }
+    }
+
+    // Cerrar menú móvil al hacer click fuera de la barra de navegación
+    document.addEventListener('click', (e) => {
+      const navbar = document.querySelector('.navbar');
+      if (navbar && !navbar.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
 
     // Iniciar scripts e iconos al arrancar
     if (window.lucide) lucide.createIcons();
