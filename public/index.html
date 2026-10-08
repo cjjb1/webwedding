@@ -394,35 +394,7 @@
       flex-wrap: wrap;
     }
 
-    .btn-gold {
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      padding: 13px 30px;
-      border-radius: 40px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      box-shadow: 0 6px 20px rgba(194, 164, 119, 0.35);
-      transition: all 0.3s ease;
-      border: 1.5px solid rgba(255, 255, 255, 0.3);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-family: inherit;
-      cursor: pointer;
-    }
-
-    .btn-gold:hover {
-      background: var(--gold-dark);
-      border-color: rgba(255, 255, 255, 0.5);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(194, 164, 119, 0.5);
-    }
-
-    /* Botón Confirmar Asistencia con alto contraste verde esmeralda y oro */
+    .btn-gold,
     .btn-confirm {
       background: var(--primary);
       color: #ffffff !important;
@@ -442,8 +414,10 @@
       gap: 8px;
       font-family: inherit;
       cursor: pointer;
+      white-space: nowrap;
     }
 
+    .btn-gold:hover,
     .btn-confirm:hover {
       background: var(--primary-hover);
       border-color: #ffffff;
@@ -1384,8 +1358,8 @@
               <li>Reconocida gastronomía segoviana y menús especiales para alérgenos</li>
               <li>Amplio aparcamiento privado y accesos cómodos</li>
             </ul>
-            <a href="https://maps.google.com/?q=Restaurante+Magullo+Segovia" target="_blank" class="btn-gold">
-              <i data-lucide="map-pin"></i> Cómo Llegar a Restaurante Magullo (Google Maps)
+            <a href="https://maps.google.com/?q=Restaurante+Magullo+Segovia" target="_blank" class="btn-confirm">
+              <i data-lucide="map-pin"></i> Cómo Llegar (Google Maps)
             </a>
           </div>
         </div>
@@ -1671,7 +1645,7 @@
           <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
         </div>
         <div class="modal-actions">
-          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-gold">
+          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-confirm">
             <i data-lucide="download"></i> Descargar Invitación
           </a>
         </div>
