@@ -846,6 +846,93 @@
     .alert-success { background: #edf7ee; color: #1e6924; border: 1px solid #c0e6c5; }
     .alert-error { background: #fdf0f0; color: #a12323; border: 1px solid #f8c9c9; }
 
+    /* Autocompletado inteligente de invitados */
+    .autocomplete-wrap {
+      position: relative;
+    }
+
+    .autocomplete-dropdown {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      max-height: 230px;
+      overflow-y: auto;
+      z-index: 1000;
+      text-align: left;
+    }
+
+    .autocomplete-item {
+      padding: 11px 16px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+    }
+
+    .autocomplete-item:hover, .autocomplete-item.active {
+      background: #fbf9f5;
+      color: var(--gold-dark);
+    }
+
+    .autocomplete-item:last-child {
+      border-bottom: none;
+    }
+
+    .badge-in-list {
+      font-size: 0.72rem;
+      background: #dcfce7;
+      color: #166534;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .autocomplete-new-hint {
+      background: #fdfbf7;
+      color: #718096;
+      font-size: 0.82rem;
+      font-style: italic;
+      padding: 10px 16px;
+      border-top: 1px dashed var(--border-gold);
+      cursor: pointer;
+    }
+
+    .autocomplete-new-hint:hover {
+      background: #f7f2ea;
+      color: var(--gold-dark);
+    }
+
+    .name-hint-box {
+      margin-top: 7px;
+      font-size: 0.82rem;
+      display: none;
+      align-items: center;
+      gap: 6px;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .name-hint-box.found {
+      display: flex;
+      color: #166534;
+      font-weight: 600;
+    }
+
+    .name-hint-box.new {
+      display: flex;
+      color: #b45309;
+      font-weight: 500;
+    }
+
     /* Tarjeta WhatsApp */
     .whatsapp-card {
       background: #edf8f1;
@@ -1238,7 +1325,7 @@
     <section id="rsvp" style="background: #f5f0e8;">
       <div class="container">
         <div class="section-header">
-          <span class="sub">RSVP</span>
+          <span class="sub">¿Nos acompañas?</span>
           <h2>Confirmación de Asistencia</h2>
           <p>Te agradecemos que confirmes cuanto antes para coordinar las mesas y los menús especiales con Restaurante Magullo.</p>
         </div>
@@ -1254,9 +1341,21 @@
           <form id="rsvpForm">
             <div class="form-grid">
               
-              <div class="form-group">
+              <div class="form-group autocomplete-wrap">
                 <label for="name">Nombre y Apellidos *</label>
-                <input type="text" id="name" name="name" placeholder="Ej: Laura García López" required>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  placeholder="Empieza a escribir tu nombre..." 
+                  autocomplete="off" 
+                  required 
+                  oninput="handleNameInput(this.value)"
+                  onfocus="handleNameInput(this.value)"
+                >
+                <input type="hidden" id="guestId" name="guest_id" value="">
+                <div id="nameSuggestions" class="autocomplete-dropdown" style="display: none;"></div>
+                <div id="nameStatusHint" class="name-hint-box"></div>
               </div>
 
               <div class="form-group">
@@ -1296,8 +1395,28 @@
               </div>
 
               <div class="form-group full">
-                <label for="allergies">Alergias, Intolerancias o Dietas Especiales</label>
-                <textarea id="allergies" name="allergies" rows="2" placeholder="Ej: Celíaco, intolerante a la lactosa, vegetariano, alergia a frutos secos..."></textarea>
+                <label for="allergy_type">Alergias, Intolerancias o Menú Especial</label>
+                <select id="allergy_type" name="allergy_type" onchange="toggleAllergyDetails()">
+                  <option value="">Ninguna (Menú tradicional)</option>
+                  <option value="Celiaco">Celíaco</option>
+                  <option value="Intolerante a la lactosa">Intolerante a la lactosa</option>
+                  <option value="Alergia a frutos secos">Alergia a frutos secos</option>
+                  <option value="Vegetariano">Vegetariano</option>
+                  <option value="Vegano">Vegano</option>
+                  <option value="Otros">Otros</option>
+                </select>
+
+                <!-- Cuadro condicional para Frutos Secos -->
+                <div id="nutsGroup" style="display: none; margin-top: 14px;">
+                  <label for="nuts_detail" style="font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 6px;">¿A qué frutos secos eres alérgico/a? *</label>
+                  <input type="text" id="nuts_detail" name="nuts_detail" placeholder="Ej: Nueces, almendras, cacahuetes, pistachos...">
+                </div>
+
+                <!-- Cuadro condicional para Otros -->
+                <div id="othersGroup" style="display: none; margin-top: 14px;">
+                  <label for="others_detail" style="font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 6px;">Especifica tu alergia o intolerancia *</label>
+                  <input type="text" id="others_detail" name="others_detail" placeholder="Ej: Marisco, fructosa, huevo, o combinaciones...">
+                </div>
               </div>
 
               <div class="form-group full">
@@ -1611,6 +1730,140 @@
       }
     });
 
+    // Lista de invitados precargada para autocompletado en el formulario
+    let preloadedGuestList = [];
+
+    async function fetchGuestNames() {
+      try {
+        const res = await fetch('/api/guests/names');
+        if (res.ok) {
+          const data = await res.json();
+          preloadedGuestList = data.names || [];
+        }
+      } catch (e) {
+        console.warn('No se pudo cargar la lista de nombres para autocompletado');
+      }
+    }
+
+    function normalizeText(text) {
+      return (text || '')
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+    }
+
+    function handleNameInput(val) {
+      const dropdown = document.getElementById('nameSuggestions');
+      const hintBox = document.getElementById('nameStatusHint');
+      const guestIdInput = document.getElementById('guestId');
+      
+      const cleanVal = (val || '').trim();
+      const normVal = normalizeText(cleanVal);
+
+      if (!cleanVal) {
+        dropdown.style.display = 'none';
+        hintBox.style.display = 'none';
+        hintBox.className = 'name-hint-box';
+        guestIdInput.value = '';
+        return;
+      }
+
+      guestIdInput.value = '';
+
+      const matches = preloadedGuestList.filter(g => normalizeText(g.name).includes(normVal));
+      const exactMatch = preloadedGuestList.find(g => normalizeText(g.name) === normVal);
+
+      if (exactMatch) {
+        guestIdInput.value = exactMatch.id;
+        hintBox.className = 'name-hint-box found';
+        hintBox.innerHTML = `<span>✅ ¡Hola ${escapeHtml(exactMatch.name)}! Estás en la lista oficial de invitados.</span>`;
+      } else if (matches.length > 0) {
+        hintBox.className = 'name-hint-box';
+        hintBox.style.display = 'none';
+      } else {
+        hintBox.className = 'name-hint-box new';
+        hintBox.innerHTML = `<span>✨ Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
+      }
+
+      if (matches.length > 0) {
+        let html = matches.slice(0, 6).map(g => `
+          <div class="autocomplete-item" onclick="selectGuest(${g.id}, '${escapeHtml(g.name)}', '${escapeHtml(g.phone || '')}')">
+            <span><strong>${escapeHtml(g.name)}</strong></span>
+            <span class="badge-in-list">En lista</span>
+          </div>
+        `).join('');
+
+        html += `
+          <div class="autocomplete-new-hint" onclick="selectNewGuestName()">
+            ✨ ¿No eres ninguno de ellos? Continuar como nueva alta
+          </div>
+        `;
+
+        dropdown.innerHTML = html;
+        dropdown.style.display = 'block';
+      } else {
+        dropdown.innerHTML = `
+          <div class="autocomplete-new-hint" style="cursor: default;">
+            ✨ "${escapeHtml(cleanVal)}" no está en la lista previa. ¡No te preocupes! Te daremos de alta al confirmar.
+          </div>
+        `;
+        dropdown.style.display = 'block';
+      }
+    }
+
+    function selectGuest(id, name, phone) {
+      document.getElementById('name').value = name;
+      document.getElementById('guestId').value = id;
+      
+      const phoneInput = document.getElementById('phone');
+      if (phone && !phoneInput.value) {
+        phoneInput.value = phone;
+      }
+
+      document.getElementById('nameSuggestions').style.display = 'none';
+      
+      const hintBox = document.getElementById('nameStatusHint');
+      hintBox.className = 'name-hint-box found';
+      hintBox.innerHTML = `<span>✅ ¡Hola ${escapeHtml(name)}! Te hemos localizado en la lista oficial de invitados.</span>`;
+    }
+
+    function selectNewGuestName() {
+      document.getElementById('nameSuggestions').style.display = 'none';
+      document.getElementById('guestId').value = '';
+      const hintBox = document.getElementById('nameStatusHint');
+      hintBox.className = 'name-hint-box new';
+      hintBox.innerHTML = `<span>✨ Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
+    }
+
+    document.addEventListener('click', (e) => {
+      const wrap = document.querySelector('.autocomplete-wrap');
+      if (wrap && !wrap.contains(e.target)) {
+        const dropdown = document.getElementById('nameSuggestions');
+        if (dropdown) dropdown.style.display = 'none';
+      }
+    });
+
+    // Control dinámico de campos de Alergias
+    function toggleAllergyDetails() {
+      const type = document.getElementById('allergy_type').value;
+      const nutsGroup = document.getElementById('nutsGroup');
+      const othersGroup = document.getElementById('othersGroup');
+
+      if (type === 'Alergia a frutos secos') {
+        nutsGroup.style.display = 'block';
+        othersGroup.style.display = 'none';
+        document.getElementById('nuts_detail').focus();
+      } else if (type === 'Otros') {
+        othersGroup.style.display = 'block';
+        nutsGroup.style.display = 'none';
+        document.getElementById('others_detail').focus();
+      } else {
+        nutsGroup.style.display = 'none';
+        othersGroup.style.display = 'none';
+      }
+    }
+
     // Envío del formulario RSVP
     document.getElementById('rsvpForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -1620,7 +1873,21 @@
       alertSuccess.style.display = 'none';
       alertError.style.display = 'none';
 
+      // Construir valor detallado de Alergias
+      let finalAllergies = '';
+      const allergyType = document.getElementById('allergy_type').value;
+      if (allergyType === 'Alergia a frutos secos') {
+        const detail = document.getElementById('nuts_detail').value.trim();
+        finalAllergies = detail ? `Alergia a frutos secos: ${detail}` : 'Alergia a frutos secos';
+      } else if (allergyType === 'Otros') {
+        const detail = document.getElementById('others_detail').value.trim();
+        finalAllergies = detail ? `Otros: ${detail}` : 'Otras alergias / dietas';
+      } else if (allergyType) {
+        finalAllergies = allergyType;
+      }
+
       const formData = {
+        guest_id: document.getElementById('guestId').value || null,
         name: document.getElementById('name').value,
         phone: document.getElementById('phone').value,
         attending: document.getElementById('attending').value === 'true',
@@ -1628,7 +1895,7 @@
         children: parseInt(document.getElementById('children').value, 10) || 0,
         has_pets: document.getElementById('has_pets').value === 'true',
         pet_details: document.getElementById('pet_details').value,
-        allergies: document.getElementById('allergies').value,
+        allergies: finalAllergies,
         notes: document.getElementById('notes').value
       };
 
@@ -1642,7 +1909,12 @@
         if (response.ok) {
           alertSuccess.style.display = 'block';
           document.getElementById('rsvpForm').reset();
+          document.getElementById('guestId').value = '';
+          document.getElementById('nameStatusHint').style.display = 'none';
+          document.getElementById('nameSuggestions').style.display = 'none';
           togglePetsField();
+          toggleAllergyDetails();
+          fetchGuestNames(); // Actualizar lista tras el alta/confirmación
         } else {
           alertError.style.display = 'block';
         }
@@ -1674,6 +1946,7 @@
     // Iniciar scripts al arrancar
     startCountdown();
     loadGallery();
+    fetchGuestNames();
   </script>
 </body>
 </html>

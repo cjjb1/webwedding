@@ -211,6 +211,17 @@ app.get('/api/guests', async (req, res) => {
   }
 });
 
+// Obtener nombres para autocompletado en el formulario público
+app.get('/api/guests/names', async (req, res) => {
+  if (!pool) return res.json({ names: [] });
+  try {
+    const { rows } = await pool.query('SELECT id, name, phone FROM guests ORDER BY name ASC');
+    res.json({ names: rows });
+  } catch (err) {
+    res.json({ names: [] });
+  }
+});
+
 // Sincronizar invitados manualmente desde archivo doc
 app.post('/api/guests/sync', async (req, res) => {
   if (!pool) return res.status(503).json({ error: 'Base de datos no disponible' });
@@ -335,6 +346,7 @@ app.post('/api/rsvp', async (req, res) => {
   }
 
   const {
+    guest_id = null,
     name,
     phone,
     attending = true,
@@ -356,11 +368,17 @@ app.post('/api/rsvp', async (req, res) => {
   const guestStatus = isAttending ? 'confirmed' : 'declined';
 
   try {
-    // Buscar si el invitado ya existe por nombre (case-insensitive)
-    const existing = await pool.query(
-      'SELECT id, phone FROM guests WHERE LOWER(TRIM(name)) = LOWER(TRIM($1)) LIMIT 1',
-      [cleanName]
-    );
+    // Buscar si el invitado ya existe por id o por nombre (case-insensitive)
+    let existing = { rows: [] };
+    if (guest_id) {
+      existing = await pool.query('SELECT id, phone FROM guests WHERE id = $1 LIMIT 1', [guest_id]);
+    }
+    if (existing.rows.length === 0) {
+      existing = await pool.query(
+        'SELECT id, phone FROM guests WHERE LOWER(TRIM(name)) = LOWER(TRIM($1)) LIMIT 1',
+        [cleanName]
+      );
+    }
 
     let savedGuest;
     if (existing.rows.length > 0) {
