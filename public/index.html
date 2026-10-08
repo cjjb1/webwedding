@@ -25,20 +25,30 @@
   
   <style>
     :root {
-      --gold: #9d8151;
-      --gold-light: #c8b28a;
-      --gold-dark: #6e5831;
-      --gold-soft: #fcf9f5;
-      --dark: #1f2421;
-      --dark-card: #252b27;
-      --text: #333d37;
-      --text-muted: #6b7770;
-      --bg: #faf7f2;
-      --white: #ffffff;
-      --border-gold: rgba(157, 129, 81, 0.25);
-      --shadow-sm: 0 4px 15px rgba(0,0,0,0.04);
-      --shadow-md: 0 12px 35px rgba(31, 36, 33, 0.08);
-      --shadow-lg: 0 20px 50px rgba(31, 36, 33, 0.12);
+      /* Paleta Marfil y Verde Esmeralda Oscuro */
+      --background: #F8F8F5;
+      --surface: #FFFFFF;
+      --primary: #344B48;
+      --primary-hover: #263B38;
+      --heading: #263431;
+      --text-secondary: #687772;
+      --accent: #C2A477;
+      --border: #DFE3DD;
+
+      /* Mapeo de compatibilidad y armonía */
+      --bg: var(--background);
+      --white: var(--surface);
+      --text: #2c3835;
+      --text-muted: var(--text-secondary);
+      --dark: var(--heading);
+      --gold: var(--accent);
+      --gold-dark: #a68456;
+      --gold-light: #d8c29d;
+      --gold-soft: #fcfbf9;
+      --border-gold: rgba(194, 164, 119, 0.35);
+      --shadow-sm: 0 4px 15px rgba(38, 52, 49, 0.05);
+      --shadow-md: 0 12px 35px rgba(38, 52, 49, 0.08);
+      --shadow-lg: 0 20px 50px rgba(38, 52, 49, 0.12);
       --radius: 18px;
     }
 
@@ -50,7 +60,7 @@
       stroke-width: 1.8;
       display: inline-block;
     }
-    .btn-gold .lucide, .btn-outline .lucide, .btn-submit .lucide, .whatsapp-btn .lucide, .tab-btn .lucide {
+    .btn-gold .lucide, .btn-confirm .lucide, .btn-outline .lucide, .btn-submit .lucide, .whatsapp-btn .lucide, .tab-btn .lucide {
       margin-right: 6px;
       vertical-align: -0.18em;
     }
@@ -69,6 +79,7 @@
     h1, h2, h3, h4, .serif {
       font-family: 'Cormorant Garamond', serif;
       letter-spacing: 0.5px;
+      color: var(--heading);
     }
 
     /* Barra de Navegación Glassmorphism */
@@ -82,10 +93,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px 40px;
-      background: rgba(250, 247, 242, 0.88);
+      background: rgba(248, 248, 245, 0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-gold);
+      border-bottom: 1px solid var(--border);
       transition: all 0.3s ease;
     }
 
@@ -93,7 +104,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.65rem;
       font-weight: 700;
-      color: var(--gold-dark);
+      color: var(--heading);
       text-decoration: none;
       letter-spacing: 2px;
       display: inline-flex;
@@ -133,21 +144,25 @@
     }
 
     .nav-links a:hover {
-      color: var(--gold);
+      color: var(--primary);
     }
 
     .nav-btn {
-      padding: 8px 22px;
+      padding: 9px 24px;
       border-radius: 30px;
-      background: var(--gold);
+      background: var(--primary);
       color: white !important;
       font-weight: 600 !important;
-      transition: background 0.2s, transform 0.2s !important;
+      border: 1px solid var(--accent);
+      box-shadow: 0 4px 14px rgba(52, 75, 72, 0.28);
+      transition: all 0.25s ease !important;
     }
 
     .nav-btn:hover {
-      background: var(--gold-dark);
+      background: var(--primary-hover);
+      border-color: white;
       transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(52, 75, 72, 0.4);
     }
 
     /* Hero Section Elegante y Centrado */
@@ -303,10 +318,10 @@
       text-transform: uppercase;
       letter-spacing: 4px;
       font-size: 0.82rem;
-      color: var(--gold-light);
+      color: var(--accent);
       margin-bottom: 16px;
       font-weight: 600;
-      border-bottom: 1px solid var(--gold-light);
+      border-bottom: 1px solid var(--accent);
       padding-bottom: 4px;
     }
 
@@ -362,7 +377,7 @@
       font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: var(--gold-light);
+      color: var(--accent);
       font-weight: 600;
     }
 
@@ -374,8 +389,30 @@
     }
 
     .btn-gold {
-      background: var(--gold);
+      background: var(--accent);
       color: white;
+      text-decoration: none;
+      padding: 15px 34px;
+      border-radius: 40px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      box-shadow: 0 8px 25px rgba(194, 164, 119, 0.35);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(194, 164, 119, 0.5);
+    }
+
+    /* Botón Confirmar Asistencia con alto contraste verde esmeralda y oro */
+    .btn-confirm {
+      background: var(--primary);
+      color: #ffffff !important;
       text-decoration: none;
       padding: 15px 36px;
       border-radius: 40px;
@@ -383,19 +420,23 @@
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      box-shadow: 0 8px 25px rgba(157, 129, 81, 0.4);
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 8px 25px rgba(26, 40, 37, 0.5);
       transition: all 0.3s ease;
-      border: 1px solid var(--gold-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    .btn-gold:hover {
-      background: var(--gold-dark);
+    .btn-confirm:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(157, 129, 81, 0.5);
+      box-shadow: 0 12px 30px rgba(26, 40, 37, 0.7);
     }
 
     .btn-outline {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.1);
       color: white;
       text-decoration: none;
       padding: 15px 32px;
@@ -404,13 +445,13 @@
       font-weight: 600;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,0.7);
+      border: 1px solid rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(5px);
       transition: all 0.3s ease;
     }
 
     .btn-outline:hover {
-      background: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.25);
       border-color: white;
       transform: translateY(-3px);
     }
@@ -436,7 +477,7 @@
       text-transform: uppercase;
       font-size: 0.85rem;
       letter-spacing: 4px;
-      color: var(--gold);
+      color: var(--accent);
       font-weight: 600;
       margin-bottom: 8px;
       display: block;
@@ -444,13 +485,13 @@
 
     .section-header h2 {
       font-size: clamp(2.4rem, 4vw, 3.4rem);
-      color: var(--dark);
+      color: var(--heading);
       font-weight: 600;
       margin-bottom: 12px;
     }
 
     .section-header p {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       max-width: 600px;
       margin: 0 auto;
       font-size: 1.05rem;
@@ -463,11 +504,11 @@
       gap: 50px;
       align-items: center;
       margin-bottom: 60px;
-      background: var(--white);
+      background: var(--surface);
       padding: 50px;
       border-radius: var(--radius);
       box-shadow: var(--shadow-md);
-      border: 1px solid var(--border-gold);
+      border: 1px solid var(--border);
     }
 
     .finca-img-wrapper {
@@ -491,7 +532,7 @@
 
     .finca-text h3 {
       font-size: 2.3rem;
-      color: var(--dark);
+      color: var(--heading);
       margin-bottom: 16px;
       line-height: 1.2;
     }
@@ -515,12 +556,12 @@
       gap: 12px;
       font-size: 0.95rem;
       font-weight: 500;
-      color: var(--dark);
+      color: var(--heading);
     }
 
     .finca-points li::before {
       content: '✦';
-      color: var(--gold);
+      color: var(--accent);
       font-size: 1.1rem;
     }
 
@@ -533,11 +574,11 @@
     }
 
     .exp-card {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow-md);
-      border: 1px solid var(--border-gold);
+      border: 1px solid var(--border);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       display: flex;
       flex-direction: column;
@@ -570,9 +611,9 @@
       position: absolute;
       top: 15px;
       left: 15px;
-      background: rgba(31, 36, 33, 0.85);
+      background: rgba(38, 52, 49, 0.9);
       backdrop-filter: blur(8px);
-      color: var(--gold-light);
+      color: var(--accent);
       padding: 5px 14px;
       border-radius: 20px;
       font-size: 0.75rem;
@@ -591,12 +632,12 @@
 
     .exp-card h4 {
       font-size: 1.7rem;
-      color: var(--dark);
+      color: var(--heading);
       margin-bottom: 10px;
     }
 
     .exp-card p {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-size: 0.95rem;
       line-height: 1.7;
     }
@@ -616,7 +657,7 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: var(--gold-light);
+      background: var(--border);
       transform: translateX(-50%);
     }
 
@@ -644,9 +685,9 @@
       width: 16px;
       height: 16px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--primary);
       border: 3px solid white;
-      box-shadow: 0 0 0 2px var(--gold);
+      box-shadow: 0 0 0 2px var(--accent);
       z-index: 2;
     }
 
@@ -657,19 +698,19 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.8rem;
       font-weight: 700;
-      color: var(--gold-dark);
+      color: var(--accent);
       display: block;
       margin-bottom: 4px;
     }
 
     .timeline-content h4 {
       font-size: 1.4rem;
-      color: var(--dark);
+      color: var(--heading);
       margin-bottom: 6px;
     }
 
     .timeline-content p {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-size: 0.9rem;
     }
 
@@ -685,9 +726,9 @@
     .tab-btn {
       padding: 12px 28px;
       border-radius: 40px;
-      border: 1px solid var(--gold);
-      background: transparent;
-      color: var(--gold-dark);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--heading);
       font-weight: 600;
       cursor: pointer;
       font-size: 0.9rem;
@@ -697,9 +738,10 @@
     }
 
     .tab-btn.active, .tab-btn:hover {
-      background: var(--gold);
+      background: var(--primary);
       color: white;
-      box-shadow: 0 4px 15px rgba(157, 129, 81, 0.3);
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(52, 75, 72, 0.3);
     }
 
     .gallery-grid {
@@ -719,8 +761,8 @@
     }
 
     .gallery-item-cover {
-      border: 2px solid var(--gold);
-      box-shadow: 0 10px 30px rgba(157, 129, 81, 0.35);
+      border: 2px solid var(--accent);
+      box-shadow: 0 10px 30px rgba(194, 164, 119, 0.35);
     }
 
     .gallery-item img {
@@ -755,8 +797,8 @@
 
     /* Subida de Fotos para Invitados */
     .upload-box {
-      background: var(--gold-soft);
-      border: 2px dashed var(--gold);
+      background: var(--surface);
+      border: 2px dashed var(--accent);
       border-radius: var(--radius);
       padding: 40px 30px;
       text-align: center;
@@ -766,17 +808,17 @@
 
     .upload-box h3 {
       font-size: 2rem;
-      color: var(--gold-dark);
+      color: var(--heading);
       margin-bottom: 8px;
     }
 
     /* Formulario RSVP */
     .form-wrapper {
-      background: var(--white);
+      background: var(--surface);
       padding: 55px;
       border-radius: var(--radius);
       box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-gold);
+      border: 1px solid var(--border);
       max-width: 820px;
       margin: 0 auto;
     }
@@ -802,9 +844,10 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 8px;
-      color: var(--dark);
+      color: var(--heading);
     }
 
+    /* Campos de formulario blancos / marfil muy claro */
     input[type="text"],
     input[type="tel"],
     input[type="number"],
@@ -812,28 +855,28 @@
     textarea {
       width: 100%;
       padding: 14px 16px;
-      border: 1px solid #dcd7ce;
+      border: 1px solid var(--border);
       border-radius: 10px;
       font-family: inherit;
       font-size: 0.95rem;
-      background: #faf8f5;
-      color: var(--text);
+      background: #FFFFFF;
+      color: var(--heading);
       transition: all 0.25s ease;
     }
 
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: var(--gold);
-      background: white;
-      box-shadow: 0 0 0 3px rgba(157, 129, 81, 0.15);
+      border-color: var(--primary);
+      background: #FFFFFF;
+      box-shadow: 0 0 0 3px rgba(52, 75, 72, 0.15);
     }
 
     .btn-submit {
       width: 100%;
       padding: 16px;
-      background: var(--gold);
+      background: var(--primary);
       color: white;
-      border: none;
+      border: 1.5px solid var(--accent);
       border-radius: 40px;
       font-size: 1rem;
       font-weight: 600;
@@ -841,13 +884,18 @@
       letter-spacing: 2px;
       cursor: pointer;
       transition: all 0.3s;
-      box-shadow: 0 6px 20px rgba(157, 129, 81, 0.35);
+      box-shadow: 0 6px 20px rgba(52, 75, 72, 0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
 
     .btn-submit:hover {
-      background: var(--gold-dark);
+      background: var(--primary-hover);
+      border-color: white;
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(157, 129, 81, 0.45);
+      box-shadow: 0 10px 25px rgba(52, 75, 72, 0.45);
     }
 
     .alert {
@@ -873,7 +921,7 @@
       left: 0;
       right: 0;
       background: #ffffff;
-      border: 1px solid var(--border-gold);
+      border: 1px solid var(--border);
       border-radius: 12px;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
       max-height: 230px;
@@ -894,8 +942,8 @@
     }
 
     .autocomplete-item:hover, .autocomplete-item.active {
-      background: #fbf9f5;
-      color: var(--gold-dark);
+      background: #FAF8F5;
+      color: var(--primary);
     }
 
     .autocomplete-item:last-child {
@@ -914,18 +962,18 @@
     }
 
     .autocomplete-new-hint {
-      background: #fdfbf7;
-      color: #718096;
+      background: #FAF8F5;
+      color: var(--text-secondary);
       font-size: 0.82rem;
       font-style: italic;
       padding: 10px 16px;
-      border-top: 1px dashed var(--border-gold);
+      border-top: 1px dashed var(--border);
       cursor: pointer;
     }
 
     .autocomplete-new-hint:hover {
-      background: #f7f2ea;
-      color: var(--gold-dark);
+      background: #F2EFE9;
+      color: var(--heading);
     }
 
     .name-hint-box {
@@ -951,8 +999,8 @@
 
     /* Gestor de Alergias e Intolerancias por Persona */
     .allergies-wrapper-box {
-      background: #fdfbf7;
-      border: 1px solid var(--border-gold);
+      background: #FAF8F5;
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 22px;
       margin-top: 5px;
@@ -960,7 +1008,7 @@
 
     .allergy-entry-card {
       background: #ffffff;
-      border: 1px solid #e8e2d8;
+      border: 1px solid var(--border);
       border-radius: 10px;
       padding: 18px;
       margin-bottom: 14px;
@@ -975,7 +1023,7 @@
       margin-bottom: 12px;
       font-size: 0.85rem;
       font-weight: 700;
-      color: var(--gold-dark);
+      color: var(--heading);
     }
 
     .btn-remove-allergy {
@@ -999,8 +1047,8 @@
 
     .btn-add-allergy {
       background: #ffffff;
-      border: 1.5px dashed var(--gold);
-      color: var(--gold-dark);
+      border: 1.5px dashed var(--primary);
+      color: var(--primary);
       padding: 10px 20px;
       border-radius: 30px;
       font-weight: 600;
@@ -1013,8 +1061,9 @@
     }
 
     .btn-add-allergy:hover {
-      background: #fbf8f2;
-      border-color: var(--gold-dark);
+      background: #FAF8F5;
+      border-color: var(--primary-hover);
+      color: var(--primary-hover);
       transform: translateY(-1px);
     }
 
@@ -1026,8 +1075,8 @@
 
     /* Tarjeta WhatsApp */
     .whatsapp-card {
-      background: #edf8f1;
-      border: 1px solid #aae3c0;
+      background: #F0F4F2;
+      border: 1px solid var(--border);
       padding: 35px;
       border-radius: var(--radius);
       margin: 40px auto 0;
@@ -1038,7 +1087,7 @@
 
     .whatsapp-card h3 {
       font-size: 1.8rem;
-      color: #1a6b3b;
+      color: var(--heading);
       margin-bottom: 8px;
     }
 
@@ -1134,22 +1183,23 @@
 
     /* Footer */
     footer {
-      background: #1a1e1b;
+      background: #1c2724;
       color: #9ea8a2;
       text-align: center;
       padding: 60px 20px 40px;
       font-size: 0.9rem;
+      border-top: 1px solid rgba(194, 164, 119, 0.2);
     }
 
     footer h4 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 2rem;
-      color: var(--gold-light);
+      color: var(--accent);
       margin-bottom: 12px;
     }
 
     footer a {
-      color: var(--gold-light);
+      color: var(--accent);
       text-decoration: none;
       transition: color 0.2s;
     }
@@ -1245,7 +1295,7 @@
 
       <div class="hero-actions">
         <button class="btn-gold" onclick="openInvitationModal()"><i data-lucide="mail"></i> Ver Invitación Oficial</button>
-        <a href="#rsvp" class="btn-outline"><i data-lucide="sparkles"></i> Confirmar Asistencia</a>
+        <a href="#rsvp" class="btn-confirm"><i data-lucide="sparkles"></i> Confirmar Asistencia</a>
         <a href="#espacio" class="btn-outline"><i data-lucide="leaf"></i> El Espacio</a>
       </div>
     </div>
@@ -1330,7 +1380,7 @@
     </section>
 
     <!-- Itinerario del Gran Día -->
-    <section id="itinerario" style="background: #f4efe6;">
+    <section id="itinerario" style="background: #F4F4F0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
       <div class="container">
         <div class="section-header">
           <span class="sub">El Programa</span>
@@ -1413,7 +1463,7 @@
     </section>
 
     <!-- Formulario de Confirmación (RSVP) -->
-    <section id="rsvp" style="background: #f5f0e8;">
+    <section id="rsvp" style="background: var(--background);">
       <div class="container">
         <div class="section-header">
           <span class="sub">¿Nos acompañas?</span>
@@ -1497,7 +1547,7 @@
               <div class="form-group full" id="allergiesContainer" style="display: none;">
                 <div class="allergies-wrapper-box">
                   <div style="margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
-                    <span style="font-weight: 700; color: var(--gold-dark); font-size: 0.95rem;">
+                    <span style="font-weight: 700; color: var(--heading); font-size: 0.95rem;">
                       Detalle de personas e intolerancias alimentarias
                     </span>
                     <span style="font-size: 0.8rem; color: #718096;">Restaurante Magullo adaptará cada menú</span>
