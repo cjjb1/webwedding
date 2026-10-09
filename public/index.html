@@ -850,7 +850,75 @@
       font-size: 0.9rem;
     }
 
-    /* Galería Fotográfica Restaurante Magullo */
+    /* Galería Fotográfica Restaurante Magullo y Novios */
+    #galeria {
+      position: relative;
+      background: linear-gradient(180deg, rgba(14, 20, 18, 0.85) 0%, rgba(14, 20, 18, 0.88) 50%, rgba(10, 15, 13, 0.94) 100%),
+                  url('/images/novios/5-marzo-postigo-luna.png') center top / cover no-repeat fixed;
+      color: #ffffff;
+      padding: 90px 0;
+    }
+
+    #galeria .section-header .sub {
+      color: var(--accent);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    #galeria .section-header h2 {
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    #galeria .section-header p {
+      color: #e2e8e5;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    #galeria .tab-btn {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(216, 194, 157, 0.45);
+      color: #ffffff;
+    }
+
+    #galeria .tab-btn:hover:not(.active) {
+      background: rgba(216, 194, 157, 0.25);
+      border-color: var(--accent);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    #galeria .tab-btn.active {
+      background: var(--accent);
+      color: #141c19;
+      border-color: #ffffff;
+      box-shadow: 0 6px 20px rgba(194, 164, 119, 0.45);
+    }
+
+    #galeria .gallery-item {
+      border: 1px solid rgba(216, 194, 157, 0.35);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      background: #141c19;
+    }
+
+    #galeria .upload-box {
+      background: rgba(18, 26, 23, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px dashed rgba(216, 194, 157, 0.5);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+    }
+
+    #galeria .upload-box h3 {
+      color: #ffffff;
+    }
+
+    #galeria .upload-box p {
+      color: #e2e8e5 !important;
+    }
+
     .gallery-tabs {
       display: flex;
       justify-content: center;
@@ -1683,6 +1751,11 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
       }
+      #galeria {
+        background-attachment: scroll;
+        background-position: center top;
+        padding: 60px 0;
+      }
     }
   </style>
 </head>
@@ -1893,7 +1966,7 @@
         </div>
 
         <div class="gallery-tabs">
-          <button class="tab-btn active" onclick="switchGalleryTab('novios')"><i data-lucide="gem"></i> Los Novios (7)</button>
+          <button class="tab-btn active" onclick="switchGalleryTab('novios')"><i data-lucide="gem"></i> Los Novios (8)</button>
           <button class="tab-btn" onclick="switchGalleryTab('venue')"><i data-lucide="landmark"></i> Restaurante Magullo (25)</button>
           <button class="tab-btn" onclick="switchGalleryTab('invitados')"><i data-lucide="camera"></i> Fotos de Invitados</button>
         </div>
@@ -2156,6 +2229,10 @@
         const res = await fetch('/api/gallery');
         if (res.ok) {
           galleryData = await res.json();
+          const noviosBtn = document.querySelector('.tab-btn[onclick*="novios"]');
+          if (noviosBtn && galleryData.novios) {
+            noviosBtn.innerHTML = `<i data-lucide="gem"></i> Los Novios (${galleryData.novios.length})`;
+          }
           renderGallery();
         }
       } catch (err) {
@@ -2196,8 +2273,15 @@
         });
       } else if (currentTab === 'novios') {
         currentPhotosList = (galleryData.novios || []).slice();
-        // Colocar la portada de la invitación al principio
-        currentPhotosList.sort((a, b) => a.includes('invitacion-imagen') ? -1 : (b.includes('invitacion-imagen') ? 1 : 0));
+        // Colocar la portada de la invitación y la foto del Postigo de la Luna al principio
+        currentPhotosList.sort((a, b) => {
+          const score = (url) => {
+            if (url.includes('invitacion-imagen')) return 1;
+            if (url.includes('5-marzo-postigo-luna')) return 2;
+            return 3;
+          };
+          return score(a) - score(b);
+        });
 
         if (!currentPhotosList.length) {
           grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #718096; padding: 40px;">Cargando fotos de los novios...</p>';
@@ -2206,12 +2290,19 @@
 
         currentPhotosList.forEach((url, idx) => {
           const isCover = url.includes('invitacion-imagen');
+          const isPostigo = url.includes('5-marzo-postigo-luna');
           const item = document.createElement('div');
-          item.className = 'gallery-item' + (isCover ? ' gallery-item-cover' : '');
+          item.className = 'gallery-item' + (isCover || isPostigo ? ' gallery-item-cover' : '');
           item.onclick = () => openLightbox(idx);
+          let label = 'Los Novios <i data-lucide="gem"></i> (Descargar)';
+          if (isCover) {
+            label = '<i data-lucide="image"></i> Portada de la Invitación (Descargar)';
+          } else if (isPostigo) {
+            label = '<i data-lucide="moon"></i> Postigo de la Luna (Descargar)';
+          }
           item.innerHTML = `
             <img src="${url}" alt="Los Novios" loading="lazy">
-            <div class="overlay"><span>${isCover ? '<i data-lucide="image"></i> Portada de la Invitación (Descargar)' : 'Los Novios <i data-lucide="gem"></i> (Descargar)'}</span></div>
+            <div class="overlay"><span>${label}</span></div>
           `;
           grid.appendChild(item);
         });
