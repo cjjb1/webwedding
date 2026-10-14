@@ -854,7 +854,7 @@
     #galeria {
       position: relative;
       background: linear-gradient(180deg, rgba(14, 20, 18, 0.85) 0%, rgba(14, 20, 18, 0.88) 50%, rgba(10, 15, 13, 0.94) 100%),
-                  url('/images/novios/5-marzo-postigo-luna.png') center top / cover no-repeat fixed;
+                  url('/images/novios/postigo-luna.png') center top / cover no-repeat fixed;
       color: #ffffff;
       padding: 90px 0;
     }
@@ -2277,7 +2277,7 @@
         currentPhotosList.sort((a, b) => {
           const score = (url) => {
             if (url.includes('invitacion-imagen')) return 1;
-            if (url.includes('5-marzo-postigo-luna')) return 2;
+            if (url.includes('postigo-luna')) return 2;
             return 3;
           };
           return score(a) - score(b);
@@ -2290,7 +2290,7 @@
 
         currentPhotosList.forEach((url, idx) => {
           const isCover = url.includes('invitacion-imagen');
-          const isPostigo = url.includes('5-marzo-postigo-luna');
+          const isPostigo = url.includes('postigo-luna');
           const item = document.createElement('div');
           item.className = 'gallery-item' + (isCover || isPostigo ? ' gallery-item-cover' : '');
           item.onclick = () => openLightbox(idx);
