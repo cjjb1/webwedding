@@ -106,6 +106,9 @@ if (process.env.DATABASE_URL) {
       `);
       console.log('✅ Base de datos inicializada correctamente (tablas guests y photos listas).');
 
+      // Renombrar 'Monse' a 'Montse' si existía previamente en la base de datos
+      await pool.query("UPDATE guests SET name = 'Montse' WHERE LOWER(TRIM(name)) = 'monse'");
+
       // Sincronizar automáticamente la lista oficial de invitados si existe
       await syncGuestsFromDoc();
     } catch (err) {
@@ -135,6 +138,9 @@ const syncGuestsFromDoc = async () => {
 
     const content = fs.readFileSync(filePath, 'utf-8');
     const lines = content.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+
+    // Actualizar 'Monse' a 'Montse' si existía previamente
+    await pool.query("UPDATE guests SET name = 'Montse' WHERE LOWER(TRIM(name)) = 'monse'");
 
     let inserted = 0;
     for (const name of lines) {
@@ -377,6 +383,11 @@ app.post('/api/rsvp', async (req, res) => {
   const isAttending = Boolean(attending);
   const guestStatus = isAttending ? 'confirmed' : 'declined';
 
+  // El campo de niños únicamente está habilitado para Carla, María y Marta Martín
+  const allowedChildrenGuests = ['carla', 'maria', 'marta martin'];
+  const normName = cleanName.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().replace(/\s+/g, ' ');
+  const finalChildren = allowedChildrenGuests.includes(normName) ? (parseInt(children, 10) || 0) : 0;
+
   try {
     // Buscar si el invitado ya existe por id o por nombre (case-insensitive)
     let existing = { rows: [] };
@@ -407,7 +418,7 @@ app.post('/api/rsvp', async (req, res) => {
         isAttending,
         guestStatus,
         parseInt(adults, 10) || 0,
-        parseInt(children, 10) || 0,
+        finalChildren,
         Boolean(has_pets),
         pet_details ? pet_details.trim() : null,
         allergies ? allergies.trim() : null,
@@ -429,7 +440,7 @@ app.post('/api/rsvp', async (req, res) => {
         isAttending,
         guestStatus,
         parseInt(adults, 10) || 0,
-        parseInt(children, 10) || 0,
+        finalChildren,
         Boolean(has_pets),
         pet_details ? pet_details.trim() : null,
         allergies ? allergies.trim() : null,

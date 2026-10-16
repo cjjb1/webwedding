@@ -2070,22 +2070,9 @@
                 <input type="number" id="adults" name="adults" min="1" max="10" value="1">
               </div>
 
-              <div class="form-group">
+              <div class="form-group" id="childrenGroup" style="display: none;">
                 <label for="children">¿Vienes con niños? (Menús infantiles)</label>
                 <input type="number" id="children" name="children" min="0" max="10" value="0">
-              </div>
-
-              <div class="form-group">
-                <label for="has_pets">¿Asistes con mascota?</label>
-                <select id="has_pets" name="has_pets" onchange="togglePetsField()">
-                  <option value="false">No</option>
-                  <option value="true">Sí (Admitidas en exteriores)</option>
-                </select>
-              </div>
-
-              <div class="form-group full" id="petDetailsGroup" style="display: none;">
-                <label for="pet_details">Detalles de la mascota</label>
-                <input type="text" id="pet_details" name="pet_details" placeholder="Ej: Perro pequeño / mediano muy dócil">
               </div>
 
               <div class="form-group full">
@@ -2239,9 +2226,7 @@
     }
 
     function togglePetsField() {
-      const select = document.getElementById('has_pets');
-      const group = document.getElementById('petDetailsGroup');
-      group.style.display = select.value === 'true' ? 'block' : 'none';
+      // Obsoleto: campo de mascotas retirado del formulario
     }
 
     // Cargar galería desde el servidor
@@ -2476,6 +2461,24 @@
         .trim();
     }
 
+    // Regla de visibilidad: el campo "Niños" únicamente debe aparecer para Carla, María y Marta Martín
+    function checkChildrenFieldEligibility(guestName) {
+      const childrenGroup = document.getElementById('childrenGroup');
+      const childrenInput = document.getElementById('children');
+      if (!childrenGroup) return;
+
+      const norm = normalizeText(guestName || '').replace(/\s+/g, ' ');
+      const allowed = ['carla', 'maria', 'marta martin'];
+      const isAllowed = allowed.includes(norm);
+
+      if (isAllowed) {
+        childrenGroup.style.display = 'block';
+      } else {
+        childrenGroup.style.display = 'none';
+        if (childrenInput) childrenInput.value = '0';
+      }
+    }
+
     function handleNameInput(val) {
       const dropdown = document.getElementById('nameSuggestions');
       const hintBox = document.getElementById('nameStatusHint');
@@ -2483,6 +2486,9 @@
       
       const cleanVal = (val || '').trim();
       const normVal = normalizeText(cleanVal);
+
+      // Comprobar si el nombre escrito califica para el campo de niños
+      checkChildrenFieldEligibility(cleanVal);
 
       if (!cleanVal) {
         dropdown.style.display = 'none';
@@ -2551,6 +2557,10 @@
       const hintBox = document.getElementById('nameStatusHint');
       hintBox.className = 'name-hint-box found';
       hintBox.innerHTML = `<span><i data-lucide="check-circle-2" style="color:#2e7d32;"></i> ¡Hola ${escapeHtml(name)}! Te hemos localizado en la lista oficial de invitados.</span>`;
+      
+      // Actualizar visibilidad del campo niños para el invitado seleccionado
+      checkChildrenFieldEligibility(name);
+
       if (window.lucide) lucide.createIcons();
     }
 
@@ -2560,6 +2570,7 @@
       const hintBox = document.getElementById('nameStatusHint');
       hintBox.className = 'name-hint-box new';
       hintBox.innerHTML = `<span><i data-lucide="sparkles" style="color:#b38a38;"></i> Nuevo invitado: te daremos de alta automáticamente al enviar tu confirmación.</span>`;
+      checkChildrenFieldEligibility(document.getElementById('name').value);
       if (window.lucide) lucide.createIcons();
     }
 
@@ -2568,6 +2579,16 @@
         document.querySelectorAll('.autocomplete-dropdown').forEach(d => d.style.display = 'none');
       }
     });
+
+    const nameInputEl = document.getElementById('name');
+    if (nameInputEl) {
+      nameInputEl.addEventListener('blur', function() {
+        checkChildrenFieldEligibility(this.value);
+      });
+      nameInputEl.addEventListener('change', function() {
+        checkChildrenFieldEligibility(this.value);
+      });
+    }
 
     // Gestión dinámica de intolerancias alimentarias por persona
     let allergyEntryCount = 0;
@@ -2813,8 +2834,8 @@
         attending: document.getElementById('attending').value === 'true',
         adults: parseInt(document.getElementById('adults').value, 10) || 1,
         children: parseInt(document.getElementById('children').value, 10) || 0,
-        has_pets: document.getElementById('has_pets').value === 'true',
-        pet_details: document.getElementById('pet_details').value,
+        has_pets: false,
+        pet_details: '',
         allergies: finalAllergies,
         notes: document.getElementById('notes').value
       };
@@ -2836,7 +2857,7 @@
           document.getElementById('allergiesContainer').style.display = 'none';
           document.getElementById('allergyEntriesList').innerHTML = '';
           allergyEntryCount = 0;
-          togglePetsField();
+          checkChildrenFieldEligibility('');
           fetchGuestNames(); // Actualizar lista tras el alta/confirmación
         } else {
           alertError.style.display = 'block';
