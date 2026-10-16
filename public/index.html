@@ -461,6 +461,20 @@
       text-shadow: 0 0 14px rgba(216, 194, 157, 0.9);
     }
 
+    .hero-teaser-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .teaser-divider {
+      color: var(--accent);
+      opacity: 0.6;
+      font-size: 1.2rem;
+    }
+
     /* Contador Regresivo de Lujo */
     .countdown-box {
       display: flex;
@@ -1778,6 +1792,7 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="javascript:void(0)" onclick="openInvitationModal(); closeMobileMenu();"><i data-lucide="mail"></i> Ver Invitación</a></li>
       <li><a href="/historia.html" onclick="closeMobileMenu()"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
+      <li><a href="/pedida.html" onclick="closeMobileMenu()"><i data-lucide="gem"></i> La Pedida</a></li>
       <li><a href="#itinerario" onclick="closeMobileMenu()"><i data-lucide="calendar"></i> Itinerario</a></li>
       <li><a href="#espacio" onclick="closeMobileMenu()"><i data-lucide="landmark"></i> El Espacio</a></li>
       <li><a href="#galeria" onclick="closeMobileMenu()"><i data-lucide="camera"></i> Galería</a></li>
@@ -1791,14 +1806,20 @@
       <span class="hero-badge">29 de Mayo de 2027 &bull; Restaurante Magullo, Segovia</span>
       <h1>Blanca y Álvaro, nos casamos</h1>
       
-      <!-- Teaser Cómo se conocieron Blanca y Álvaro -->
+      <!-- Teaser Cómo se conocieron Blanca y Álvaro & La Pedida -->
       <div class="hero-story-teaser">
         <p class="story-teaser-intro">
           Muchos os preguntaréis cómo se conocieron Blanca y Álvaro, y la verdad que fue totalmente casualidad...
         </p>
-        <a href="/historia.html" class="story-subtle-link">
-          ¿Quieres saber nuestra historia?...
-        </a>
+        <div class="hero-teaser-links">
+          <a href="/historia.html" class="story-subtle-link">
+            ¿Quieres saber nuestra historia?...
+          </a>
+          <span class="teaser-divider">&bull;</span>
+          <a href="/pedida.html" class="story-subtle-link">
+            La Pedida, ¿Cómo fue?...
+          </a>
+        </div>
       </div>
 
       <p class="tagline">

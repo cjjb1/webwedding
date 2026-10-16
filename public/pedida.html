@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Pedida, ¿Cómo fue?... | Blanca & Álvaro</title>
+  
+  <!-- Previsualización Open Graph -->
+  <meta property="og:title" content="La Pedida, ¿Cómo fue?... · Blanca & Álvaro">
+  <meta property="og:description" content="Fue un 15 de septiembre cuando ascendíamos lentamente hacia el lago Ercina acompañados por nuestros frenchies... Descubre el vídeo y la historia de cómo fue la pedida de mano.">
+  <meta property="og:image" content="/images/logo/anillo-mano.jpg">
+  <meta property="og:type" content="article">
+  <link rel="icon" type="image/png" href="/images/logo/anillo.png">
+  <link rel="apple-touch-icon" href="/images/logo/anillo.png">
+
+  <!-- Iconos Lucide -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Tipografías de lujo estilo editorial -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --background: #0f1614;
+      --surface: #FFFFFF;
+      --primary: #344B48;
+      --primary-hover: #263B38;
+      --heading: #fcfbf9;
+      --text: #eaebe8;
+      --text-muted: #b8c2be;
+      --accent: #d8c29d;
+      --accent-gold: #c2a477;
+      --border-gold: rgba(216, 194, 157, 0.35);
+      --glass-bg: rgba(18, 25, 23, 0.78);
+      --glass-card: rgba(25, 36, 33, 0.65);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text);
+      line-height: 1.85;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      /* Fondo con la imagen del lago Ercina y niebla */
+      background: 
+        linear-gradient(180deg, rgba(12, 18, 16, 0.75) 0%, rgba(14, 20, 18, 0.85) 45%, rgba(10, 15, 13, 0.95) 100%),
+        url('/images/logo/anillo-mano.jpg') center top / cover no-repeat fixed;
+      position: relative;
+    }
+
+    /* Lucide icons */
+    .lucide, svg.lucide {
+      width: 1.15em;
+      height: 1.15em;
+      vertical-align: -0.18em;
+      stroke-width: 1.8;
+      display: inline-block;
+    }
+
+    h1, h2, h3, .serif {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 0.5px;
+      color: var(--heading);
+    }
+
+    /* Barra de Navegación */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+      background: rgba(14, 20, 18, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(216, 194, 157, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-logo .logo-img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.86rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-btn {
+      padding: 9px 24px;
+      border-radius: 40px;
+      background: var(--primary);
+      color: white !important;
+      font-size: 0.82rem;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease !important;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(216, 194, 157, 0.4);
+    }
+
+    /* Botón Hamburguesa Móvil (3 rayitas) */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 1002;
+      transition: all 0.25s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(216, 194, 157, 0.15);
+      border-color: rgba(216, 194, 157, 0.3);
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 25px;
+      height: 2.5px;
+      background-color: #ffffff;
+      border-radius: 3px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+      background-color: var(--accent);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+      background-color: var(--accent);
+    }
+
+    /* Contenido Principal */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 130px 20px 80px;
+    }
+
+    .story-wrapper {
+      max-width: 840px;
+      width: 100%;
+      margin: 0 auto;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Cabecera del Relato */
+    .story-header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .story-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(216, 194, 157, 0.12);
+      border: 1px solid var(--border-gold);
+      padding: 6px 18px;
+      border-radius: 30px;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    .story-header h1 {
+      font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+      line-height: 1.15;
+      margin-bottom: 12px;
+      font-style: italic;
+      font-weight: 400;
+      text-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
+    }
+
+    .story-header .subtitle {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--accent);
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    .divider-flourish {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px auto 0;
+      max-width: 320px;
+      opacity: 0.85;
+    }
+
+    .divider-flourish::before,
+    .divider-flourish::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .divider-flourish span {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* Tarjeta Principal del Relato */
+    .story-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius);
+      padding: 48px 45px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    /* Párrafos del Relato */
+    .story-paragraph {
+      font-size: clamp(1.02rem, 1.9vw, 1.16rem);
+      font-weight: 300;
+      line-height: 2;
+      color: #f1f2ee;
+      margin-bottom: 28px;
+      text-align: justify;
+    }
+
+    .story-paragraph.first-paragraph::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      float: left;
+      line-height: 0.85;
+      padding-right: 14px;
+      padding-top: 4px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Bloque Destacado de la Cita */
+    .quote-box {
+      margin: 35px 0;
+      padding: 24px 28px;
+      background: rgba(216, 194, 157, 0.08);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 14px 14px 0;
+      position: relative;
+    }
+
+    .quote-box p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.45rem);
+      font-style: italic;
+      color: #fff;
+      line-height: 1.6;
+    }
+
+    .quote-box .quote-caption {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .quote-tag {
+      background: rgba(216, 194, 157, 0.1);
+      border: 1px solid rgba(216, 194, 157, 0.35);
+      color: var(--accent);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      line-height: 1.4;
+    }
+
+    /* Sección del Video de la Pedida */
+    .pedida-video-wrapper {
+      margin: 38px 0;
+    }
+
+    .video-card {
+      background: rgba(14, 20, 18, 0.92);
+      border: 1px solid rgba(216, 194, 157, 0.45);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(216, 194, 157, 0.15);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .video-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(216, 194, 157, 0.25);
+    }
+
+    .video-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: rgba(216, 194, 157, 0.12);
+      border-bottom: 1px solid rgba(216, 194, 157, 0.25);
+      font-size: 0.82rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      background: #000;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .pedida-video {
+      width: 100%;
+      max-height: 520px;
+      display: block;
+      background: #000;
+      outline: none;
+    }
+
+    .video-caption {
+      padding: 14px 20px;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-align: center;
+      border-top: 1px solid rgba(216, 194, 157, 0.15);
+      background: rgba(14, 20, 18, 0.8);
+    }
+
+    /* Imagen destacada: Foto del Anillo */
+    .story-featured-media {
+      margin: 38px 0;
+      text-align: center;
+    }
+
+    .story-media-box {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(216, 194, 157, 0.35);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(216, 194, 157, 0.12);
+      cursor: pointer;
+      background: #0f1613;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .story-media-box:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 35px rgba(216, 194, 157, 0.25);
+    }
+
+    .story-media-box img {
+      width: 100%;
+      height: auto;
+      max-height: 560px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .story-media-box:hover img {
+      transform: scale(1.025);
+    }
+
+    .story-media-box .zoom-badge {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      background: rgba(14, 20, 18, 0.88);
+      color: var(--accent);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(216, 194, 157, 0.45);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s ease;
+    }
+
+    .story-media-box:hover .zoom-badge {
+      background: var(--accent);
+      color: #141c19;
+    }
+
+    .story-media-caption {
+      margin-top: 12px;
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-style: italic;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.95;
+      text-align: center;
+    }
+
+    /* Párrafo Final Destacado con Amor */
+    .final-touch {
+      margin-top: 35px;
+      padding: 26px 28px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(52, 75, 72, 0.35) 0%, rgba(216, 194, 157, 0.12) 100%);
+      border: 1px solid rgba(216, 194, 157, 0.4);
+      text-align: center;
+    }
+
+    .final-touch p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: #ffffff;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .hearts-decor {
+      color: var(--accent);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* Hitos / Metadatos */
+    .milestones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 40px;
+      padding-top: 35px;
+      border-top: 1px solid rgba(216, 194, 157, 0.2);
+    }
+
+    .milestone-item {
+      text-align: center;
+      padding: 16px 12px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(216, 194, 157, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .milestone-item:hover {
+      background: rgba(216, 194, 157, 0.1);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .milestone-icon {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .milestone-text .m-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #fff;
+      display: block;
+      font-weight: 600;
+    }
+
+    .milestone-text .m-val {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Botones de Acción */
+    .story-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .btn-gold,
+    .btn-confirm {
+      background: var(--primary);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-gold:hover,
+    .btn-confirm:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(216, 194, 157, 0.45);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    /* Modal de Invitación */
+    .invitation-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 22, 19, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      padding: 20px;
+    }
+
+    .invitation-modal.active {
+      display: flex;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .invitation-modal-content {
+      position: relative;
+      max-width: 440px;
+      width: 100%;
+      margin: auto;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .invitation-card {
+      background: #fdfbf7;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.2);
+      border: 1px solid rgba(157, 129, 81, 0.4);
+      width: 100%;
+      text-align: center;
+      color: #263431;
+    }
+
+    .invitation-card-header {
+      margin-bottom: 15px;
+    }
+
+    .invite-monogram {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #9d8151;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .invite-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #263431;
+      line-height: 1.1;
+    }
+
+    .invitation-img-box {
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 15px 0;
+      border: 1px solid rgba(157, 129, 81, 0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .invitation-img-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .invitation-card-footer {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(157, 129, 81, 0.2);
+    }
+
+    .invite-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #263431;
+      margin-bottom: 6px;
+    }
+
+    .invite-date {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      color: #9d8151;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .invite-place {
+      font-size: 0.88rem;
+      color: #556b66;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(14, 20, 18, 0.7);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--accent);
+      color: #141c19;
+      transform: scale(1.1);
+    }
+
+    /* Lightbox pantalla completa */
+    .lightbox-fullscreen {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.94);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100000;
+      padding: 20px;
+    }
+
+    .lightbox-fullscreen.active {
+      display: flex;
+    }
+
+    .lightbox-fullscreen img {
+      max-width: 92vw;
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(216, 194, 157, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(10, 15, 13, 0.95);
+      border-top: 1px solid rgba(216, 194, 157, 0.15);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        background-attachment: scroll;
+        background-position: center top;
+      }
+      .navbar { padding: 12px 18px; }
+      .nav-logo { font-size: 1.35rem; }
+      
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: rgba(14, 20, 18, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid var(--accent);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 0 18px;
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+      }
+
+      .nav-links.active {
+        max-height: 480px;
+        opacity: 1;
+        visibility: visible;
+        padding: 16px 18px 22px;
+      }
+
+      .nav-links li {
+        width: 100%;
+        list-style: none;
+      }
+
+      .nav-links li a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 14px;
+        border-radius: 10px;
+        color: #f1f2ee;
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .nav-links li a:hover,
+      .nav-links li a:active {
+        background: rgba(216, 194, 157, 0.15);
+        color: var(--accent);
+        transform: translateX(4px);
+      }
+
+      .nav-links li a.nav-btn {
+        margin-top: 6px;
+        justify-content: center;
+        padding: 12px 18px;
+        background: var(--primary);
+        color: white !important;
+        border-radius: 30px;
+        border: 1.5px solid var(--accent);
+      }
+
+      .story-card { padding: 30px 20px; }
+      .story-paragraph { text-align: left; }
+      main { padding: 105px 16px 50px; }
+      .story-actions { flex-direction: column; width: 100%; }
+      .story-actions a, .story-actions button { width: 100%; }
+      .milestones { grid-template-columns: 1fr; gap: 12px; }
+      .pedida-video { max-height: 380px; }
+      .story-media-box img { max-height: 420px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegación Fija -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo/anillo.png" alt="Logo Alianza Blanca & Álvaro" class="logo-img">
+      <span>Blanca & Álvaro</span>
+    </a>
+
+    <!-- Botón Hamburguesa Móvil (3 rayitas) -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menú de Navegación" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" onclick="closeMobileMenu()"><i data-lucide="home"></i> Volver a la Boda</a></li>
+      <li><a href="/historia.html" onclick="closeMobileMenu()"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
+      <li><a href="/#itinerario" onclick="closeMobileMenu()"><i data-lucide="calendar"></i> Itinerario</a></li>
+      <li><a href="/#espacio" onclick="closeMobileMenu()"><i data-lucide="landmark"></i> El Espacio</a></li>
+      <li><a href="/#galeria" onclick="closeMobileMenu()"><i data-lucide="camera"></i> Galería</a></li>
+      <li><a href="javascript:void(0)" onclick="openInvitationModal(); closeMobileMenu();"><i data-lucide="mail"></i> Ver Invitación</a></li>
+      <li><a href="/#rsvp" class="nav-btn" onclick="closeMobileMenu()"><i data-lucide="heart"></i> Confirmar Asistencia</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="story-wrapper">
+      
+      <!-- Cabecera Editorial -->
+      <div class="story-header">
+        <span class="story-badge">
+          <i data-lucide="gem"></i> Lago Ercina &bull; 15 de Septiembre
+        </span>
+        <h1>La Pedida, ¿Cómo fue?...</h1>
+        <p class="subtitle">Entre la niebla de los Picos de Europa y la mirada cómplice de nuestros frenchies</p>
+        <div class="divider-flourish">
+          <span>&bull;</span>
+          <i data-lucide="gem" style="color: var(--accent);"></i>
+          <span>&bull;</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta del Relato -->
+      <article class="story-card">
+        
+        <p class="story-paragraph first-paragraph">
+          Fue un 15 de septiembre cuando ascendíamos lentamente hacia el lago Ercina acompañados por nuestros frenchies, un pelín sofocados, Ares y su obsesión por las vacas, yo con mi característico nerviosismo, Blanca sin olerse nada, e India y Samba a la cabeza. Todo sucedió en la pradera que bordea al lago Ercina, mientras engañaba a Blanca para hacernos unas fotos y vídeos. Era un día soleado con unas pocas nubes al fondo.
+        </p>
+
+        <p class="story-paragraph">
+          Hice la primeras fotos sin que descubriera cual era mi objetivo final para esta escapada, y cuando ya habia encuadrado el plano del vídeo justo donde quería de repente sucedió lo inesperado, ascendieron de golpe las nubes y se nubló todo en cuestión de segundos. No creáis que esto me disuadió en mi empeño por pedir matrimonio a la persona más especial de mi vida.
+        </p>
+
+        <!-- Cita destacada evocadora -->
+        <div class="quote-box">
+          <p>
+            «Me apresuré para realizar el vídeo en un momento de despiste de Blanca y entonces lo hice: me arrodillé frente a ella con los frenchies de testigos. Afortunadamente me dijo que sí con mirada de sorpresa...»
+          </p>
+          <div class="quote-caption">
+            <span class="quote-tag">
+              <i data-lucide="map-pin"></i> Pradera del Lago Ercina &bull; Picos de Europa, Asturias
+            </span>
+          </div>
+        </div>
+
+        <!-- Video del Gran Momento de la Pedida -->
+        <div class="pedida-video-wrapper">
+          <div class="video-card">
+            <div class="video-badge">
+              <i data-lucide="video"></i> El Vídeo del Momento
+            </div>
+            <div class="video-container">
+              <video controls playsinline preload="metadata" poster="/images/logo/anillo-mano.jpg" class="pedida-video">
+                <source src="/images/videos/pedida.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de vídeo.
+              </video>
+            </div>
+            <p class="video-caption">
+              <i data-lucide="play-circle"></i> Dale al play para revivir el momento exacto de la pedida grabado en directo
+            </p>
+          </div>
+        </div>
+
+        <!-- Fotografía del Anillo de Pedida -->
+        <div class="story-featured-media">
+          <div class="story-media-box" onclick="openLightboxImage('/images/logo/anillo-mano.jpg')" title="Clic para ampliar fotografía">
+            <img src="/images/logo/anillo-mano.jpg" alt="Anillo de compromiso en la mano de Blanca en el Lago Ercina" loading="lazy">
+            <span class="zoom-badge"><i data-lucide="zoom-in"></i> Ampliar foto</span>
+          </div>
+          <br>
+          <p class="story-media-caption">
+            <i data-lucide="gem"></i> El anillo de pedida con la niebla mágica envolviendo el Lago Ercina
+          </p>
+        </div>
+
+        <!-- Broche de Oro -->
+        <div class="final-touch">
+          <p>«En ese momento fui el hombre más feliz del mundo.»</p>
+          <div class="hearts-decor">
+            <i data-lucide="gem"></i> &bull; <i data-lucide="paw-print"></i> &bull; <i data-lucide="heart"></i>
+          </div>
+        </div>
+
+        <!-- Hitos de la Pedida -->
+        <div class="milestones">
+          <div class="milestone-item">
+            <div class="milestone-icon">
+              <i data-lucide="mountain"></i>
+            </div>
+            <div class="milestone-text">
+              <span class="m-title">15 de Septiembre</span>
+              <span class="m-val">Lago Ercina, Picos de Europa</span>
+            </div>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon">
+              <i data-lucide="paw-print"></i>
+            </div>
+            <div class="milestone-text">
+              <span class="m-title">Los Testigos</span>
+              <span class="m-val">Ares, India y Samba</span>
+            </div>
+          </div>
+
+          <div class="milestone-item">
+            <div class="milestone-icon">
+              <i data-lucide="gem"></i>
+            </div>
+            <div class="milestone-text">
+              <span class="m-title">El "¡Sí, quiero!"</span>
+              <span class="m-val">El anillo en la niebla</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="story-actions">
+          <a href="/" class="btn-outline">
+            <i data-lucide="arrow-left"></i> Volver a la Boda
+          </a>
+          <a href="/historia.html" class="btn-gold">
+            <i data-lucide="sparkles"></i> Cómo se conocieron
+          </a>
+          <button class="btn-outline" onclick="openInvitationModal()">
+            <i data-lucide="mail"></i> Ver Invitación Oficial
+          </button>
+          <a href="/#rsvp" class="btn-confirm">
+            <i data-lucide="heart"></i> Confirmar Asistencia
+          </a>
+        </div>
+
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Modal de Invitación Oficial -->
+  <div id="invitationModal" class="invitation-modal" onclick="closeInvitationModal(event)">
+    <div class="invitation-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeInvitationModal(event)">&times;</button>
+      <div class="invitation-card">
+        <div class="invitation-card-header">
+          <span class="invite-monogram">Save the Date</span>
+          <span class="invite-title">Blanca & Álvaro</span>
+        </div>
+        <div class="invitation-img-box">
+          <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida con nuestros perritos">
+        </div>
+        <div class="invitation-card-footer">
+          <p class="invite-names">¡Blanca y Álvaro nos casamos! <i data-lucide="gem"></i> <i data-lucide="paw-print"></i></p>
+          <p class="invite-date">29 &bull; Mayo &bull; 2027</p>
+          <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
+        </div>
+        <div class="modal-actions" style="margin-top: 15px;">
+          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-confirm">
+            <i data-lucide="download"></i> Descargar Invitación
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Pantalla Completa para Fotografías -->
+  <div id="imageLightbox" class="lightbox-fullscreen" onclick="closeLightboxImage()">
+    <button class="modal-close-btn" onclick="closeLightboxImage()">&times;</button>
+    <img id="lightboxImageSrc" src="" alt="Fotografía ampliada Anillo de Pedida">
+  </div>
+
+  <footer>
+    <p>Blanca & Álvaro &bull; 29 de Mayo de 2027 &bull; Segovia</p>
+  </footer>
+
+  <script>
+    // Inicializar iconos Lucide
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    // Funciones del Modal de Invitación
+    function openInvitationModal() {
+      const modal = document.getElementById('invitationModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeInvitationModal(e) {
+      const modal = document.getElementById('invitationModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    // Funciones de Lightbox de imagen
+    function openLightboxImage(src) {
+      const lightbox = document.getElementById('imageLightbox');
+      const img = document.getElementById('lightboxImageSrc');
+      if (lightbox && img) {
+        img.src = src;
+        lightbox.classList.add('active');
+      }
+    }
+
+    function closeLightboxImage() {
+      const lightbox = document.getElementById('imageLightbox');
+      if (lightbox) lightbox.classList.remove('active');
+    }
+
+    // Control del Menú Móvil Hamburguesa (3 rayitas)
+    function toggleMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      if (btn && links) {
+        btn.classList.toggle('active');
+        links.classList.toggle('active');
+      }
+    }
+
+    function closeMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      if (btn && links) {
+        btn.classList.remove('active');
+        links.classList.remove('active');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const navbar = document.querySelector('.navbar');
+      if (navbar && !navbar.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeInvitationModal();
+        closeLightboxImage();
+        closeMobileMenu();
+      }
+    });
+  </script>
+</body>
+</html>
