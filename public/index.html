@@ -403,6 +403,70 @@
       line-height: 1.6;
     }
 
+    /* Mensaje de Agradecimiento en el Hero */
+    .hero-gratitude {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+      font-style: italic;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+      max-width: 680px;
+      margin: 18px auto 22px;
+      line-height: 1.5;
+      letter-spacing: 0.5px;
+      text-align: center;
+      padding: 0 16px;
+    }
+
+    /* Video Save the Date en el Hero */
+    .hero-video-wrapper {
+      max-width: 620px;
+      width: 100%;
+      margin: 0 auto 26px;
+      padding: 0 12px;
+    }
+
+    .hero-video-card {
+      background: rgba(18, 24, 22, 0.65);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(216, 194, 157, 0.45);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 25px rgba(216, 194, 157, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .hero-video-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 24px 55px rgba(0, 0, 0, 0.7), 0 0 35px rgba(216, 194, 157, 0.3);
+    }
+
+    .save-the-date-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #000;
+      outline: none;
+      object-fit: cover;
+    }
+
+    .hero-video-caption {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(15, 22, 19, 0.85);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 500;
+      border-top: 1px solid rgba(216, 194, 157, 0.2);
+    }
+
     /* Frame general translúcido de la historia en el Hero */
     .hero-story-teaser {
       margin: 16px auto 26px;
@@ -1793,6 +1857,8 @@
       <li><a href="javascript:void(0)" onclick="openInvitationModal(); closeMobileMenu();"><i data-lucide="mail"></i> Ver Invitación</a></li>
       <li><a href="/historia.html" onclick="closeMobileMenu()"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
       <li><a href="/pedida.html" onclick="closeMobileMenu()"><i data-lucide="gem"></i> La Pedida</a></li>
+      <li><a href="/alojamiento.html" onclick="closeMobileMenu()"><i data-lucide="bed"></i> Alojamiento</a></li>
+      <li><a href="/luna-de-miel.html" onclick="closeMobileMenu()"><i data-lucide="plane"></i> Luna de Miel</a></li>
       <li><a href="#itinerario" onclick="closeMobileMenu()"><i data-lucide="calendar"></i> Itinerario</a></li>
       <li><a href="#espacio" onclick="closeMobileMenu()"><i data-lucide="landmark"></i> El Espacio</a></li>
       <li><a href="#galeria" onclick="closeMobileMenu()"><i data-lucide="camera"></i> Galería</a></li>
@@ -1806,6 +1872,24 @@
       <span class="hero-badge">29 de Mayo de 2027 &bull; Restaurante Magullo, Segovia</span>
       <h1>Blanca y Álvaro, nos casamos</h1>
       
+      <!-- Agradecimiento Emotivo -->
+      <p class="hero-gratitude">
+        «Si has llegado hasta aquí, es porque eres importante para nosotros y queremos compartir este día tan importante contigo»
+      </p>
+
+      <!-- Video Save the Date -->
+      <div class="hero-video-wrapper">
+        <div class="hero-video-card">
+          <video controls playsinline preload="metadata" poster="/images/videos/save-the-date-poster.jpg" class="save-the-date-video">
+            <source src="/images/videos/save-the-date.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de vídeo.
+          </video>
+          <div class="hero-video-caption">
+            <i data-lucide="sparkles"></i> Save the Date &bull; 29 de Mayo de 2027
+          </div>
+        </div>
+      </div>
+
       <!-- Teaser Cómo se conocieron Blanca y Álvaro & La Pedida -->
       <div class="hero-story-teaser">
         <p class="story-teaser-intro">
@@ -2012,6 +2096,57 @@
           <div id="uploadAlert" class="alert" style="margin-top: 20px;"></div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- Sección de Alojamiento y Luna de Miel para Invitados -->
+    <section id="informacion-invitados" style="background: #eef2ef; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 75px 0;">
+      <div class="container">
+        <div class="section-header">
+          <span class="sub">Detalles para Invitados</span>
+          <h2>Alojamiento & Luna de Miel</h2>
+          <p>Toda la información sobre el hotel para quienes vienen de fuera y nuestro gran viaje de novios a Tailandia.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; max-width: 960px; margin: 0 auto;">
+          
+          <!-- Tarjeta Alojamiento -->
+          <div style="background: #ffffff; border-radius: 18px; border: 1px solid var(--border-gold); padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(45, 69, 62, 0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+                <i data-lucide="bed" style="width: 26px; height: 26px;"></i>
+              </div>
+              <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.85rem; color: var(--heading); margin-bottom: 10px;">Alojamiento en el Hotel Magullo</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+                Si vienes de fuera o prefieres quedarte a dormir en Segovia, el Hotel Magullo está en el mismo recinto de la celebración. Olvídate de desplazamientos nocturnos y solicita tu habitación fácilmente.
+              </p>
+            </div>
+            <div>
+              <a href="/alojamiento.html" class="btn-confirm" style="width: 100%; justify-content: center;">
+                <i data-lucide="hotel"></i> Ver Alojamiento y Reservar
+              </a>
+            </div>
+          </div>
+
+          <!-- Tarjeta Luna de Miel -->
+          <div style="background: #ffffff; border-radius: 18px; border: 1px solid var(--border-gold); padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(216, 194, 157, 0.25); color: #8c7348; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
+                <i data-lucide="plane" style="width: 26px; height: 26px;"></i>
+              </div>
+              <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.85rem; color: var(--heading); margin-bottom: 10px;">Viaje de Novios: Tailandia</h3>
+              <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+                Vuestra presencia es nuestro mayor regalo. Para los que nos habéis preguntado por un detalle para la boda, os contamos nuestro sueño de viajar a Tailandia y cómo podéis colaborar en nuestra luna de miel.
+              </p>
+            </div>
+            <div>
+              <a href="/luna-de-miel.html" class="btn-confirm" style="width: 100%; justify-content: center; background: #8c7348; border-color: #8c7348;">
+                <i data-lucide="palmtree"></i> Ver Luna de Miel y Regalo
+              </a>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 

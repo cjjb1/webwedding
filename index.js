@@ -32,6 +32,19 @@ app.get('/pedida', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'pedida.html'));
 });
 
+// Ruta limpia para el alojamiento de invitados en el hotel
+app.get('/alojamiento', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'alojamiento.html'));
+});
+
+// Ruta limpia para el viaje de novios / luna de miel en Tailandia
+app.get('/luna-de-miel', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'luna-de-miel.html'));
+});
+app.get('/viaje', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'luna-de-miel.html'));
+});
+
 // Configuración de almacenamiento para fotos subidas por invitados
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -103,8 +116,19 @@ if (process.env.DATABASE_URL) {
           is_approved BOOLEAN DEFAULT TRUE,
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );
+
+        CREATE TABLE IF NOT EXISTS hotel_requests (
+          id SERIAL PRIMARY KEY,
+          guest_name VARCHAR(255) NOT NULL,
+          phone VARCHAR(50),
+          room_type VARCHAR(100),
+          nights VARCHAR(100),
+          notes TEXT,
+          status VARCHAR(50) DEFAULT 'pending',
+          created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        );
       `);
-      console.log('✅ Base de datos inicializada correctamente (tablas guests y photos listas).');
+      console.log('✅ Base de datos inicializada correctamente (tablas guests, photos y hotel_requests listas).');
 
       // Renombrar 'Monse' a 'Montse' si existía previamente en la base de datos
       await pool.query("UPDATE guests SET name = 'Montse' WHERE LOWER(TRIM(name)) = 'monse'");
@@ -455,6 +479,50 @@ app.post('/api/rsvp', async (req, res) => {
   } catch (err) {
     console.error('Error al guardar confirmación:', err);
     res.status(500).json({ error: 'Error al registrar la confirmación' });
+  }
+});
+
+// Endpoint para guardar solicitudes de alojamiento en el Hotel Magullo
+app.post('/api/hotel-requests', async (req, res) => {
+  const {
+    guest_name,
+    phone = '',
+    room_type = 'Doble (Matrimonio)',
+    nights = 'Noche de la Boda (29 mayo)',
+    guests_count = 2,
+    notes = ''
+  } = req.body;
+
+  if (!guest_name || !guest_name.trim()) {
+    return res.status(400).json({ error: 'El nombre del invitado es obligatorio' });
+  }
+
+  if (pool) {
+    try {
+      const result = await pool.query(
+        `INSERT INTO hotel_requests (guest_name, phone, room_type, nights, notes)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING *;`,
+        [guest_name.trim(), phone ? phone.trim() : null, room_type, nights, notes ? notes.trim() : null]
+      );
+      return res.status(201).json({ success: true, request: result.rows[0] });
+    } catch (err) {
+      console.error('Error al registrar solicitud de hotel:', err);
+      return res.status(500).json({ error: 'Error interno al registrar solicitud' });
+    }
+  }
+
+  res.status(201).json({ success: true, message: 'Solicitud recibida (modo demo)' });
+});
+
+// Endpoint para consultar solicitudes de hotel (administración)
+app.get('/api/hotel-requests', async (req, res) => {
+  if (!pool) return res.json({ requests: [] });
+  try {
+    const { rows } = await pool.query('SELECT * FROM hotel_requests ORDER BY created_at DESC');
+    res.json({ requests: rows });
+  } catch (err) {
+    res.status(500).json({ error: 'Error al consultar solicitudes de hotel' });
   }
 });
 

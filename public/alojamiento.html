@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alojamiento para Invitados | Boda Blanca & Álvaro</title>
+  <meta name="description" content="Información y solicitud de alojamiento en el Hotel Magullo (Segovia) para los invitados de la boda de Blanca y Álvaro el 29 de Mayo de 2027.">
+  <link rel="icon" type="image/png" href="/images/logo/anillo.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Alojamiento para Invitados &bull; Boda Blanca & Álvaro">
+  <meta property="og:description" content="Quédate a dormir con nosotros en el Hotel Magullo y disfruta de la fiesta sin preocupaciones.">
+  <meta property="og:image" content="/images/restaurante/fachada01b_1_2207-164509588346853.webp">
+  <meta property="og:type" content="website">
+
+  <!-- Fuentes Google: Cormorant Garamond (Elegancia) & Montserrat (Lectura) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Iconos Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --bg-dark: #0f1614;
+      --bg-card: rgba(18, 26, 23, 0.82);
+      --bg-card-hover: rgba(22, 33, 29, 0.94);
+      --primary: #2d453e;
+      --primary-hover: #3b5850;
+      --accent: #d8c29d;
+      --accent-bright: #f0deba;
+      --accent-glow: rgba(216, 194, 157, 0.28);
+      --text-main: #f5f2eb;
+      --text-muted: #b8c4bd;
+      --border-gold: rgba(216, 194, 157, 0.32);
+      --border-gold-hover: rgba(216, 194, 157, 0.75);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.75;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(45, 69, 62, 0.45) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(216, 194, 157, 0.15) 0%, transparent 45%),
+        linear-gradient(180deg, #0a100e 0%, #0f1614 40%, #0c1210 100%);
+      background-attachment: fixed;
+    }
+
+    /* Barra de Navegación */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 76px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 35px;
+      background: rgba(12, 17, 15, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-gold);
+      z-index: 1000;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .nav-logo .logo-img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px rgba(216, 194, 157, 0.4));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links li a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+      opacity: 0.88;
+    }
+
+    .nav-links li a:hover,
+    .nav-links li a.active {
+      color: var(--accent);
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+
+    .nav-btn {
+      background: var(--primary) !important;
+      color: #fff !important;
+      border: 1px solid var(--accent) !important;
+      padding: 8px 18px !important;
+      border-radius: 25px !important;
+      font-weight: 600 !important;
+      opacity: 1 !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+    }
+
+    .nav-btn:hover {
+      background: var(--primary-hover) !important;
+      color: var(--accent-bright) !important;
+      box-shadow: 0 6px 20px rgba(216, 194, 157, 0.35) !important;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Contenido Principal */
+    main {
+      flex: 1;
+      padding: 120px 24px 70px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .hotel-wrapper {
+      max-width: 920px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    /* Cabecera Editorial */
+    .hotel-header {
+      text-align: center;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    .hotel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(216, 194, 157, 0.12);
+      color: var(--accent);
+      border: 1px solid var(--border-gold);
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .hotel-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .hotel-title span {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hotel-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 720px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .decor-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      color: var(--accent);
+    }
+
+    .decor-line::before,
+    .decor-line::after {
+      content: "";
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    /* Tarjetas de Información */
+    .card-luxury {
+      background: var(--bg-card);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--border-gold);
+      border-radius: 20px;
+      padding: 36px 38px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(216, 194, 157, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .card-luxury:hover {
+      border-color: var(--border-gold-hover);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 35px var(--accent-glow);
+    }
+
+    .card-header-flex {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid rgba(216, 194, 157, 0.2);
+      padding-bottom: 14px;
+    }
+
+    .card-header-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(216, 194, 157, 0.15);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-gold);
+    }
+
+    .card-header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    /* Grid de Ventajas */
+    .advantages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .adv-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(216, 194, 157, 0.18);
+      border-radius: 14px;
+      padding: 22px;
+      transition: all 0.3s ease;
+    }
+
+    .adv-item:hover {
+      background: rgba(216, 194, 157, 0.08);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .adv-icon {
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .adv-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .adv-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Galería de Fotos del Complejo */
+    .hotel-gallery {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .hotel-gallery-item {
+      position: relative;
+      height: 280px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border-gold);
+    }
+
+    .hotel-gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .hotel-gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-tag {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(14, 20, 18, 0.85);
+      color: var(--accent);
+      font-size: 0.78rem;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-gold);
+      backdrop-filter: blur(6px);
+      letter-spacing: 0.5px;
+    }
+
+    /* Formulario de Solicitud */
+    .hotel-form {
+      margin-top: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(10, 15, 13, 0.85);
+      border: 1px solid rgba(216, 194, 157, 0.35);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(216, 194, 157, 0.25);
+      background: rgba(14, 22, 19, 0.95);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .btn-submit-hotel {
+      background: var(--primary);
+      color: #ffffff;
+      border: 1.5px solid var(--accent);
+      padding: 15px 32px;
+      border-radius: 40px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .btn-submit-hotel:hover {
+      background: var(--primary-hover);
+      border-color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(216, 194, 157, 0.35);
+    }
+
+    .btn-whatsapp-hotel {
+      background: rgba(37, 211, 102, 0.15);
+      color: #25d366;
+      border: 1px solid rgba(37, 211, 102, 0.45);
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-whatsapp-hotel:hover {
+      background: rgba(37, 211, 102, 0.28);
+      border-color: #25d366;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .alert-box {
+      display: none;
+      padding: 18px 22px;
+      border-radius: 12px;
+      margin-top: 18px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .alert-success {
+      background: rgba(46, 125, 50, 0.2);
+      border: 1px solid #2e7d32;
+      color: #a5d6a7;
+    }
+
+    /* Caja de Contacto Directo */
+    .hotel-contact-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(216, 194, 157, 0.2);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      background: rgba(216, 194, 157, 0.1);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+
+    .contact-icon {
+      color: var(--accent);
+      font-size: 1.25rem;
+    }
+
+    .contact-text .c-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .contact-text .c-value {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Botones de Navegación Finales */
+    .story-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      text-decoration: none;
+      padding: 14px 26px;
+      border-radius: 40px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    .btn-gold {
+      background: var(--primary);
+      color: #ffffff !important;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 40px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-gold:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(216, 194, 157, 0.45);
+    }
+
+    /* Modal de Invitación */
+    .invitation-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 22, 19, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+      padding: 20px;
+    }
+
+    .invitation-modal.active {
+      display: flex;
+    }
+
+    .invitation-modal-content {
+      position: relative;
+      max-width: 440px;
+      width: 100%;
+      margin: auto;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .invitation-card {
+      background: #fdfbf7;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.2);
+      border: 1px solid rgba(157, 129, 81, 0.4);
+      width: 100%;
+      text-align: center;
+      color: #263431;
+    }
+
+    .invitation-card-header {
+      margin-bottom: 15px;
+    }
+
+    .invite-monogram {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #9d8151;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .invite-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #263431;
+      line-height: 1.1;
+    }
+
+    .invitation-img-box {
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 15px 0;
+      border: 1px solid rgba(157, 129, 81, 0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .invitation-img-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .invitation-card-footer {
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(157, 129, 81, 0.2);
+    }
+
+    .invite-names {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #263431;
+      margin-bottom: 6px;
+    }
+
+    .invite-date {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      color: #9d8151;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .invite-place {
+      font-size: 0.88rem;
+      color: #61736f;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 0.82rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border-top: 1px solid rgba(216, 194, 157, 0.15);
+      background: rgba(8, 12, 11, 0.8);
+    }
+
+    @media (max-width: 900px) {
+      .hotel-gallery { grid-template-columns: 1fr; }
+      .hotel-gallery-item { height: 230px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .mobile-menu-btn { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        background: rgba(12, 17, 15, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 0;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-gold);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+      }
+      .nav-links.active {
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 20px 0 30px;
+      }
+      .nav-links li { width: 100%; text-align: center; }
+      .nav-links li a {
+        justify-content: center;
+        padding: 14px 20px;
+        font-size: 0.95rem;
+        border-bottom: 1px solid rgba(216, 194, 157, 0.08);
+      }
+      main { padding: 100px 16px 50px; }
+      .card-luxury { padding: 26px 20px; }
+      .story-actions { flex-direction: column; width: 100%; }
+      .story-actions a, .story-actions button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Navegación Fija -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">
+      <img src="/images/logo/anillo.png" alt="Logo Alianza Blanca & Álvaro" class="logo-img">
+      <span>Blanca & Álvaro</span>
+    </a>
+
+    <!-- Botón Hamburguesa Móvil (3 rayitas) -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menú de Navegación" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/" onclick="closeMobileMenu()"><i data-lucide="home"></i> Volver a la Boda</a></li>
+      <li><a href="/historia.html" onclick="closeMobileMenu()"><i data-lucide="sparkles"></i> Nuestra Historia</a></li>
+      <li><a href="/pedida.html" onclick="closeMobileMenu()"><i data-lucide="gem"></i> La Pedida</a></li>
+      <li><a href="/alojamiento.html" class="active" onclick="closeMobileMenu()"><i data-lucide="bed"></i> Alojamiento</a></li>
+      <li><a href="/luna-de-miel.html" onclick="closeMobileMenu()"><i data-lucide="plane"></i> Luna de Miel</a></li>
+      <li><a href="/#itinerario" onclick="closeMobileMenu()"><i data-lucide="calendar"></i> Itinerario</a></li>
+      <li><a href="/#espacio" onclick="closeMobileMenu()"><i data-lucide="landmark"></i> El Espacio</a></li>
+      <li><a href="/#galeria" onclick="closeMobileMenu()"><i data-lucide="camera"></i> Galería</a></li>
+      <li><a href="javascript:void(0)" onclick="openInvitationModal(); closeMobileMenu();"><i data-lucide="mail"></i> Ver Invitación</a></li>
+      <li><a href="/#rsvp" class="nav-btn" onclick="closeMobileMenu()"><i data-lucide="heart"></i> Confirmar Asistencia</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="hotel-wrapper">
+      
+      <!-- Cabecera Editorial -->
+      <header class="hotel-header">
+        <div class="hotel-badge">
+          <i data-lucide="hotel"></i> Complejo Hotelero y Restaurante Magullo &bull; Segovia
+        </div>
+        <h1 class="hotel-title">
+          Alojamiento para <span>Invitados</span>
+        </h1>
+        <p class="hotel-subtitle">
+          Queremos que disfrutéis al máximo de nuestro gran día, sin prisas por el viaje de vuelta ni desplazamientos por carretera tras la fiesta. El hotel se encuentra dentro del propio recinto de la boda.
+        </p>
+        <div class="decor-line">
+          <i data-lucide="bed-double"></i> &bull; <i data-lucide="moon"></i> &bull; <i data-lucide="sparkles"></i>
+        </div>
+      </header>
+
+      <!-- Tarjeta 1: Ventajas de Alojarte en el Hotel Magullo -->
+      <section class="card-luxury">
+        <div class="card-header-flex">
+          <div class="card-header-icon">
+            <i data-lucide="shield-check"></i>
+          </div>
+          <div>
+            <h2 class="card-header-title">Todo en el mismo lugar, máxima comodidad</h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Sin necesidad de coger el coche al terminar la fiesta</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.98rem; color: #ece8de;">
+          El <strong>Hotel Restaurante Magullo</strong> cuenta con un acogedor complejo hostelero ubicado en el mismo recinto ajardinado donde tendrá lugar el banquete y la fiesta. Al terminar la celebración, tan solo tendrás que caminar unos pasos para descansar plácidamente en tu habitación.
+        </p>
+
+        <div class="advantages-grid">
+          <div class="adv-item">
+            <span class="adv-icon"><i data-lucide="footprints"></i></span>
+            <h3 class="adv-title">0 Desplazamientos</h3>
+            <p class="adv-desc">Acceso directo a pie desde la zona de fiesta y baile hasta tu habitación. Olvídate del taxi o de conducir de noche.</p>
+          </div>
+
+          <div class="adv-item">
+            <span class="adv-icon"><i data-lucide="car"></i></span>
+            <h3 class="adv-title">Aparcamiento Gratuito</h3>
+            <p class="adv-desc">Parking privado y amplio en el mismo recinto disponible para todos los invitados alojados durante su estancia.</p>
+          </div>
+
+          <div class="adv-item">
+            <span class="adv-icon"><i data-lucide="coffee"></i></span>
+            <h3 class="adv-title">Desayuno y Servicios</h3>
+            <p class="adv-desc">Habitaciones climatizadas, baño completo, Wi-Fi de alta velocidad y opción de desayuno al día siguiente.</p>
+          </div>
+
+          <div class="adv-item">
+            <span class="adv-icon"><i data-lucide="map-pin"></i></span>
+            <h3 class="adv-title">A 5 min de Segovia</h3>
+            <p class="adv-desc">Situado en La Lastrilla, a escasos minutos del Acueducto romano y del casco histórico de Segovia.</p>
+          </div>
+        </div>
+
+        <!-- Galería de fotos del complejo -->
+        <div class="hotel-gallery">
+          <div class="hotel-gallery-item">
+            <img src="/images/restaurante/fachada01b_1_2207-164509588346853.webp" alt="Fachada y entrada del Hotel Restaurante Magullo" loading="lazy">
+            <span class="gallery-tag"><i data-lucide="landmark"></i> Entrada y Fachada Principal</span>
+          </div>
+          <div class="hotel-gallery-item">
+            <img src="/images/restaurante/fotoboda01_1_2207-164509588477739.webp" alt="Complejo ajardinado Magullo" loading="lazy">
+            <span class="gallery-tag"><i data-lucide="trees"></i> Jardines del Complejo</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta 2: Formulario de Solicitud de Alojamiento -->
+      <section class="card-luxury">
+        <div class="card-header-flex">
+          <div class="card-header-icon">
+            <i data-lucide="calendar-check"></i>
+          </div>
+          <div>
+            <h2 class="card-header-title">Solicitar Habitación</h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Indícanos tus preferencias y coordinamos tu estancia con el hotel</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">
+          Si vienes de fuera o deseas quedarte a dormir, completa el siguiente formulario. Nos pondremos en contacto contigo para confirmar la disponibilidad y coordinar la reserva con el hotel para que no tengas que preocuparte por nada:
+        </p>
+
+        <form id="hotelRequestForm" class="hotel-form" onsubmit="handleHotelRequest(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="hotelGuestName">Nombre y Apellidos *</label>
+              <input type="text" id="hotelGuestName" name="guest_name" required placeholder="Tu nombre completo">
+            </div>
+
+            <div class="form-group">
+              <label for="hotelGuestPhone">Teléfono / WhatsApp *</label>
+              <input type="tel" id="hotelGuestPhone" name="phone" required placeholder="Ej: 600123456">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="hotelRoomType">Tipo de Habitación</label>
+              <select id="hotelRoomType" name="room_type">
+                <option value="Doble (Cama de matrimonio)">Habitación Doble (Cama de matrimonio)</option>
+                <option value="Doble (Dos camas individuales)">Habitación Doble (Dos camas individuales)</option>
+                <option value="Individual">Habitación Individual</option>
+                <option value="Triple o Familiar">Habitación Triple / Familiar</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="hotelNights">Noches Deseadas</label>
+              <select id="hotelNights" name="nights">
+                <option value="Noche de la Boda (Sábado 29 Mayo)">Noche de la Boda (Sábado 29 de mayo de 2027)</option>
+                <option value="Fin de Semana Completo (28-30 Mayo)">Fin de semana completo (Viernes 28 a Domingo 30)</option>
+                <option value="Otra fecha">Otras fechas (indicar en observaciones)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 24px;">
+            <label for="hotelNotes">Observaciones o Peticiones Especiales</label>
+            <textarea id="hotelNotes" name="notes" placeholder="Ej: Necesitamos cuna para bebé, llegada temprana el sábado, etc."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit-hotel" id="btnSubmitHotel">
+            <i data-lucide="send"></i> Enviar Solicitud de Alojamiento
+          </button>
+        </form>
+
+        <div id="hotelAlertSuccess" class="alert-box alert-success">
+          <i data-lucide="check-circle-2" style="vertical-align: middle; margin-right: 6px;"></i>
+          <strong>¡Solicitud enviada correctamente!</strong> Hemos recibido tu petición de alojamiento. Los novios coordinaremos la reserva con el Hotel Magullo y te confirmaremos los detalles por WhatsApp.
+          <div style="margin-top: 14px;">
+            <a id="btnHotelWhatsappDirect" href="#" target="_blank" class="btn-whatsapp-hotel">
+              <i data-lucide="message-circle"></i> Notificar a los novios por WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarjeta 3: Contacto Directo con el Hotel Magullo -->
+      <section class="card-luxury">
+        <div class="card-header-flex">
+          <div class="card-header-icon">
+            <i data-lucide="phone-call"></i>
+          </div>
+          <div>
+            <h2 class="card-header-title">Datos de Contacto del Hotel Magullo</h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Para consultas directas o detalles adicionales</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.92rem; color: var(--text-muted);">
+          Si prefieres llamar directamente a la recepción del hotel, recuerda indicar que asistes a la <strong>Boda de Blanca y Álvaro (29 de mayo de 2027)</strong>:
+        </p>
+
+        <div class="hotel-contact-box">
+          <a href="tel:+34921412100" class="contact-item">
+            <i data-lucide="phone" class="contact-icon"></i>
+            <div class="contact-text">
+              <span class="c-label">Teléfono Recepción</span>
+              <span class="c-value">921 41 21 00</span>
+            </div>
+          </a>
+
+          <a href="mailto:hotel@magullo.com" class="contact-item">
+            <i data-lucide="mail" class="contact-icon"></i>
+            <div class="contact-text">
+              <span class="c-label">Correo Electrónico</span>
+              <span class="c-value">hotel@magullo.com</span>
+            </div>
+          </a>
+
+          <a href="https://maps.google.com/?q=Restaurante+Magullo+Segovia" target="_blank" class="contact-item">
+            <i data-lucide="map-pin" class="contact-icon"></i>
+            <div class="contact-text">
+              <span class="c-label">Ubicación GPS</span>
+              <span class="c-value">C/ Rafael de las Heras, 1, Segovia</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Botones de Acción Finales -->
+      <div class="story-actions">
+        <a href="/" class="btn-outline">
+          <i data-lucide="arrow-left"></i> Volver a la Boda
+        </a>
+        <a href="/luna-de-miel.html" class="btn-gold">
+          <i data-lucide="plane"></i> Ver Luna de Miel (Tailandia)
+        </a>
+        <button class="btn-outline" onclick="openInvitationModal()">
+          <i data-lucide="mail"></i> Ver Invitación Oficial
+        </button>
+        <a href="/#rsvp" class="btn-gold">
+          <i data-lucide="heart"></i> Confirmar Asistencia
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal de Invitación Oficial -->
+  <div id="invitationModal" class="invitation-modal" onclick="closeInvitationModal(event)">
+    <div class="invitation-modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeInvitationModal(event)">&times;</button>
+      <div class="invitation-card">
+        <div class="invitation-card-header">
+          <span class="invite-monogram">Save the Date</span>
+          <span class="invite-title">Blanca & Álvaro</span>
+        </div>
+        <div class="invitation-img-box">
+          <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida con nuestros perritos">
+        </div>
+        <div class="invitation-card-footer">
+          <p class="invite-names">¡Blanca y Álvaro nos casamos! <i data-lucide="gem"></i> <i data-lucide="paw-print"></i></p>
+          <p class="invite-date">29 &bull; Mayo &bull; 2027</p>
+          <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
+        </div>
+        <div class="modal-actions" style="margin-top: 15px;">
+          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-gold" style="width: 100%;">
+            <i data-lucide="download"></i> Descargar Invitación
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Blanca & Álvaro &bull; 29 de Mayo de 2027 &bull; Segovia</p>
+  </footer>
+
+  <script>
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+
+    // Manejador del Formulario de Hotel
+    async function handleHotelRequest(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmitHotel');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="spin"></i> Procesando...';
+      if (window.lucide) lucide.createIcons();
+
+      const name = document.getElementById('hotelGuestName').value.trim();
+      const phone = document.getElementById('hotelGuestPhone').value.trim();
+      const roomType = document.getElementById('hotelRoomType').value;
+      const nights = document.getElementById('hotelNights').value;
+      const notes = document.getElementById('hotelNotes').value.trim();
+
+      const payload = {
+        guest_name: name,
+        phone: phone,
+        room_type: roomType,
+        nights: nights,
+        notes: notes
+      };
+
+      try {
+        const res = await fetch('/api/hotel-requests', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const alertSuccess = document.getElementById('hotelAlertSuccess');
+        alertSuccess.style.display = 'block';
+
+        // Preparar enlace de WhatsApp para los novios
+        const waMessage = `¡Hola Blanca y Álvaro! Soy ${name}. Acabo de solicitar alojamiento en el Hotel Magullo para la boda:\n- Habitación: ${roomType}\n- Fechas: ${nights}\n- Teléfono: ${phone}${notes ? '\n- Observaciones: ' + notes : ''}`;
+        const waBtn = document.getElementById('btnHotelWhatsappDirect');
+        if (waBtn) {
+          waBtn.href = `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
+        }
+
+        document.getElementById('hotelRequestForm').reset();
+        btn.innerHTML = '<i data-lucide="check"></i> ¡Solicitud Enviada!';
+        if (window.lucide) lucide.createIcons();
+      } catch (err) {
+        alert('Hubo un inconveniente al enviar la solicitud. Por favor contáctanos directamente.');
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    // Modal de Invitación
+    function openInvitationModal() {
+      const modal = document.getElementById('invitationModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeInvitationModal(e) {
+      const modal = document.getElementById('invitationModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    // Control Menú Móvil
+    function toggleMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      if (btn && links) {
+        btn.classList.toggle('active');
+        links.classList.toggle('active');
+      }
+    }
+
+    function closeMobileMenu() {
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      if (btn && links) {
+        btn.classList.remove('active');
+        links.classList.remove('active');
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      const navbar = document.querySelector('.navbar');
+      if (navbar && !navbar.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeInvitationModal();
+        closeMobileMenu();
+      }
+    });
+  </script>
+</body>
+</html>
