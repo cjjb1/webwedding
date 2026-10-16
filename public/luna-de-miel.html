@@ -777,23 +777,28 @@
         -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         gap: 0;
-        padding: 20px 0;
+        padding: 0;
         border-bottom: 1px solid var(--border-gold);
         max-height: 0;
-        overflow: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
         transition: max-height 0.4s ease, padding 0.4s ease;
       }
       .nav-links.active {
-        max-height: 85vh;
+        max-height: calc(100vh - 80px);
         overflow-y: auto;
-        padding: 20px 0 30px;
+        padding: 10px 0 35px;
       }
       .nav-links li { width: 100%; text-align: center; }
       .nav-links li a {
         justify-content: center;
-        padding: 14px 20px;
-        font-size: 0.95rem;
+        padding: 11px 20px;
+        font-size: 0.9rem;
         border-bottom: 1px solid rgba(216, 194, 157, 0.08);
+      }
+      .nav-links li a.nav-btn {
+        margin: 10px auto 6px;
+        width: 85%;
       }
       main { padding: 100px 16px 50px; }
       .card-luxury { padding: 26px 20px; }
