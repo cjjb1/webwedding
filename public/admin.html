@@ -170,6 +170,9 @@
       <button class="tab-btn" id="tabBtnCatering" onclick="switchTab('catering')">
         <i data-lucide="utensils"></i> Control de Catering y Restaurante Magullo
       </button>
+      <button class="tab-btn" id="tabBtnHotel" onclick="switchTab('hotel')">
+        <i data-lucide="hotel"></i> Alojamiento Magullo (<span id="tabCountHotel">0</span>)
+      </button>
     </div>
 
     <!-- VISTA 1: AGENDA Y ENVÍOS WHATSAPP -->
@@ -243,6 +246,39 @@
         </table>
       </div>
     </div>
+
+    <!-- VISTA 3: ALOJAMIENTO HOTEL MAGULLO -->
+    <div id="viewHotel" style="display: none;">
+      <div style="background: white; padding: 15px 20px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>
+          <h4 style="color: var(--primary-dark); margin-bottom: 4px;">Peticiones de Alojamiento en Hotel Magullo</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Contacto hotel: <strong>+34 921 43 50 11</strong> &bull; <strong>info@ventamagullo.es</strong> &bull; C/ Rafael de las Heras, 1 (La Lastrilla, Segovia)
+          </p>
+        </div>
+        <button class="btn btn-secondary" onclick="loadHotelRequests()"><i data-lucide="refresh-cw"></i> Actualizar</button>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Huésped</th>
+              <th>Teléfono</th>
+              <th>Correo Electrónico</th>
+              <th>Habitación</th>
+              <th>Noches</th>
+              <th>Observaciones</th>
+              <th>Fecha Solicitud</th>
+              <th style="text-align: right;">Contactar</th>
+            </tr>
+          </thead>
+          <tbody id="hotelTableBody">
+            <tr><td colspan="8" style="text-align: center; padding: 30px;">Cargando solicitudes de hotel...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <!-- Modal para añadir nuevo invitado -->
@@ -299,6 +335,7 @@
         document.getElementById('catPets').innerText = stats.totalPets || 0;
 
         renderTables();
+        loadHotelRequests();
       } catch (err) {
         showToast('Error al conectar con la base de datos');
       }
@@ -308,8 +345,13 @@
       currentTab = tab;
       document.getElementById('tabBtnWa').classList.toggle('active', tab === 'whatsapp');
       document.getElementById('tabBtnCatering').classList.toggle('active', tab === 'catering');
+      document.getElementById('tabBtnHotel').classList.toggle('active', tab === 'hotel');
       document.getElementById('viewWhatsApp').style.display = tab === 'whatsapp' ? 'block' : 'none';
       document.getElementById('viewCatering').style.display = tab === 'catering' ? 'block' : 'none';
+      document.getElementById('viewHotel').style.display = tab === 'hotel' ? 'block' : 'none';
+      if (tab === 'hotel') {
+        loadHotelRequests();
+      }
     }
 
     function setFilter(filter, btn) {
@@ -598,6 +640,43 @@
     function escapeHtml(str) {
       if (!str) return '';
       return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    async function loadHotelRequests() {
+      const tbody = document.getElementById('hotelTableBody');
+      const countBadge = document.getElementById('tabCountHotel');
+      try {
+        const res = await fetch('/api/hotel-requests');
+        const data = await res.json();
+        const list = data.requests || [];
+        if (countBadge) countBadge.innerText = list.length;
+
+        if (!tbody) return;
+        if (list.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px; color: #64748b;">Aún no hay peticiones de alojamiento registradas.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = list.map(r => `
+          <tr>
+            <td><strong>${escapeHtml(r.guest_name)}</strong></td>
+            <td>${escapeHtml(r.phone || '-')}</td>
+            <td>${r.email ? `<a href="mailto:${escapeHtml(r.email)}" style="color: var(--primary); text-decoration: underline;">${escapeHtml(r.email)}</a>` : '-'}</td>
+            <td><span class="badge badge-success">${escapeHtml(r.room_type || '-')}</span></td>
+            <td>${escapeHtml(r.nights || '-')}</td>
+            <td><small>${escapeHtml(r.notes || 'Ninguna')}</small></td>
+            <td><small style="color: var(--text-muted);">${r.created_at ? new Date(r.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }) : '-'}</small></td>
+            <td style="text-align: right; white-space: nowrap;">
+              ${r.phone ? `<a href="https://wa.me/${r.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent('¡Hola ' + r.guest_name + '! Os escribimos respecto a vuestra solicitud de habitación en Hotel Magullo para la boda:')}" target="_blank" class="btn-wa" style="padding: 5px 9px; font-size: 0.78rem;"><i data-lucide="message-circle"></i> WhatsApp</a>` : ''}
+              ${r.email ? `<a href="mailto:${escapeHtml(r.email)}?subject=${encodeURIComponent('Reserva Hotel Magullo - Boda Blanca y Álvaro')}" class="btn btn-secondary" style="padding: 5px 9px; font-size: 0.78rem; margin-left: 4px;"><i data-lucide="mail"></i> Email</a>` : ''}
+            </td>
+          </tr>
+        `).join('');
+
+        if (window.lucide) lucide.createIcons();
+      } catch (err) {
+        if (tbody) tbody.innerHTML = '<tr><td colspan="8" style="text-align: center; padding: 30px; color: #dc2626;">Error al cargar las solicitudes de hotel.</td></tr>';
+      }
     }
 
     if (window.lucide) lucide.createIcons();

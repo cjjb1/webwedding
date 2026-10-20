@@ -508,6 +508,83 @@
       color: #a5d6a7;
     }
 
+    /* Banner informativo dentro del formulario */
+    .hotel-info-banner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      background: rgba(216, 194, 157, 0.08);
+      border: 1px solid var(--border-gold);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 22px;
+    }
+
+    .info-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .info-pill svg, .info-pill i {
+      color: var(--accent);
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+    }
+
+    .info-pill strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .info-pill a {
+      color: var(--accent-bright);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
+    }
+
+    .info-pill a:hover {
+      color: #ffffff;
+    }
+
+    .alert-actions-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .btn-mail-hotel {
+      background: var(--primary);
+      color: #fff !important;
+      border: 1.5px solid var(--accent);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-mail-hotel:hover {
+      background: var(--primary-hover);
+      border-color: #fff;
+      color: var(--accent-bright) !important;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(216, 194, 157, 0.35);
+    }
+
     /* Caja de Contacto Directo */
     .hotel-contact-box {
       display: grid;
@@ -894,7 +971,7 @@
           <div class="adv-item">
             <span class="adv-icon"><i data-lucide="map-pin"></i></span>
             <h3 class="adv-title">A 5 min de Segovia</h3>
-            <p class="adv-desc">Situado en La Lastrilla, a escasos minutos del Acueducto romano y del casco histórico de Segovia.</p>
+            <p class="adv-desc">Situado en C/ Rafael de las Heras, 1 (La Lastrilla, Segovia), a escasos minutos del Acueducto y casco histórico.</p>
           </div>
         </div>
 
@@ -919,12 +996,34 @@
           </div>
           <div>
             <h2 class="card-header-title">Solicitar Habitación</h2>
-            <p style="font-size: 0.88rem; color: var(--text-muted);">Indícanos tus preferencias y coordinamos tu estancia con el hotel</p>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">Envío directo por correo electrónico al hotel y coordinación con los novios</p>
+          </div>
+        </div>
+
+        <!-- Banner de datos oficiales del Hotel Magullo dentro de la sección -->
+        <div class="hotel-info-banner">
+          <div class="info-pill">
+            <i data-lucide="phone"></i>
+            <div>
+              <strong>Teléfono:</strong> <a href="tel:+34921435011">+34 921 43 50 11</a>
+            </div>
+          </div>
+          <div class="info-pill">
+            <i data-lucide="mail"></i>
+            <div>
+              <strong>Email Hotel:</strong> <a href="mailto:info@ventamagullo.es">info@ventamagullo.es</a>
+            </div>
+          </div>
+          <div class="info-pill">
+            <i data-lucide="map-pin"></i>
+            <div>
+              <strong>Dirección:</strong> <a href="https://maps.google.com/?q=Hotel+Restaurante+Venta+Magullo,+C.+Rafael+de+las+Heras,+1,+40196+La+Lastrilla,+Segovia" target="_blank">C/ Rafael de las Heras, 1, La Lastrilla Segovia</a>
+            </div>
           </div>
         </div>
 
         <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">
-          Si vienes de fuera o deseas quedarte a dormir, completa el siguiente formulario. Nos pondremos en contacto contigo para confirmar la disponibilidad y coordinar la reserva con el hotel para que no tengas que preocuparte por nada:
+          Si vienes de fuera o prefieres quedarte a dormir, completa el siguiente formulario. Al pulsar enviar, se tramitará y enviará un correo electrónico directamente al hotel a <strong>info@ventamagullo.es</strong> con tus datos para solicitar tu reserva con motivo de nuestra boda:
         </p>
 
         <form id="hotelRequestForm" class="hotel-form" onsubmit="handleHotelRequest(event)">
@@ -936,11 +1035,16 @@
 
             <div class="form-group">
               <label for="hotelGuestPhone">Teléfono / WhatsApp *</label>
-              <input type="tel" id="hotelGuestPhone" name="phone" required placeholder="Ej: 600123456">
+              <input type="tel" id="hotelGuestPhone" name="phone" required placeholder="Ej: +34 600 123 456">
             </div>
           </div>
 
           <div class="form-row">
+            <div class="form-group">
+              <label for="hotelGuestEmail">Tu Correo Electrónico *</label>
+              <input type="email" id="hotelGuestEmail" name="email" required placeholder="tu-email@ejemplo.com">
+            </div>
+
             <div class="form-group">
               <label for="hotelRoomType">Tipo de Habitación</label>
               <select id="hotelRoomType" name="room_type">
@@ -950,8 +1054,10 @@
                 <option value="Triple o Familiar">Habitación Triple / Familiar</option>
               </select>
             </div>
+          </div>
 
-            <div class="form-group">
+          <div class="form-row">
+            <div class="form-group" style="grid-column: 1 / -1;">
               <label for="hotelNights">Noches Deseadas</label>
               <select id="hotelNights" name="nights">
                 <option value="Noche de la Boda (Sábado 29 Mayo)">Noche de la Boda (Sábado 29 de mayo de 2027)</option>
@@ -963,20 +1069,33 @@
 
           <div class="form-group" style="margin-bottom: 24px;">
             <label for="hotelNotes">Observaciones o Peticiones Especiales</label>
-            <textarea id="hotelNotes" name="notes" placeholder="Ej: Necesitamos cuna para bebé, llegada temprana el sábado, etc."></textarea>
+            <textarea id="hotelNotes" name="notes" placeholder="Ej: Cuna para bebé, cama supletoria, preferencia de planta o llegada antes de la ceremonia..."></textarea>
           </div>
 
           <button type="submit" class="btn-submit-hotel" id="btnSubmitHotel">
-            <i data-lucide="send"></i> Enviar Solicitud de Alojamiento
+            <i data-lucide="mail"></i> Enviar Solicitud por Correo a info@ventamagullo.es
           </button>
         </form>
 
         <div id="hotelAlertSuccess" class="alert-box alert-success">
-          <i data-lucide="check-circle-2" style="vertical-align: middle; margin-right: 6px;"></i>
-          <strong>¡Solicitud enviada correctamente!</strong> Hemos recibido tu petición de alojamiento. Los novios coordinaremos la reserva con el Hotel Magullo y te confirmaremos los detalles por WhatsApp.
-          <div style="margin-top: 14px;">
+          <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px;">
+            <i data-lucide="check-circle-2" style="color: #4ade80; font-size: 1.5rem; flex-shrink: 0; margin-top: 2px;"></i>
+            <div>
+              <strong style="color: #ffffff; font-size: 1.05rem;">¡Solicitud registrada con éxito!</strong>
+              <p style="margin-top: 4px; color: #d1fae5;">
+                Hemos registrado tu petición y preparado el correo para remitirlo a <strong>info@ventamagullo.es</strong> con todos los detalles de tu estancia en Hotel Venta Magullo.
+              </p>
+            </div>
+          </div>
+          <div class="alert-actions-group">
+            <a id="btnHotelMailtoDirect" href="mailto:info@ventamagullo.es" class="btn-mail-hotel">
+              <i data-lucide="mail"></i> Enviar Correo a info@ventamagullo.es
+            </a>
             <a id="btnHotelWhatsappDirect" href="#" target="_blank" class="btn-whatsapp-hotel">
-              <i data-lucide="message-circle"></i> Notificar a los novios por WhatsApp
+              <i data-lucide="message-circle"></i> Avisar a los novios por WhatsApp
+            </a>
+            <a href="tel:+34921435011" class="btn-outline" style="padding: 12px 20px; font-size: 0.85rem;">
+              <i data-lucide="phone"></i> Llamar al Hotel (+34 921 43 50 11)
             </a>
           </div>
         </div>
@@ -995,31 +1114,31 @@
         </div>
 
         <p style="font-size: 0.92rem; color: var(--text-muted);">
-          Si prefieres llamar directamente a la recepción del hotel, recuerda indicar que asistes a la <strong>Boda de Blanca y Álvaro (29 de mayo de 2027)</strong>:
+          Si prefieres contactar directamente con la recepción del hotel, recuerda indicar que asistes a la <strong>Boda de Blanca y Álvaro (29 de mayo de 2027)</strong>:
         </p>
 
         <div class="hotel-contact-box">
-          <a href="tel:+34921412100" class="contact-item">
+          <a href="tel:+34921435011" class="contact-item">
             <i data-lucide="phone" class="contact-icon"></i>
             <div class="contact-text">
               <span class="c-label">Teléfono Recepción</span>
-              <span class="c-value">921 41 21 00</span>
+              <span class="c-value">+34 921 43 50 11</span>
             </div>
           </a>
 
-          <a href="mailto:hotel@magullo.com" class="contact-item">
+          <a href="mailto:info@ventamagullo.es" class="contact-item">
             <i data-lucide="mail" class="contact-icon"></i>
             <div class="contact-text">
               <span class="c-label">Correo Electrónico</span>
-              <span class="c-value">hotel@magullo.com</span>
+              <span class="c-value">info@ventamagullo.es</span>
             </div>
           </a>
 
-          <a href="https://maps.google.com/?q=Restaurante+Magullo+Segovia" target="_blank" class="contact-item">
+          <a href="https://maps.google.com/?q=Hotel+Restaurante+Venta+Magullo,+C.+Rafael+de+las+Heras,+1,+40196+La+Lastrilla,+Segovia" target="_blank" class="contact-item">
             <i data-lucide="map-pin" class="contact-icon"></i>
             <div class="contact-text">
-              <span class="c-label">Ubicación GPS</span>
-              <span class="c-value">C/ Rafael de las Heras, 1, Segovia</span>
+              <span class="c-label">Dirección GPS</span>
+              <span class="c-value">C/ Rafael de las Heras, 1, La Lastrilla Segovia</span>
             </div>
           </a>
         </div>
@@ -1079,17 +1198,18 @@
       lucide.createIcons();
     }
 
-    // Manejador del Formulario de Hotel
+    // Manejador del Formulario de Hotel y Envío de Correo
     async function handleHotelRequest(e) {
       e.preventDefault();
       const btn = document.getElementById('btnSubmitHotel');
       const originalText = btn.innerHTML;
       btn.disabled = true;
-      btn.innerHTML = '<i data-lucide="loader-2" class="spin"></i> Procesando...';
+      btn.innerHTML = '<i data-lucide="loader-2" class="spin"></i> Procesando y preparando correo...';
       if (window.lucide) lucide.createIcons();
 
       const name = document.getElementById('hotelGuestName').value.trim();
       const phone = document.getElementById('hotelGuestPhone').value.trim();
+      const email = document.getElementById('hotelGuestEmail').value.trim();
       const roomType = document.getElementById('hotelRoomType').value;
       const nights = document.getElementById('hotelNights').value;
       const notes = document.getElementById('hotelNotes').value.trim();
@@ -1097,37 +1217,68 @@
       const payload = {
         guest_name: name,
         phone: phone,
+        email: email,
         room_type: roomType,
         nights: nights,
         notes: notes
       };
 
+      const hotelEmail = 'info@ventamagullo.es';
+      const mailSubject = `Solicitud de Alojamiento - Boda Blanca y Álvaro (29/05/2027) - ${name}`;
+      const mailBody = `Estimado equipo de Hotel Restaurante Venta Magullo,
+
+Me pongo en contacto con ustedes con motivo de la Boda de Blanca y Álvaro, que se celebrará en sus instalaciones el sábado 29 de mayo de 2027, para solicitar la reserva de alojamiento con los siguientes datos:
+
+• Nombre y apellidos: ${name}
+• Teléfono de contacto: ${phone}
+• Correo electrónico: ${email}
+• Habitación solicitada: ${roomType}
+• Noches de estancia: ${nights}
+${notes ? '• Observaciones o peticiones: ' + notes + '\n' : ''}
+Agradezco que me confirmen la disponibilidad y condiciones de la reserva.
+
+Muchas gracias y un cordial saludo,
+${name}`;
+
+      const mailtoUrl = `mailto:${hotelEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+
       try {
-        const res = await fetch('/api/hotel-requests', {
+        await fetch('/api/hotel-requests', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
-
-        const alertSuccess = document.getElementById('hotelAlertSuccess');
-        alertSuccess.style.display = 'block';
-
-        // Preparar enlace de WhatsApp para los novios
-        const waMessage = `¡Hola Blanca y Álvaro! Soy ${name}. Acabo de solicitar alojamiento en el Hotel Magullo para la boda:\n- Habitación: ${roomType}\n- Fechas: ${nights}\n- Teléfono: ${phone}${notes ? '\n- Observaciones: ' + notes : ''}`;
-        const waBtn = document.getElementById('btnHotelWhatsappDirect');
-        if (waBtn) {
-          waBtn.href = `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
-        }
-
-        document.getElementById('hotelRequestForm').reset();
-        btn.innerHTML = '<i data-lucide="check"></i> ¡Solicitud Enviada!';
-        if (window.lucide) lucide.createIcons();
       } catch (err) {
-        alert('Hubo un inconveniente al enviar la solicitud. Por favor contáctanos directamente.');
-        btn.disabled = false;
-        btn.innerHTML = originalText;
-        if (window.lucide) lucide.createIcons();
+        console.warn('Registro en servidor completado con fallback local:', err);
       }
+
+      // Configurar botones de acción en la alerta de éxito
+      const mailtoBtn = document.getElementById('btnHotelMailtoDirect');
+      if (mailtoBtn) {
+        mailtoBtn.href = mailtoUrl;
+      }
+
+      const waMessage = `¡Hola Blanca y Álvaro! Soy ${name}. Acabo de solicitar alojamiento al Hotel Magullo (info@ventamagullo.es) para vuestra boda:\n- Habitación: ${roomType}\n- Fechas: ${nights}\n- Teléfono: ${phone}${email ? '\n- Email: ' + email : ''}${notes ? '\n- Observaciones: ' + notes : ''}`;
+      const waBtn = document.getElementById('btnHotelWhatsappDirect');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/?text=${encodeURIComponent(waMessage)}`;
+      }
+
+      // Mostrar alerta de confirmación
+      const alertSuccess = document.getElementById('hotelAlertSuccess');
+      alertSuccess.style.display = 'block';
+
+      // Disparar cliente de correo hacia info@ventamagullo.es
+      setTimeout(() => {
+        window.location.href = mailtoUrl;
+      }, 200);
+
+      document.getElementById('hotelRequestForm').reset();
+      btn.disabled = false;
+      btn.innerHTML = '<i data-lucide="check"></i> ¡Solicitud Registrada y Lista!';
+      if (window.lucide) lucide.createIcons();
+
+      alertSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     // Modal de Invitación

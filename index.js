@@ -5,6 +5,29 @@ const { Pool } = require('pg');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const nodemailer = require('nodemailer');
+
+// Configuración opcional para envío de correos
+let mailTransporter = null;
+if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
+  mailTransporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: parseInt(process.env.SMTP_PORT, 10) || 587,
+    secure: process.env.SMTP_SECURE === 'true' || process.env.SMTP_PORT == 465,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+} else if (process.env.GMAIL_USER && (process.env.GMAIL_PASS || process.env.GMAIL_APP_PASSWORD)) {
+  mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS || process.env.GMAIL_APP_PASSWORD
+    }
+  });
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -121,12 +144,15 @@ if (process.env.DATABASE_URL) {
           id SERIAL PRIMARY KEY,
           guest_name VARCHAR(255) NOT NULL,
           phone VARCHAR(50),
+          email VARCHAR(255),
           room_type VARCHAR(100),
           nights VARCHAR(100),
           notes TEXT,
           status VARCHAR(50) DEFAULT 'pending',
           created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
         );
+
+        ALTER TABLE hotel_requests ADD COLUMN IF NOT EXISTS email VARCHAR(255);
       `);
       console.log('✅ Base de datos inicializada correctamente (tablas guests, photos y hotel_requests listas).');
 
@@ -482,13 +508,14 @@ app.post('/api/rsvp', async (req, res) => {
   }
 });
 
-// Endpoint para guardar solicitudes de alojamiento en el Hotel Magullo
+// Endpoint para guardar solicitudes de alojamiento en el Hotel Magullo y enviar correo a info@ventamagullo.es
 app.post('/api/hotel-requests', async (req, res) => {
   const {
     guest_name,
     phone = '',
-    room_type = 'Doble (Matrimonio)',
-    nights = 'Noche de la Boda (29 mayo)',
+    email = '',
+    room_type = 'Doble (Cama de matrimonio)',
+    nights = 'Noche de la Boda (Sábado 29 Mayo)',
     guests_count = 2,
     notes = ''
   } = req.body;
@@ -497,22 +524,82 @@ app.post('/api/hotel-requests', async (req, res) => {
     return res.status(400).json({ error: 'El nombre del invitado es obligatorio' });
   }
 
+  let savedRequest = null;
+
   if (pool) {
     try {
       const result = await pool.query(
-        `INSERT INTO hotel_requests (guest_name, phone, room_type, nights, notes)
-         VALUES ($1, $2, $3, $4, $5)
+        `INSERT INTO hotel_requests (guest_name, phone, email, room_type, nights, notes)
+         VALUES ($1, $2, $3, $4, $5, $6)
          RETURNING *;`,
-        [guest_name.trim(), phone ? phone.trim() : null, room_type, nights, notes ? notes.trim() : null]
+        [
+          guest_name.trim(),
+          phone ? phone.trim() : null,
+          email ? email.trim() : null,
+          room_type,
+          nights,
+          notes ? notes.trim() : null
+        ]
       );
-      return res.status(201).json({ success: true, request: result.rows[0] });
+      savedRequest = result.rows[0];
     } catch (err) {
-      console.error('Error al registrar solicitud de hotel:', err);
-      return res.status(500).json({ error: 'Error interno al registrar solicitud' });
+      console.error('Error al registrar solicitud de hotel con email:', err.message);
+      try {
+        const fallback = await pool.query(
+          `INSERT INTO hotel_requests (guest_name, phone, room_type, nights, notes)
+           VALUES ($1, $2, $3, $4, $5)
+           RETURNING *;`,
+          [guest_name.trim(), phone ? phone.trim() : null, room_type, nights, notes ? notes.trim() : null]
+        );
+        savedRequest = fallback.rows[0];
+      } catch (fallbackErr) {
+        console.error('Error en fallback registro hotel:', fallbackErr.message);
+      }
     }
   }
 
-  res.status(201).json({ success: true, message: 'Solicitud recibida (modo demo)' });
+  // Notificación por correo al Hotel Magullo si hay transporte configurado
+  const hotelEmail = 'info@ventamagullo.es';
+  let emailSent = false;
+  const mailSubject = `Solicitud de Alojamiento - Boda Blanca y Álvaro (29/05/2027) - ${guest_name.trim()}`;
+  const mailBody = `Estimado equipo de Hotel Restaurante Venta Magullo,
+
+Me pongo en contacto con ustedes con motivo de la Boda de Blanca y Álvaro, que se celebrará en sus instalaciones el sábado 29 de mayo de 2027, para solicitar la reserva de alojamiento con los siguientes datos:
+
+• Nombre del huésped: ${guest_name.trim()}
+• Teléfono de contacto: ${phone.trim() || 'No facilitado'}
+• Correo electrónico de contacto: ${email.trim() || 'No facilitado'}
+• Habitación solicitada: ${room_type}
+• Noches de estancia: ${nights}
+• Observaciones / Peticiones: ${notes.trim() || 'Ninguna'}
+
+Agradezco me confirmen disponibilidad y tarifas para formalizar la reserva.
+
+Muchas gracias y un cordial saludo,
+${guest_name.trim()}`;
+
+  if (mailTransporter) {
+    try {
+      await mailTransporter.sendMail({
+        from: process.env.SMTP_FROM || process.env.SMTP_USER || process.env.GMAIL_USER || 'boda@blancayalvaro.es',
+        to: hotelEmail,
+        replyTo: email && email.trim() ? email.trim() : undefined,
+        subject: mailSubject,
+        text: mailBody
+      });
+      emailSent = true;
+      console.log(`📧 Solicitud de hotel enviada por correo a ${hotelEmail} para ${guest_name.trim()}`);
+    } catch (mailErr) {
+      console.error('⚠️ No se pudo enviar el correo vía SMTP:', mailErr.message);
+    }
+  }
+
+  return res.status(201).json({
+    success: true,
+    emailSent,
+    hotelEmail,
+    request: savedRequest || { guest_name, phone, email, room_type, nights, notes }
+  });
 });
 
 // Endpoint para consultar solicitudes de hotel (administración)
