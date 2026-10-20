@@ -96,83 +96,188 @@
       filter: drop-shadow(0 2px 6px rgba(216, 194, 157, 0.4));
     }
 
-    .nav-links {
+    /* Acciones Derecha en Navbar: 3 Rayas + Botón RSVP */
+    .nav-actions {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 14px;
+    }
+
+    /* Botón Hamburguesa (3 rayitas) visible en PC y Móvil */
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 8px;
+      background: rgba(216, 194, 157, 0.1);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      cursor: pointer;
+      z-index: 1002;
+      transition: all 0.25s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      background: rgba(216, 194, 157, 0.2);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background-color: var(--accent);
+      border-radius: 3px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+      background-color: var(--accent);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+      background-color: var(--accent);
+    }
+
+    /* Botón Confirmar Asistencia en Barra Superior */
+    .nav-btn-header {
+      padding: 10px 22px;
+      border-radius: 40px;
+      background: var(--primary);
+      color: white !important;
+      font-size: 0.82rem;
+      font-weight: 600 !important;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1.5px solid var(--accent);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      transition: all 0.25s ease !important;
+    }
+
+    .nav-btn-header:hover {
+      background: var(--primary-hover);
+      border-color: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(216, 194, 157, 0.4);
+    }
+
+    .nav-btn-header i, .nav-btn-header svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* Menú Desplegable Flotante en PC / Panel en Móvil */
+    .nav-links {
+      position: fixed;
+      top: 76px;
+      right: 40px;
+      width: 320px;
+      max-width: calc(100vw - 32px);
+      background: rgba(12, 17, 15, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1.5px solid var(--border-gold);
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 25px rgba(216, 194, 157, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 14px 12px;
+      max-height: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px) scale(0.98);
+      transform-origin: top right;
+      transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+      z-index: 1001;
+      overflow: hidden;
+      list-style: none;
+    }
+
+    .nav-links.active {
+      max-height: calc(100vh - 90px);
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .nav-links li {
+      width: 100%;
       list-style: none;
     }
 
     .nav-links li a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      padding: 6px 10px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.3s ease;
-      opacity: 0.88;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      color: var(--text-main);
+      font-size: 0.86rem;
+      font-weight: 600;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s ease;
     }
 
     .nav-links li a:hover,
     .nav-links li a.active {
+      background: rgba(216, 194, 157, 0.15);
       color: var(--accent);
-      opacity: 1;
-      transform: translateY(-1px);
+      transform: translateX(4px);
+    }
+
+    .nav-dropdown-rsvp {
+      border-top: 1px solid rgba(216, 194, 157, 0.25);
+      margin-top: 6px;
+      padding-top: 8px;
     }
 
     .nav-btn {
+      padding: 10px 22px;
+      border-radius: 40px;
       background: var(--primary) !important;
       color: #fff !important;
-      border: 1px solid var(--accent) !important;
-      padding: 8px 18px !important;
-      border-radius: 25px !important;
+      border: 1.5px solid var(--accent) !important;
+      font-size: 0.84rem;
       font-weight: 600 !important;
-      opacity: 1 !important;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3) !important;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      transition: all 0.25s ease !important;
     }
 
     .nav-btn:hover {
       background: var(--primary-hover) !important;
       color: var(--accent-bright) !important;
+      transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(216, 194, 157, 0.35) !important;
-    }
-
-    .mobile-menu-btn {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 28px;
-      height: 20px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-    }
-
-    .mobile-menu-btn span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background: var(--accent);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    .mobile-menu-btn.active span:nth-child(1) {
-      transform: translateY(9px) rotate(45deg);
-    }
-
-    .mobile-menu-btn.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .mobile-menu-btn.active span:nth-child(3) {
-      transform: translateY(-9px) rotate(-45deg);
     }
 
     /* Contenido Principal */
@@ -842,41 +947,32 @@
     }
 
     @media (max-width: 768px) {
-      .navbar { padding: 0 20px; }
-      .mobile-menu-btn { display: flex; }
+      .navbar { padding: 12px 18px; }
+      .nav-actions { gap: 10px; }
+      .nav-btn-header { padding: 8px 14px; font-size: 0.78rem; letter-spacing: 1px; }
+
       .nav-links {
-        position: fixed;
-        top: 76px;
+        top: 64px;
         left: 0;
+        right: 0;
         width: 100%;
-        background: rgba(12, 17, 15, 0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        flex-direction: column;
-        gap: 0;
-        padding: 0;
-        border-bottom: 1px solid var(--border-gold);
-        max-height: 0;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        transition: max-height 0.4s ease, padding 0.4s ease;
+        max-width: 100vw;
+        border-radius: 0 0 18px 18px;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 2px solid var(--accent);
+        transform: translateY(-8px);
+        transform-origin: top center;
+        padding: 0 16px;
       }
+
       .nav-links.active {
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
-        padding: 10px 0 35px;
+        max-height: calc(100vh - 70px);
+        padding: 14px 16px 24px;
+        transform: translateY(0);
       }
-      .nav-links li { width: 100%; text-align: center; }
-      .nav-links li a {
-        justify-content: center;
-        padding: 11px 20px;
-        font-size: 0.9rem;
-        border-bottom: 1px solid rgba(216, 194, 157, 0.08);
-      }
-      .nav-links li a.nav-btn {
-        margin: 10px auto 6px;
-        width: 85%;
-      }
+
       main { padding: 100px 16px 50px; }
       .card-luxury { padding: 26px 20px; }
       .story-actions { flex-direction: column; width: 100%; }
@@ -893,12 +989,18 @@
       <span>Blanca & Álvaro</span>
     </a>
 
-    <!-- Botón Hamburguesa Móvil (3 rayitas) -->
-    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menú de Navegación" onclick="toggleMobileMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <!-- Acciones Derecha: Botón 3 Rayas (Menú) + Confirmar Asistencia -->
+    <div class="nav-actions">
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir Menú de Navegación" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <a href="/#rsvp" class="nav-btn-header">
+        <i data-lucide="heart"></i> <span>Confirmar Asistencia</span>
+      </a>
+    </div>
 
     <ul class="nav-links" id="navLinks">
       <li><a href="/" onclick="closeMobileMenu()"><i data-lucide="home"></i> Volver a la Boda</a></li>
@@ -910,7 +1012,7 @@
       <li><a href="/#espacio" onclick="closeMobileMenu()"><i data-lucide="landmark"></i> El Espacio</a></li>
       <li><a href="/#galeria" onclick="closeMobileMenu()"><i data-lucide="camera"></i> Galería</a></li>
       <li><a href="javascript:void(0)" onclick="openInvitationModal(); closeMobileMenu();"><i data-lucide="mail"></i> Ver Invitación</a></li>
-      <li><a href="/#rsvp" class="nav-btn" onclick="closeMobileMenu()"><i data-lucide="heart"></i> Confirmar Asistencia</a></li>
+      <li class="nav-dropdown-rsvp"><a href="/#rsvp" class="nav-btn" onclick="closeMobileMenu()"><i data-lucide="heart"></i> Confirmar Asistencia</a></li>
     </ul>
   </nav>
 
