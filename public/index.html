@@ -584,6 +584,23 @@
       background: rgba(20, 28, 25, 0.6);
     }
 
+    .story-teaser-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .story-teaser-separator {
+      width: 50%;
+      max-width: 220px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(216, 194, 157, 0.45), transparent);
+      margin: 2px 0;
+    }
+
     .story-teaser-intro {
       font-size: clamp(0.98rem, 1.8vw, 1.14rem);
       font-style: italic;
@@ -1943,16 +1960,23 @@
 
       <!-- Teaser Cómo se conocieron Blanca y Álvaro & La Pedida -->
       <div class="hero-story-teaser">
-        <p class="story-teaser-intro">
-          Muchos os preguntaréis cómo se conocieron Blanca y Álvaro, y la verdad que fue totalmente casualidad...
-        </p>
-        <div class="hero-teaser-links">
+        <div class="story-teaser-item">
+          <p class="story-teaser-intro">
+            Muchos os preguntaréis cómo se conocieron Blanca y Álvaro, y la verdad que fue totalmente casualidad...
+          </p>
           <a href="/historia.html" class="story-subtle-link">
             ¿Quieres saber nuestra historia?...
           </a>
-          <span class="teaser-divider">&bull;</span>
+        </div>
+
+        <div class="story-teaser-separator"></div>
+
+        <div class="story-teaser-item">
+          <p class="story-teaser-intro">
+            Y sobre cómo Álvaro se lo pidió a Blanca...
+          </p>
           <a href="/pedida.html" class="story-subtle-link">
-            La Pedida, ¿Cómo fue?...
+            ¿Quieres saber cómo fue La Pedida?...
           </a>
         </div>
       </div>
