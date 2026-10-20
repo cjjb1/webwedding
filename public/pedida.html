@@ -414,8 +414,72 @@
       font-weight: 600;
     }
 
+    /* Ilustración de la Pedida encuadrada dentro del texto */
+    .story-inline-frame {
+      float: right;
+      width: 220px;
+      max-width: 42%;
+      margin: 8px 0 20px 28px;
+      position: relative;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .story-inline-card {
+      background: rgba(14, 20, 18, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(216, 194, 157, 0.45);
+      border-radius: 16px;
+      padding: 7px;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.6), 0 0 22px rgba(216, 194, 157, 0.12);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      display: block;
+    }
+
+    .story-inline-card:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: var(--accent);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75), 0 0 30px rgba(216, 194, 157, 0.28);
+    }
+
+    .story-inline-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 11px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .story-inline-card:hover img {
+      transform: scale(1.02);
+    }
+
+    .story-inline-card .inline-caption {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 8px 4px 4px;
+      font-size: 0.76rem;
+      color: var(--accent);
+      font-style: italic;
+      letter-spacing: 0.5px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .story-inline-card .inline-caption i,
+    .story-inline-card .inline-caption svg {
+      width: 13px;
+      height: 13px;
+    }
+
     /* Bloque Destacado de la Cita */
     .quote-box {
+      clear: both;
       margin: 35px 0;
       padding: 24px 28px;
       background: rgba(216, 194, 157, 0.08);
@@ -958,6 +1022,13 @@
       .milestones { grid-template-columns: 1fr; gap: 12px; }
       .pedida-video { max-height: 380px; }
       .story-media-box img { max-height: 420px; }
+      .story-inline-frame {
+        float: none;
+        width: 220px;
+        max-width: 80%;
+        margin: 20px auto 25px;
+        display: block;
+      }
     }
   </style>
 </head>
@@ -1020,8 +1091,19 @@
           Fue un 15 de septiembre cuando ascendíamos lentamente hacia el lago Ercina acompañados por nuestros frenchies, un pelín sofocados, Ares y su obsesión por las vacas, yo con mi característico nerviosismo, Blanca sin olerse nada, e India y Samba a la cabeza. Todo sucedió en la pradera que bordea al lago Ercina, mientras engañaba a Blanca para hacernos unas fotos y vídeos. Era un día soleado con unas pocas nubes al fondo.
         </p>
 
+        <!-- Ilustración de la pedida encuadrada dentro del texto -->
+        <div class="story-inline-frame" onclick="openLightboxImage('/images/novios/invitacion-imagen.jpg')" title="Clic para ampliar ilustración">
+          <div class="story-inline-card">
+            <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida en el Lago Ercina" loading="lazy">
+            <div class="inline-caption">
+              <i data-lucide="zoom-in"></i>
+              <span>La Pedida &bull; Acuarela</span>
+            </div>
+          </div>
+        </div>
+
         <p class="story-paragraph">
-          Hice la primeras fotos sin que descubriera cual era mi objetivo final para esta escapada, y cuando ya habia encuadrado el plano del vídeo justo donde quería de repente sucedió lo inesperado, ascendieron de golpe las nubes y se nubló todo en cuestión de segundos. No creáis que esto me disuadió en mi empeño por pedir matrimonio a la persona más especial de mi vida.
+          Hice las primeras fotos sin que descubriera cual era mi objetivo final para esta escapada, y cuando ya habia encuadrado el plano del vídeo justo donde quería de repente sucedió lo inesperado, ascendieron de golpe las nubes y se nubló todo en cuestión de segundos. No creáis que esto me disuadió en mi empeño por pedir matrimonio a la persona más especial de mi vida.
         </p>
 
         <!-- Cita destacada evocadora -->
