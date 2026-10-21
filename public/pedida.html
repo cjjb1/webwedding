@@ -39,10 +39,16 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
       font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-text-size-adjust: 100%;
       color: var(--text);
       line-height: 1.85;
       min-height: 100vh;
@@ -181,6 +187,10 @@
       gap: 7px;
       white-space: nowrap;
       transition: all 0.25s ease !important;
+    }
+
+    .nav-btn-text-short {
+      display: none;
     }
 
     .nav-btn-header:hover {
@@ -1026,8 +1036,62 @@
         float: none;
         width: 220px;
         max-width: 80%;
-        margin: 20px auto 25px;
+        margin: 0 auto 24px;
         display: block;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 10px 14px;
+      }
+      .nav-logo {
+        font-size: 1.18rem;
+        gap: 7px;
+      }
+      .nav-logo .logo-img {
+        height: 28px;
+        max-width: 40px;
+      }
+      .nav-actions {
+        gap: 8px;
+      }
+      .mobile-menu-btn {
+        width: 38px;
+        height: 38px;
+        padding: 6px;
+      }
+      .nav-btn-header {
+        padding: 7px 11px;
+        font-size: 0.74rem;
+        letter-spacing: 0.8px;
+      }
+      .nav-btn-text-full {
+        display: none;
+      }
+      .nav-btn-text-short {
+        display: inline;
+      }
+      .nav-links {
+        top: 56px;
+      }
+      main {
+        padding: 85px 14px 40px;
+      }
+      .story-card {
+        padding: 24px 16px;
+      }
+      .story-paragraph.first-paragraph::first-letter {
+        font-size: 2.8rem;
+        padding-right: 10px;
+      }
+      .invitation-modal {
+        padding: 45px 14px 20px;
+      }
+      .modal-close-btn {
+        top: -42px;
+        right: 4px;
+        font-size: 2.4rem;
       }
     }
   </style>
@@ -1050,7 +1114,7 @@
       </button>
 
       <a href="/#rsvp" class="nav-btn-header">
-        <i data-lucide="heart"></i> <span>Confirmar Asistencia</span>
+        <i data-lucide="heart"></i> <span class="nav-btn-text-full">Confirmar Asistencia</span><span class="nav-btn-text-short">Confirmar</span>
       </a>
     </div>
 

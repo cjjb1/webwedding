@@ -43,8 +43,16 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
       font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-text-size-adjust: 100%;
       background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.75;
@@ -169,6 +177,10 @@
       gap: 7px;
       white-space: nowrap;
       transition: all 0.25s ease !important;
+    }
+
+    .nav-btn-text-short {
+      display: none;
     }
 
     .nav-btn-header:hover {
@@ -527,7 +539,7 @@
       padding: 12px 16px;
       color: #ffffff;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 16px;
       transition: all 0.3s ease;
       outline: none;
     }
@@ -977,6 +989,67 @@
       .card-luxury { padding: 26px 20px; }
       .story-actions { flex-direction: column; width: 100%; }
       .story-actions a, .story-actions button { width: 100%; }
+      .form-row { grid-template-columns: 1fr; }
+      .hotel-info-banner { grid-template-columns: 1fr; }
+      .hotel-contact-box { grid-template-columns: 1fr; }
+      .alert-actions-group { flex-direction: column; width: 100%; }
+      .alert-actions-group a, .alert-actions-group button { width: 100%; text-align: center; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 10px 14px;
+      }
+      .nav-logo {
+        font-size: 1.18rem;
+        gap: 7px;
+      }
+      .nav-logo .logo-img {
+        height: 28px;
+        max-width: 40px;
+      }
+      .nav-actions {
+        gap: 8px;
+      }
+      .mobile-menu-btn {
+        width: 38px;
+        height: 38px;
+        padding: 6px;
+      }
+      .nav-btn-header {
+        padding: 7px 11px;
+        font-size: 0.74rem;
+        letter-spacing: 0.8px;
+      }
+      .nav-btn-text-full {
+        display: none;
+      }
+      .nav-btn-text-short {
+        display: inline;
+      }
+      .nav-links {
+        top: 56px;
+      }
+      main {
+        padding: 85px 14px 40px;
+      }
+      .card-luxury {
+        padding: 22px 14px;
+      }
+      .btn-submit-hotel {
+        white-space: normal;
+        line-height: 1.35;
+        padding: 14px 16px;
+        font-size: 0.82rem;
+      }
+      .invitation-modal {
+        padding: 45px 14px 20px;
+      }
+      .modal-close-btn {
+        top: -42px;
+        right: 4px;
+        font-size: 2.4rem;
+      }
     }
   </style>
 </head>
@@ -998,7 +1071,7 @@
       </button>
 
       <a href="/#rsvp" class="nav-btn-header">
-        <i data-lucide="heart"></i> <span>Confirmar Asistencia</span>
+        <i data-lucide="heart"></i> <span class="nav-btn-text-full">Confirmar Asistencia</span><span class="nav-btn-text-short">Confirmar</span>
       </a>
     </div>
 

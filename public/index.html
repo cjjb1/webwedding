@@ -66,7 +66,10 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { 
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
 
     body {
       font-family: 'Montserrat', sans-serif;
@@ -75,6 +78,7 @@
       line-height: 1.7;
       overflow-x: hidden;
       width: 100%;
+      -webkit-text-size-adjust: 100%;
     }
 
     img, video {
@@ -205,6 +209,10 @@
       gap: 7px;
       white-space: nowrap;
       transition: all 0.25s ease !important;
+    }
+
+    .nav-btn-text-short {
+      display: none;
     }
 
     .nav-btn-header:hover {
@@ -690,6 +698,31 @@
       gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
+    }
+
+    .guest-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 26px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .guest-info-card {
+      background: #ffffff;
+      border-radius: 18px;
+      border: 1px solid var(--border-gold);
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .guest-info-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
     }
 
     .btn-gold,
@@ -1260,7 +1293,7 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 16px;
       background: #FFFFFF;
       color: var(--heading);
       transition: all 0.25s ease;
@@ -1739,6 +1772,13 @@
       .section-header p {
         font-size: 0.95rem;
       }
+      .guest-info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .guest-info-card {
+        padding: 24px 18px;
+      }
       .finca-feature {
         padding: 20px 16px;
         border-radius: 16px;
@@ -1845,8 +1885,41 @@
     }
 
     @media (max-width: 480px) {
+      .navbar {
+        padding: 10px 14px;
+      }
+      .nav-logo {
+        font-size: 1.18rem;
+        gap: 7px;
+      }
+      .nav-logo .logo-img {
+        height: 28px;
+        max-width: 40px;
+      }
+      .nav-actions {
+        gap: 8px;
+      }
+      .mobile-menu-btn {
+        width: 38px;
+        height: 38px;
+        padding: 6px;
+      }
+      .nav-btn-header {
+        padding: 7px 11px;
+        font-size: 0.74rem;
+        letter-spacing: 0.8px;
+      }
+      .nav-btn-text-full {
+        display: none;
+      }
+      .nav-btn-text-short {
+        display: inline;
+      }
+      .nav-links {
+        top: 56px;
+      }
       .hero {
-        padding: 90px 14px 40px;
+        padding: 85px 14px 40px;
       }
       .hero h1 {
         font-size: 2.3rem;
@@ -1855,6 +1928,9 @@
         font-size: 0.92rem;
         letter-spacing: 1px;
         margin-bottom: 20px;
+      }
+      .hero-video-wrapper {
+        padding: 0;
       }
       .countdown-box {
         gap: 6px;
@@ -1896,6 +1972,22 @@
         background-position: center top;
         padding: 60px 0;
       }
+      .invitation-modal {
+        padding: 45px 14px 20px;
+      }
+      .modal-close-btn {
+        top: -42px;
+        right: 4px;
+        font-size: 2.4rem;
+      }
+      .lightbox {
+        padding: 45px 12px 20px;
+      }
+      .lightbox-close {
+        top: -42px;
+        right: 4px;
+        font-size: 2.5rem;
+      }
     }
   </style>
 </head>
@@ -1916,7 +2008,7 @@
         <span></span>
       </button>
       <a href="#rsvp" class="nav-btn-header">
-        <i data-lucide="heart"></i> <span>Confirmar Asistencia</span>
+        <i data-lucide="heart"></i> <span class="nav-btn-text-full">Confirmar Asistencia</span><span class="nav-btn-text-short">Confirmar</span>
       </a>
     </div>
 
@@ -2183,10 +2275,10 @@
           <p>Toda la información sobre el hotel para quienes vienen de fuera y nuestro gran viaje de novios a Tailandia.</p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; max-width: 960px; margin: 0 auto;">
+        <div class="guest-info-grid">
           
           <!-- Tarjeta Alojamiento -->
-          <div style="background: #ffffff; border-radius: 18px; border: 1px solid var(--border-gold); padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="guest-info-card">
             <div>
               <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(45, 69, 62, 0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
                 <i data-lucide="bed" style="width: 26px; height: 26px;"></i>
@@ -2204,7 +2296,7 @@
           </div>
 
           <!-- Tarjeta Luna de Miel -->
-          <div style="background: #ffffff; border-radius: 18px; border: 1px solid var(--border-gold); padding: 32px 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between;">
+          <div class="guest-info-card">
             <div>
               <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(216, 194, 157, 0.25); color: #8c7348; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;">
                 <i data-lucide="plane" style="width: 26px; height: 26px;"></i>

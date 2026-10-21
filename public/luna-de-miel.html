@@ -42,8 +42,16 @@
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
     body {
       font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      width: 100%;
+      -webkit-text-size-adjust: 100%;
       background-color: var(--bg-dark);
       color: var(--text-main);
       line-height: 1.75;
@@ -168,6 +176,10 @@
       gap: 7px;
       white-space: nowrap;
       transition: all 0.25s ease !important;
+    }
+
+    .nav-btn-text-short {
+      display: none;
     }
 
     .nav-btn-header:hover {
@@ -899,8 +911,79 @@
       main { padding: 100px 16px 50px; }
       .card-luxury { padding: 26px 20px; }
       .gift-cards-grid { grid-template-columns: 1fr; }
+      .journey-grid { grid-template-columns: 1fr; }
       .story-actions { flex-direction: column; width: 100%; }
       .story-actions a, .story-actions button { width: 100%; }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 10px 14px;
+      }
+      .nav-logo {
+        font-size: 1.18rem;
+        gap: 7px;
+      }
+      .nav-logo .logo-img {
+        height: 28px;
+        max-width: 40px;
+      }
+      .nav-actions {
+        gap: 8px;
+      }
+      .mobile-menu-btn {
+        width: 38px;
+        height: 38px;
+        padding: 6px;
+      }
+      .nav-btn-header {
+        padding: 7px 11px;
+        font-size: 0.74rem;
+        letter-spacing: 0.8px;
+      }
+      .nav-btn-text-full {
+        display: none;
+      }
+      .nav-btn-text-short {
+        display: inline;
+      }
+      .nav-links {
+        top: 56px;
+      }
+      main {
+        padding: 85px 14px 40px;
+      }
+      .card-luxury {
+        padding: 22px 14px;
+      }
+      .gift-card {
+        padding: 20px 14px;
+      }
+      .gift-data-box {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        text-align: center;
+      }
+      .gift-data-box .btn-copy-gift {
+        width: 100%;
+        justify-content: center;
+      }
+      .thailand-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .th-photo {
+        height: 115px;
+      }
+      .invitation-modal {
+        padding: 45px 14px 20px;
+      }
+      .modal-close-btn {
+        top: -42px;
+        right: 4px;
+        font-size: 2.4rem;
+      }
     }
   </style>
 </head>
@@ -922,7 +1005,7 @@
       </button>
 
       <a href="/#rsvp" class="nav-btn-header">
-        <i data-lucide="heart"></i> <span>Confirmar Asistencia</span>
+        <i data-lucide="heart"></i> <span class="nav-btn-text-full">Confirmar Asistencia</span><span class="nav-btn-text-short">Confirmar</span>
       </a>
     </div>
 
