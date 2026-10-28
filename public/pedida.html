@@ -897,6 +897,15 @@
       border-top: 1px solid rgba(157, 129, 81, 0.2);
     }
 
+    
+    .invite-paws {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-left: 6px;
+      vertical-align: -0.15em;
+      white-space: nowrap;
+    }
     .invite-names {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.35rem;
@@ -1276,14 +1285,14 @@
           <img src="/images/novios/invitacion-imagen.jpg" alt="Acuarela de la pedida con nuestros perritos">
         </div>
         <div class="invitation-card-footer">
-          <p class="invite-names">¡Blanca y Álvaro nos casamos! <i data-lucide="gem"></i> <i data-lucide="paw-print"></i></p>
+          <p class="invite-names">¡Blanca y Álvaro nos casamos! <span class="invite-paws"><i data-lucide="paw-print"></i> <i data-lucide="paw-print"></i> <i data-lucide="paw-print"></i></span></p>
           <p class="invite-date">29 &bull; Mayo &bull; 2027</p>
           <p class="invite-place">Restaurante Magullo &bull; Segovia</p>
         </div>
         <div class="modal-actions" style="margin-top: 15px;">
-          <a href="/images/novios/invitacion-imagen.jpg" download="Invitacion_Blanca_y_Alvaro.jpg" class="btn-confirm">
+          <button type="button" class="btn-confirm" onclick="downloadInvitationCard(this)" id="btnDownloadInvite" style="width: 100%; justify-content: center; cursor: pointer; border: none; font-family: inherit; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px;">
             <i data-lucide="download"></i> Descargar Invitación
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -1314,6 +1323,287 @@
     function closeInvitationModal(e) {
       const modal = document.getElementById('invitationModal');
       if (modal) modal.classList.remove('active');
+    }
+
+    // Descarga formal de la tarjeta de invitación (tal cual se visualiza)
+    async function downloadInvitationCard(btnElement) {
+      const btn = btnElement || document.getElementById('btnDownloadInvite');
+      const originalHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.85';
+        btn.innerHTML = '<i data-lucide="loader-2"></i> Preparando tarjeta...';
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function drawRoundRect(ctx, x, y, w, h, r) {
+        if (ctx.roundRect) {
+          ctx.beginPath();
+          ctx.roundRect(x, y, w, h, r);
+        } else {
+          ctx.beginPath();
+          ctx.moveTo(x + r, y);
+          ctx.lineTo(x + w - r, y);
+          ctx.arcTo(x + w, y, x + w, y + r, r);
+          ctx.lineTo(x + w, y + h - r);
+          ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+          ctx.lineTo(x + r, y + h);
+          ctx.arcTo(x, y + h, x, y + h - r, r);
+          ctx.lineTo(x + r, y);
+          ctx.arcTo(x, y, x + r, y, r);
+          ctx.closePath();
+        }
+      }
+
+      function drawTextWithSpacing(ctx, text, x, y, spacing, align) {
+        if ('letterSpacing' in ctx) {
+          ctx.save();
+          ctx.letterSpacing = spacing + 'px';
+          ctx.textAlign = align || 'center';
+          ctx.fillText(text, x, y);
+          ctx.restore();
+          return;
+        }
+        const chars = Array.from(text);
+        const widths = chars.map(function(c) { return ctx.measureText(c).width; });
+        const totalW = widths.reduce(function(a, b) { return a + b; }, 0) + (chars.length - 1) * spacing;
+        let curX = (align === 'center') ? x - totalW / 2 : ((align === 'right') ? x - totalW : x);
+        ctx.save();
+        ctx.textAlign = 'left';
+        for (let i = 0; i < chars.length; i++) {
+          ctx.fillText(chars[i], curX, y);
+          curX += widths[i] + spacing;
+        }
+        ctx.restore();
+      }
+
+      function drawVectorPaw(ctx, x, y, size, color) {
+        ctx.save();
+        ctx.translate(x, y);
+        const s = size / 24;
+        ctx.scale(s, s);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.8;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        // 3 dedos circulares
+        ctx.beginPath();
+        ctx.arc(11, 4, 2, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(18, 8, 2, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(20, 16, 2, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Almohadilla principal
+        try {
+          const pad = new Path2D("M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.8A3.5 3.5 0 0 1 5.5 10Z");
+          ctx.stroke(pad);
+        } catch (e) {
+          ctx.beginPath();
+          ctx.ellipse(9, 14, 4, 5, 0, 0, Math.PI * 2);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      try {
+        if (document.fonts && document.fonts.ready) {
+          await document.fonts.ready;
+        }
+
+        // Cargar imagen de la acuarela
+        const imgEl = document.querySelector('.invitation-img-box img');
+        let photoImg = new Image();
+        photoImg.crossOrigin = 'anonymous';
+        await new Promise(function(resolve) {
+          if (imgEl && imgEl.complete && imgEl.naturalWidth > 0) {
+            photoImg = imgEl;
+            resolve();
+          } else {
+            photoImg.onload = function() { resolve(); };
+            photoImg.onerror = function() { resolve(); };
+            photoImg.src = imgEl ? imgEl.src : '/images/novios/invitacion-imagen.jpg';
+          }
+        });
+
+        // Intentar clonar el SVG renderizado por Lucide para máxima fidelidad
+        let pawImg = null;
+        const domPaw = document.querySelector('.invite-paws svg.lucide-paw-print') || document.querySelector('.invite-names svg.lucide-paw-print') || document.querySelector('.invite-names svg');
+        if (domPaw) {
+          try {
+            const clone = domPaw.cloneNode(true);
+            clone.setAttribute('width', '64');
+            clone.setAttribute('height', '64');
+            clone.setAttribute('stroke', '#8c7348');
+            clone.setAttribute('stroke-width', '1.8');
+            clone.setAttribute('fill', 'none');
+            const svgStr = new XMLSerializer().serializeToString(clone);
+            const dataUri = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svgStr);
+            pawImg = new Image();
+            await new Promise(function(res) {
+              pawImg.onload = res;
+              pawImg.onerror = function() { pawImg = null; res(); };
+              pawImg.src = dataUri;
+            });
+          } catch (e) {
+            pawImg = null;
+          }
+        }
+
+        // Crear canvas en alta resolución (1080 x 1720)
+        const canvas = document.createElement('canvas');
+        canvas.width = 1080;
+        canvas.height = 1720;
+        const ctx = canvas.getContext('2d');
+
+        // Fondo marfil
+        ctx.fillStyle = '#fdfbf7';
+        ctx.fillRect(0, 0, 1080, 1720);
+
+        // Marco exterior dorado
+        ctx.strokeStyle = 'rgba(157, 129, 81, 0.45)';
+        ctx.lineWidth = 3;
+        drawRoundRect(ctx, 32, 32, 1016, 1656, 36);
+        ctx.stroke();
+
+        // Marco interior sutil
+        ctx.strokeStyle = 'rgba(216, 194, 157, 0.35)';
+        ctx.lineWidth = 1.5;
+        drawRoundRect(ctx, 46, 46, 988, 1628, 28);
+        ctx.stroke();
+
+        // Encabezado: SAVE THE DATE
+        ctx.fillStyle = '#a68456';
+        ctx.font = '700 22px "Montserrat", sans-serif';
+        ctx.textBaseline = 'alphabetic';
+        drawTextWithSpacing(ctx, 'SAVE THE DATE', 540, 128, 6, 'center');
+
+        // Encabezado: Blanca & Álvaro
+        ctx.fillStyle = '#8c7348';
+        ctx.font = '600 58px "Cormorant Garamond", Georgia, serif';
+        drawTextWithSpacing(ctx, 'Blanca & Álvaro', 540, 192, 1.5, 'center');
+
+        // Línea divisoria superior
+        ctx.strokeStyle = 'rgba(157, 129, 81, 0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(130, 228);
+        ctx.lineTo(950, 228);
+        ctx.stroke();
+
+        // Cuadro de imagen (Acuarela)
+        const imgX = 160, imgY = 258, imgW = 760, imgH = 1140, imgR = 18;
+        ctx.save();
+        drawRoundRect(ctx, imgX, imgY, imgW, imgH, imgR);
+        ctx.clip();
+        if (photoImg && (photoImg.naturalWidth || photoImg.width)) {
+          ctx.drawImage(photoImg, imgX, imgY, imgW, imgH);
+        } else {
+          ctx.fillStyle = '#f0ebe1';
+          ctx.fillRect(imgX, imgY, imgW, imgH);
+        }
+        ctx.restore();
+
+        // Borde fino de la acuarela
+        ctx.strokeStyle = 'rgba(157, 129, 81, 0.35)';
+        ctx.lineWidth = 2;
+        drawRoundRect(ctx, imgX, imgY, imgW, imgH, imgR);
+        ctx.stroke();
+
+        // Línea divisoria inferior
+        ctx.strokeStyle = 'rgba(157, 129, 81, 0.25)';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(130, 1428);
+        ctx.lineTo(950, 1428);
+        ctx.stroke();
+
+        // Pie: ¡Blanca y Álvaro nos casamos! + 3 huellas de perro
+        ctx.font = '600 44px "Cormorant Garamond", Georgia, serif';
+        ctx.fillStyle = '#8c7348';
+        ctx.textBaseline = 'middle';
+        const textStr = '¡Blanca y Álvaro nos casamos!';
+        const textWidth = ctx.measureText(textStr).width;
+        const pawSize = 34;
+        const pawGap = 10;
+        const pawsGroupWidth = (3 * pawSize) + (2 * pawGap);
+        const spacingBetween = 14;
+        const groupTotalWidth = textWidth + spacingBetween + pawsGroupWidth;
+        const startX = 540 - (groupTotalWidth / 2);
+        const lineY = 1485;
+
+        ctx.textAlign = 'left';
+        ctx.fillText(textStr, startX, lineY);
+
+        const pawTopY = lineY - (pawSize / 2);
+        const pawsStartX = startX + textWidth + spacingBetween;
+        for (let i = 0; i < 3; i++) {
+          const px = pawsStartX + i * (pawSize + pawGap);
+          if (pawImg) {
+            ctx.drawImage(pawImg, px, pawTopY, pawSize, pawSize);
+          } else {
+            drawVectorPaw(ctx, px, pawTopY, pawSize, '#8c7348');
+          }
+        }
+
+        // Pie: Fecha
+        ctx.font = '700 28px "Montserrat", sans-serif';
+        ctx.fillStyle = '#263431';
+        ctx.textBaseline = 'alphabetic';
+        drawTextWithSpacing(ctx, '29 · MAYO · 2027', 540, 1555, 4, 'center');
+
+        // Pie: Lugar
+        ctx.font = '500 24px "Montserrat", sans-serif';
+        ctx.fillStyle = '#687772';
+        drawTextWithSpacing(ctx, 'Restaurante Magullo • Segovia', 540, 1608, 0.8, 'center');
+
+        // Exportar a JPG y descargar
+        canvas.toBlob(function(blob) {
+          if (!blob) {
+            window.location.href = photoImg.src || '/images/novios/invitacion-imagen.jpg';
+            return;
+          }
+          const url = URL.createObjectURL(blob);
+          const downloadLink = document.createElement('a');
+          downloadLink.href = url;
+          downloadLink.download = 'Invitacion_Boda_Blanca_y_Alvaro.jpg';
+          downloadLink.target = '_blank';
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          setTimeout(function() { URL.revokeObjectURL(url); }, 4000);
+
+          if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.innerHTML = '<i data-lucide="check"></i> ¡Invitación Descargada!';
+            if (window.lucide) lucide.createIcons();
+            setTimeout(function() {
+              btn.innerHTML = originalHtml || '<i data-lucide="download"></i> Descargar Invitación';
+              if (window.lucide) lucide.createIcons();
+            }, 3000);
+          }
+        }, 'image/jpeg', 0.95);
+
+      } catch (err) {
+        console.error('Error generando tarjeta de invitación:', err);
+        if (btn) {
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          btn.innerHTML = originalHtml || '<i data-lucide="download"></i> Descargar Invitación';
+          if (window.lucide) lucide.createIcons();
+        }
+        const fallbackLink = document.createElement('a');
+        fallbackLink.href = '/images/novios/invitacion-imagen.jpg';
+        fallbackLink.download = 'Invitacion_Blanca_y_Alvaro.jpg';
+        fallbackLink.click();
+      }
     }
 
     // Funciones de Lightbox de imagen
